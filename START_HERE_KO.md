@@ -18,7 +18,7 @@
 | 240회 이내 선택 모델 | 시드 42/43/44의 검증 최우수 회차는 220/140/180 |
 | 실시간 SUMO GUI | 1,800초, 행동 360건과 기존 교통 지표 일치 |
 | UDP | 로컬 장애 시험 11개, SUMO 관측→DQN→신호 제어기→가상 차량, PC/Pi용 모터 없는 상태·ACK 도구 |
-| 현장 단계 | Pi 실기기, ROS2 모터 제어, 센서 및 축소 트랙 주행 검증. Colab은 노트북 구조와 코드 셀 검사까지 수행했다. |
+| 현장 검증 예정 | Pi 실기기, ROS2 모터 제어, 센서와 축소 트랙 주행. Colab은 노트북 구조와 코드 셀 검사까지 수행했다. |
 
 [초기 검증 보고서](VERIFICATION_KO.md) · [80→240회 비교 보고서](outputs/budget_check_20261103/TRAINING_BUDGET_KO.md) · [후속 비교 그래프](outputs/budget_check_20261103/evaluation/budget_comparison.png) · [SUMO 실행 영상](outputs/verify_20261103/gui_verified_seed43/playback_full.mp4)
 
@@ -47,8 +47,7 @@ $env:PYTHONPATH = (Get-Location).Path
 
 ## 파일 지도
 
-- `configs/`, `maps/`, `src/`, `scripts/`, `tests/`, `notebooks/`는 SUMO 학습·평가 프로젝트다. [기존 README](README.md)
+- `configs/`, `maps/`, `src/`, `scripts/`, `tests/`, `notebooks/`는 SUMO 학습·평가 프로젝트다. [SUMO 실행·재개 가이드](docs/SUMO_RUN_KO.md)
 - `outputs/budget_check_20261103/`에는 240회 모델, 학습·검증 로그, 320회 평가와 경로, 비교 보고서가 있다.
 - `outputs/verify_20261103/`는 80회 모델, 초기 평가, GUI 검증이다. `outputs/revision/`, `outputs/reference/`, `outputs/revision_comparison/`은 입력 ZIP에 있던 자료다.
 - `picar_lab/`에는 모터 없는 UDP 실습, 등록 예시, 하드웨어 기록 양식, 트랙 도면과 현장 체크리스트가 있다. `picar_lab/ros2_reference/`는 노션의 두 하드웨어 소스 스냅샷이다.
-
