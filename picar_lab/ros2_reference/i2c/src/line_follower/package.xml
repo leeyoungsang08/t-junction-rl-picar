@@ -1,0 +1,10 @@
+<package format="3">
+  <name>line_follower</name>
+  <version>0.0.1</version>
+  <description>Line following logic</description>
+  <maintainer email="you@example.com">Your Name</maintainer>
+  <license>MIT</license>
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+</package>

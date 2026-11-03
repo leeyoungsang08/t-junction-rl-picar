@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-03T14:14:28.768895+09:00 by Eclipse SUMO sumo 1.28.0
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="C:\Users\admin1\Documents\ChatGPT\강화학습\work_20261103\T_Junction_RL\maps\t_junction.net.xml"/>
+        <route-files value="C:\Users\admin1\Documents\ChatGPT\강화학습\work_20261103\T_Junction_RL\outputs\verify_20261103\pytest_scratch\test_all_six_movements_depart_0\six.rou.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="C:\Users\admin1\Documents\ChatGPT\강화학습\work_20261103\T_Junction_RL\outputs\verify_20261103\pytest_scratch\test_all_six_movements_depart_0\run\tripinfo.xml"/>
+        <tripinfo-output.write-unfinished value="true"/>
+    </output>
+
+    <time>
+        <step-length value="1"/>
+    </time>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:\Users\admin1\Documents\ChatGPT\강화학습\work_20261103\T_Junction_RL\outputs\verify_20261103\pytest_scratch\test_all_six_movements_depart_0\run\sumo_error.log"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="58981"/>
+    </traci_server>
+
+    <random_number>
+        <seed value="1000"/>
+    </random_number>
+
+</sumoConfiguration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="v0" depart="1.00" departLane="W_in_0" departPos="5.10" departSpeed="13.89" departDelay="0.00" arrival="37.00" arrivalLane="E_out_0" arrivalPos="242.80" arrivalSpeed="14.18" duration="36.00" routeLength="494.90" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="1.82" rerouteNo="0" devices="tripinfo_v0" vType="DEFAULT_VEHTYPE" speedFactor="1.06" vaporized=""/>
+    <tripinfo id="v1" depart="81.00" departLane="W_in_0" departPos="5.10" departSpeed="12.63" departDelay="0.00" arrival="167.00" arrivalLane="S_out_0" arrivalPos="242.80" arrivalSpeed="12.28" duration="86.00" routeLength="489.53" waitingTime="38.00" waitingCount="1" stopTime="0.00" timeLoss="46.38" rerouteNo="0" devices="tripinfo_v1" vType="DEFAULT_VEHTYPE" speedFactor="0.91" vaporized=""/>
+    <tripinfo id="v2" depart="161.00" departLane="E_in_0" departPos="5.10" departSpeed="13.49" departDelay="0.00" arrival="200.00" arrivalLane="W_out_0" arrivalPos="242.80" arrivalSpeed="13.15" duration="39.00" routeLength="494.90" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="1.76" rerouteNo="0" devices="tripinfo_v2" vType="DEFAULT_VEHTYPE" speedFactor="0.97" vaporized=""/>
+    <tripinfo id="v3" depart="241.00" departLane="E_in_0" departPos="5.10" departSpeed="13.43" departDelay="0.00" arrival="282.00" arrivalLane="S_out_0" arrivalPos="242.80" arrivalSpeed="13.05" duration="41.00" routeLength="494.70" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="2.90" rerouteNo="0" devices="tripinfo_v3" vType="DEFAULT_VEHTYPE" speedFactor="0.97" vaporized=""/>
+    <tripinfo id="v4" depart="321.00" departLane="S_in_0" departPos="5.10" departSpeed="13.37" departDelay="0.00" arrival="362.00" arrivalLane="W_out_0" arrivalPos="242.80" arrivalSpeed="12.52" duration="41.00" routeLength="494.69" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="3.11" rerouteNo="0" devices="tripinfo_v4" vType="DEFAULT_VEHTYPE" speedFactor="0.96" vaporized=""/>
+    <tripinfo id="v5" depart="401.00" departLane="S_in_0" departPos="5.10" departSpeed="13.30" departDelay="0.00" arrival="442.00" arrivalLane="E_out_0" arrivalPos="242.80" arrivalSpeed="13.16" duration="41.00" routeLength="489.53" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="3.49" rerouteNo="0" devices="tripinfo_v5" vType="DEFAULT_VEHTYPE" speedFactor="0.96" vaporized=""/>
+</tripinfos>

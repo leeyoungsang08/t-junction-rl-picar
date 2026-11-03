@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="560" viewBox="0 0 780 560" role="img" aria-labelledby="title desc">
+  <title id="title">축소 T자 교차로 배치 초안</title>
+  <desc id="desc">6m 곱하기 4m 작업 공간과 0.40m 차로, 서 동 남 정지선과 출구 검지선.</desc>
+  <rect width="780" height="560" fill="#fff"/>
+  <g font-family="Malgun Gothic, sans-serif" fill="#18212a">
+    <text x="40" y="29" font-size="20" font-weight="bold">축소 T자 교차로 배치 초안 · 6.0 × 4.0 m</text>
+    <text x="40" y="51" font-size="13">좌상단 (0,0) · x는 동쪽, y는 남쪽 · 실측 제동·회전 후 조정</text>
+    <rect x="80" y="74" width="600" height="400" fill="none" stroke="#8b98a2"/>
+    <path d="M120 144H640V224H420V434H340V224H120Z" fill="#dce5ea"/>
+    <path d="M120 184H330M430 184H640M380 234V434" fill="none" stroke="#788794" stroke-width="1.5"/>
+    <rect x="330" y="134" width="100" height="100" fill="#e9f3eb" fill-opacity=".82" stroke="#3b7450" stroke-dasharray="5 4"/>
+    <text x="380" y="169" text-anchor="middle" font-size="14">J</text>
+    <text x="380" y="190" text-anchor="middle" font-size="13">1 × 1 m</text>
+    <path d="M305 184V224 M455 144V184 M380 259H420" stroke="#b44340" stroke-width="4"/>
+    <path d="M300 144V184 M460 184V224 M340 264H380" stroke="#316493" stroke-width="3" stroke-dasharray="4 3"/>
+    <text x="126" y="127" font-size="15">W 서쪽</text>
+    <text x="635" y="127" text-anchor="end" font-size="15">E 동쪽</text>
+    <text x="380" y="456" text-anchor="middle" font-size="15">S 남쪽</text>
+    <text x="158" y="169" font-size="14">← 진출</text><text x="158" y="209" font-size="14">진입 →</text>
+    <text x="539" y="169" font-size="14">← 진입</text><text x="539" y="209" font-size="14">진출 →</text>
+    <text x="360" y="375" text-anchor="middle" font-size="14">↓</text><text x="400" y="375" text-anchor="middle" font-size="14">↑</text>
+    <text x="241" y="246" font-size="13">x=2.25 m</text>
+    <text x="470" y="246" font-size="13">x=3.75 m</text>
+    <text x="434" y="264" font-size="13">y=1.85 m</text>
+    <rect x="392" y="269" width="17" height="22" fill="#4f658d"/><rect x="392" y="306" width="17" height="22" fill="#4f658d"/>
+    <text x="433" y="290" font-size="13">남쪽 대기 2대 예시</text>
+    <path d="M80 498H112" stroke="#b44340" stroke-width="4"/>
+    <text x="120" y="503" font-size="14">정지선</text>
+    <path d="M222 498H254" stroke="#316493" stroke-width="3" stroke-dasharray="4 3"/>
+    <text x="262" y="503" font-size="14">출구 검지선</text>
+    <text x="457" y="503" font-size="14">차로 0.40 m · 갈래 폭 0.80 m</text>
+    <path d="M80 531H180 M80 525V537 M180 525V537" stroke="#18212a"/>
+    <text x="190" y="536" font-size="13">1 m 눈금</text>
+  </g>
+</svg>

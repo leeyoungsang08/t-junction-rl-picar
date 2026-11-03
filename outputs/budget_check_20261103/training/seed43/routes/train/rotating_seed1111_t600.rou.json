@@ -1,0 +1,584 @@
+{
+  "scenario": "rotating",
+  "seed": 1111,
+  "split": "train",
+  "horizon_seconds": 600,
+  "route_sha256": "0b1509f7036cb0f022d103119c5b3c4e9fdf6346715fa7cda87aaddbea2bc361",
+  "vehicles": {
+    "v000000": {
+      "requested_depart": 9.04,
+      "origin": "W",
+      "od": "W_S"
+    },
+    "v000001": {
+      "requested_depart": 13.183,
+      "origin": "W",
+      "od": "W_S"
+    },
+    "v000002": {
+      "requested_depart": 18.873,
+      "origin": "W",
+      "od": "W_S"
+    },
+    "v000003": {
+      "requested_depart": 20.409,
+      "origin": "W",
+      "od": "W_E"
+    },
+    "v000004": {
+      "requested_depart": 23.893,
+      "origin": "W",
+      "od": "W_E"
+    },
+    "v000005": {
+      "requested_depart": 27.567,
+      "origin": "W",
+      "od": "W_S"
+    },
+    "v000006": {
+      "requested_depart": 30.17,
+      "origin": "W",
+      "od": "W_E"
+    },
+    "v000007": {
+      "requested_depart": 46.666,
+      "origin": "E",
+      "od": "E_W"
+    },
+    "v000008": {
+      "requested_depart": 55.153,
+      "origin": "E",
+      "od": "E_S"
+    },
+    "v000009": {
+      "requested_depart": 62.708,
+      "origin": "W",
+      "od": "W_E"
+    },
+    "v000010": {
+      "requested_depart": 62.854,
+      "origin": "W",
+      "od": "W_E"
+    },
+    "v000011": {
+      "requested_depart": 65.211,
+      "origin": "W",
+      "od": "W_E"
+    },
+    "v000012": {
+      "requested_depart": 70.396,
+      "origin": "S",
+      "od": "S_W"
+    },
+    "v000013": {
+      "requested_depart": 77.463,
+      "origin": "W",
+      "od": "W_S"
+    },
+    "v000014": {
+      "requested_depart": 83.037,
+      "origin": "W",
+      "od": "W_E"
+    },
+    "v000015": {
+      "requested_depart": 84.156,
+      "origin": "W",
+      "od": "W_S"
+    },
+    "v000016": {
+      "requested_depart": 88.501,
+      "origin": "W",
+      "od": "W_S"
+    },
+    "v000017": {
+      "requested_depart": 96.167,
+      "origin": "W",
+      "od": "W_S"
+    },
+    "v000018": {
+      "requested_depart": 103.393,
+      "origin": "W",
+      "od": "W_S"
+    },
+    "v000019": {
+      "requested_depart": 112.789,
+      "origin": "W",
+      "od": "W_E"
+    },
+    "v000020": {
+      "requested_depart": 117.72,
+      "origin": "W",
+      "od": "W_S"
+    },
+    "v000021": {
+      "requested_depart": 121.836,
+      "origin": "W",
+      "od": "W_E"
+    },
+    "v000022": {
+      "requested_depart": 129.18,
+      "origin": "W",
+      "od": "W_S"
+    },
+    "v000023": {
+      "requested_depart": 133.487,
+      "origin": "W",
+      "od": "W_S"
+    },
+    "v000024": {
+      "requested_depart": 135.049,
+      "origin": "S",
+      "od": "S_E"
+    },
+    "v000025": {
+      "requested_depart": 135.488,
+      "origin": "W",
+      "od": "W_E"
+    },
+    "v000026": {
+      "requested_depart": 139.348,
+      "origin": "W",
+      "od": "W_S"
+    },
+    "v000027": {
+      "requested_depart": 143.46,
+      "origin": "S",
+      "od": "S_W"
+    },
+    "v000028": {
+      "requested_depart": 148.393,
+      "origin": "W",
+      "od": "W_E"
+    },
+    "v000029": {
+      "requested_depart": 151.867,
+      "origin": "W",
+      "od": "W_E"
+    },
+    "v000030": {
+      "requested_depart": 159.331,
+      "origin": "W",
+      "od": "W_E"
+    },
+    "v000031": {
+      "requested_depart": 174.514,
+      "origin": "E",
+      "od": "E_W"
+    },
+    "v000032": {
+      "requested_depart": 175.268,
+      "origin": "W",
+      "od": "W_E"
+    },
+    "v000033": {
+      "requested_depart": 185.934,
+      "origin": "W",
+      "od": "W_S"
+    },
+    "v000034": {
+      "requested_depart": 188.079,
+      "origin": "W",
+      "od": "W_S"
+    },
+    "v000035": {
+      "requested_depart": 190.984,
+      "origin": "W",
+      "od": "W_S"
+    },
+    "v000036": {
+      "requested_depart": 200.101,
+      "origin": "E",
+      "od": "E_W"
+    },
+    "v000037": {
+      "requested_depart": 218.273,
+      "origin": "S",
+      "od": "S_W"
+    },
+    "v000038": {
+      "requested_depart": 223.039,
+      "origin": "E",
+      "od": "E_W"
+    },
+    "v000039": {
+      "requested_depart": 224.063,
+      "origin": "E",
+      "od": "E_S"
+    },
+    "v000040": {
+      "requested_depart": 224.543,
+      "origin": "E",
+      "od": "E_W"
+    },
+    "v000041": {
+      "requested_depart": 238.506,
+      "origin": "E",
+      "od": "E_S"
+    },
+    "v000042": {
+      "requested_depart": 245.523,
+      "origin": "E",
+      "od": "E_W"
+    },
+    "v000043": {
+      "requested_depart": 248.149,
+      "origin": "E",
+      "od": "E_S"
+    },
+    "v000044": {
+      "requested_depart": 250.381,
+      "origin": "S",
+      "od": "S_E"
+    },
+    "v000045": {
+      "requested_depart": 256.529,
+      "origin": "E",
+      "od": "E_W"
+    },
+    "v000046": {
+      "requested_depart": 257.796,
+      "origin": "E",
+      "od": "E_S"
+    },
+    "v000047": {
+      "requested_depart": 267.98,
+      "origin": "W",
+      "od": "W_E"
+    },
+    "v000048": {
+      "requested_depart": 268.368,
+      "origin": "E",
+      "od": "E_S"
+    },
+    "v000049": {
+      "requested_depart": 285.405,
+      "origin": "W",
+      "od": "W_S"
+    },
+    "v000050": {
+      "requested_depart": 295.159,
+      "origin": "E",
+      "od": "E_S"
+    },
+    "v000051": {
+      "requested_depart": 298.265,
+      "origin": "S",
+      "od": "S_E"
+    },
+    "v000052": {
+      "requested_depart": 303.064,
+      "origin": "E",
+      "od": "E_W"
+    },
+    "v000053": {
+      "requested_depart": 303.651,
+      "origin": "E",
+      "od": "E_S"
+    },
+    "v000054": {
+      "requested_depart": 315.926,
+      "origin": "S",
+      "od": "S_W"
+    },
+    "v000055": {
+      "requested_depart": 323.122,
+      "origin": "E",
+      "od": "E_S"
+    },
+    "v000056": {
+      "requested_depart": 324.684,
+      "origin": "E",
+      "od": "E_W"
+    },
+    "v000057": {
+      "requested_depart": 328.876,
+      "origin": "S",
+      "od": "S_W"
+    },
+    "v000058": {
+      "requested_depart": 343.826,
+      "origin": "S",
+      "od": "S_W"
+    },
+    "v000059": {
+      "requested_depart": 346.446,
+      "origin": "E",
+      "od": "E_S"
+    },
+    "v000060": {
+      "requested_depart": 356.847,
+      "origin": "W",
+      "od": "W_E"
+    },
+    "v000061": {
+      "requested_depart": 356.981,
+      "origin": "E",
+      "od": "E_W"
+    },
+    "v000062": {
+      "requested_depart": 363.436,
+      "origin": "W",
+      "od": "W_E"
+    },
+    "v000063": {
+      "requested_depart": 371.239,
+      "origin": "W",
+      "od": "W_S"
+    },
+    "v000064": {
+      "requested_depart": 373.091,
+      "origin": "E",
+      "od": "E_W"
+    },
+    "v000065": {
+      "requested_depart": 375.775,
+      "origin": "E",
+      "od": "E_S"
+    },
+    "v000066": {
+      "requested_depart": 376.841,
+      "origin": "E",
+      "od": "E_W"
+    },
+    "v000067": {
+      "requested_depart": 381.233,
+      "origin": "S",
+      "od": "S_E"
+    },
+    "v000068": {
+      "requested_depart": 393.241,
+      "origin": "S",
+      "od": "S_W"
+    },
+    "v000069": {
+      "requested_depart": 394.566,
+      "origin": "E",
+      "od": "E_W"
+    },
+    "v000070": {
+      "requested_depart": 398.649,
+      "origin": "E",
+      "od": "E_S"
+    },
+    "v000071": {
+      "requested_depart": 402.474,
+      "origin": "S",
+      "od": "S_W"
+    },
+    "v000072": {
+      "requested_depart": 403.359,
+      "origin": "S",
+      "od": "S_E"
+    },
+    "v000073": {
+      "requested_depart": 407.511,
+      "origin": "S",
+      "od": "S_W"
+    },
+    "v000074": {
+      "requested_depart": 407.729,
+      "origin": "E",
+      "od": "E_S"
+    },
+    "v000075": {
+      "requested_depart": 411.9,
+      "origin": "W",
+      "od": "W_E"
+    },
+    "v000076": {
+      "requested_depart": 415.908,
+      "origin": "S",
+      "od": "S_W"
+    },
+    "v000077": {
+      "requested_depart": 416.16,
+      "origin": "S",
+      "od": "S_W"
+    },
+    "v000078": {
+      "requested_depart": 419.695,
+      "origin": "W",
+      "od": "W_S"
+    },
+    "v000079": {
+      "requested_depart": 425.994,
+      "origin": "S",
+      "od": "S_E"
+    },
+    "v000080": {
+      "requested_depart": 426.633,
+      "origin": "S",
+      "od": "S_W"
+    },
+    "v000081": {
+      "requested_depart": 427.68,
+      "origin": "E",
+      "od": "E_S"
+    },
+    "v000082": {
+      "requested_depart": 432.692,
+      "origin": "S",
+      "od": "S_E"
+    },
+    "v000083": {
+      "requested_depart": 440.927,
+      "origin": "S",
+      "od": "S_W"
+    },
+    "v000084": {
+      "requested_depart": 444.519,
+      "origin": "S",
+      "od": "S_W"
+    },
+    "v000085": {
+      "requested_depart": 444.828,
+      "origin": "S",
+      "od": "S_W"
+    },
+    "v000086": {
+      "requested_depart": 449.537,
+      "origin": "S",
+      "od": "S_E"
+    },
+    "v000087": {
+      "requested_depart": 450.876,
+      "origin": "W",
+      "od": "W_E"
+    },
+    "v000088": {
+      "requested_depart": 455.315,
+      "origin": "S",
+      "od": "S_W"
+    },
+    "v000089": {
+      "requested_depart": 463.025,
+      "origin": "W",
+      "od": "W_E"
+    },
+    "v000090": {
+      "requested_depart": 473.667,
+      "origin": "W",
+      "od": "W_S"
+    },
+    "v000091": {
+      "requested_depart": 485.605,
+      "origin": "S",
+      "od": "S_W"
+    },
+    "v000092": {
+      "requested_depart": 507.297,
+      "origin": "S",
+      "od": "S_E"
+    },
+    "v000093": {
+      "requested_depart": 511.867,
+      "origin": "S",
+      "od": "S_E"
+    },
+    "v000094": {
+      "requested_depart": 514.17,
+      "origin": "S",
+      "od": "S_W"
+    },
+    "v000095": {
+      "requested_depart": 520.62,
+      "origin": "S",
+      "od": "S_W"
+    },
+    "v000096": {
+      "requested_depart": 521.251,
+      "origin": "W",
+      "od": "W_E"
+    },
+    "v000097": {
+      "requested_depart": 522.12,
+      "origin": "S",
+      "od": "S_W"
+    },
+    "v000098": {
+      "requested_depart": 528.831,
+      "origin": "S",
+      "od": "S_W"
+    },
+    "v000099": {
+      "requested_depart": 530.428,
+      "origin": "S",
+      "od": "S_E"
+    },
+    "v000100": {
+      "requested_depart": 536.346,
+      "origin": "S",
+      "od": "S_E"
+    },
+    "v000101": {
+      "requested_depart": 541.332,
+      "origin": "S",
+      "od": "S_W"
+    },
+    "v000102": {
+      "requested_depart": 543.138,
+      "origin": "S",
+      "od": "S_E"
+    },
+    "v000103": {
+      "requested_depart": 550.381,
+      "origin": "E",
+      "od": "E_W"
+    },
+    "v000104": {
+      "requested_depart": 551.11,
+      "origin": "W",
+      "od": "W_E"
+    },
+    "v000105": {
+      "requested_depart": 553.857,
+      "origin": "S",
+      "od": "S_E"
+    },
+    "v000106": {
+      "requested_depart": 554.414,
+      "origin": "S",
+      "od": "S_W"
+    },
+    "v000107": {
+      "requested_depart": 559.151,
+      "origin": "W",
+      "od": "W_E"
+    },
+    "v000108": {
+      "requested_depart": 559.216,
+      "origin": "S",
+      "od": "S_W"
+    },
+    "v000109": {
+      "requested_depart": 574.223,
+      "origin": "E",
+      "od": "E_S"
+    },
+    "v000110": {
+      "requested_depart": 580.566,
+      "origin": "S",
+      "od": "S_W"
+    },
+    "v000111": {
+      "requested_depart": 582.075,
+      "origin": "S",
+      "od": "S_W"
+    },
+    "v000112": {
+      "requested_depart": 587.382,
+      "origin": "S",
+      "od": "S_E"
+    },
+    "v000113": {
+      "requested_depart": 589.783,
+      "origin": "S",
+      "od": "S_W"
+    },
+    "v000114": {
+      "requested_depart": 596.311,
+      "origin": "E",
+      "od": "E_W"
+    }
+  }
+}

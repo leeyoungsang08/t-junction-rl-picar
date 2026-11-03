@@ -1,0 +1,14 @@
+{
+  "mode": "motorless_lab",
+  "central_example_ipv4": "192.168.50.10",
+  "probe_port": 5005,
+  "status_port": 5006,
+  "cars": {
+    "W1": {"lane": "W", "route": ["W", "E"]},
+    "E1": {"lane": "E", "route": ["E", "W"]},
+    "S1": {"lane": "S", "route": ["S", "W"]},
+    "S2": {"lane": "S", "route": ["S", "W"]},
+    "W2": {"lane": "W", "route": ["W", "E"]},
+    "E2": {"lane": "E", "route": ["E", "W"]}
+  }
+}

@@ -1,0 +1,81 @@
+"""Write the Korean experiment summary from completed result tables."""
+from pathlib import Path
+import json
+
+import pandas as pd
+
+root = Path("outputs/budget_check_20261103")
+evaluation = root / "evaluation"
+means = pd.read_csv(evaluation / "scenario_means.csv").set_index(["scenario", "controller"])
+paired = pd.read_csv(evaluation / "paired_deltas.csv")
+models = pd.read_csv(evaluation / "model_selection.csv")
+gate = pd.read_csv(evaluation / "reliability_criterion.csv")
+scenarios = {"medium": "중간 수요", "south_bias": "남쪽 편중", "unseen": "남쪽 과포화",
+             "heldout_reversal": "남→동→서 수요 전환"}
+seeds = (42, 43, 44)
+data = pd.read_csv(evaluation / "seed_level_results.csv")
+print("# DQN 학습 예산 재검증\n")
+print("## 비교 설계\n")
+print("기존 80회차의 정상 체크포인트에서 온라인·타깃 가중치, 옵티마이저, replay, 난수 상태를 복원하고 "
+      "학습 종료 회차만 240으로 늘렸다. 시드별로 160회씩 추가했다. 에피소드 600초, 5초 결정 주기, "
+      "보상, SUMO 맵, 신호 제약, 학습 수요 순환 및 epsilon 스케줄은 유지했다. 연장 구간의 epsilon은 0.05다.\n")
+print("각 예산 안에서 기존 검증 교통으로 선택한 best 체크포인트를 비교했다. 선택 기준은 시드 2000의 5개 검증 "
+      "조건 평균 지연이다. 테스트는 앞선 평가와 같은 계열의 조건 네 가지에서 새로운 교통 시드 3400–3407과 "
+      "1,800초 수요를 사용했다. DQN 6개, V1, 고정, 규칙 2개를 동일 경로 파일에서 실행했다. 테스트는 "
+      "모델 선택에 사용하지 않았다.\n")
+print("이번 비교의 충분성 기준을 평가 전에 정했다. 남쪽 과포화와 수요 전환 각각에서 세 학습 시드 모두 평균 "
+      "차량당 지연으로 두 규칙을 앞서고, 완료율 열세가 더 높은 규칙 대비 2%p 이내여야 한다. "
+      "이 기준은 이 실험의 판단 기준이며 실차 통과 기준은 별도로 둔다.\n")
+print("## 완료 범위와 검증 점수\n")
+print("| 학습 시드 | 추가 완료 회차 | 추가 업데이트 | 240회 누적 업데이트 | 추가 학습 벽시계 |")
+print("|---:|---:|---:|---:|---:|")
+for s in seeds:
+    status = json.loads((root / "training" / f"seed{s}" / "training_status.json").read_text())
+    print(f"| {s} | {status['completed_episodes'] - 80} | {status['updates'] - 9473:,} | "
+          f"{status['updates']:,} | {status['elapsed_this_invocation_seconds']:.1f}초 |")
+print("\n추가 학습 480회와 57,600회 업데이트, 모델 선택용 추가 검증 120회를 수행했다. "
+      f"비교 평가 {len(data)}회에서 충돌 {int(data.collision_events.sum())}건, "
+      f"텔레포트 {int(data.teleport_events.sum())}건을 기록했다.\n")
+print("| 시드 | 80회 이내 선택 회차 (검증 지연) | 240회 이내 선택 회차 (검증 지연) | 240회차 마지막 검증 지연 |")
+print("|---:|---:|---:|---:|")
+for s in seeds:
+    a, b = [models[(models.training_seed == s) & (models.budget == n)].iloc[0] for n in (80, 240)]
+    print(f"| {s} | {int(a.best_episode)} ({a.best_validation_delay_s:.2f}) | "
+          f"{int(b.best_episode)} ({b.best_validation_delay_s:.2f}) | {b.last_validation_delay_s:.2f} |")
+print("\n## 평가 차량당 정지·진입 지연\n")
+print("초/요청 차량. 각 DQN 셀은 80회 예산 → 240회 예산이다. 동일 수요 8개의 평균이다.\n")
+print("| 조건 | 시드 42 | 시드 43 | 시드 44 | 기존 규칙 | 동일 관측 규칙 | V1 | 고정 |")
+print("|---|---:|---:|---:|---:|---:|---:|---:|")
+for scenario, label in scenarios.items():
+    metrics = means.loc[scenario].cohort_delay_s
+    cells = [f"{metrics.loc[f'v2_{s}_80']:.2f} → {metrics.loc[f'v2_{s}_240']:.2f}" for s in seeds]
+    cells += [f"{metrics.loc[k]:.2f}" for k in ("rule_based", "rule_observed", "v1", "fixed_time")]
+    print("| " + " | ".join([label, *cells]) + " |")
+print("\n## 두 스트레스 조건의 짝지은 변화\n")
+print("같은 수요에서 240회 모델 지연 − 80회 모델 지연을 계산했다. 음수는 연장 모델의 지연이 더 짧음을 뜻한다. "
+      "95% 구간은 각 학습 시드 안에서 교통 시드 8개의 차이로 계산한 표본 t 구간이다.\n")
+print("| 조건 | 시드 | 지연 차이와 95% 구간 (초/대) | 개선된 교통 시드 | 완료율 80→240 | 기준 충족 80→240 |")
+print("|---|---:|---:|---:|---:|---:|")
+for scenario in ("unseen", "heldout_reversal"):
+    for s in seeds:
+        change = paired[(paired.scenario == scenario) & (paired.reference == f"v2_{s}_80")].iloc[0]
+        a,b = [means.loc[(scenario,f"v2_{s}_{n}"),"completion_rate"] for n in (80,240)]
+        flags = gate[(gate.scenario == scenario) & (gate.training_seed == s)].sort_values("budget")["pass"].tolist()
+        flag = " → ".join("충족" if x else "미충족" for x in flags)
+        print(f"| {scenarios[scenario]} | {s} | {change.delta_mean:+.2f} "
+              f"[{change.ci95_low:+.2f}, {change.ci95_high:+.2f}] | {int(change.wins)}/8 | "
+              f"{a:.1%} → {b:.1%} | {flag} |")
+print("\n### 전체 충분성 판정\n")
+for budget in (80,240):
+    rows = gate[gate.budget == budget]
+    print(f"- {budget}회 예산에서 조건×학습 시드 6개 중 {int(rows['pass'].sum())}개가 기준을 충족했다.")
+print("\n세 학습 시드가 동일한 교통 표본을 공유한다. 결과는 단일 교차로의 네 시나리오에 대한 관측이며, "
+      "더 긴 학습·다른 탐험 스케줄·다른 트랙의 성능은 별도의 실험이 필요하다.\n")
+print("## 재현 및 원시 자료\n")
+print("- 동일 Windows CPU와 기존 가상 환경·영문 SUMO_HOME을 사용했다. 프로젝트 루트에서 "
+      "`$env:PYTHONPATH=(Get-Location).Path` 설정 뒤 `& ../.venv/Scripts/python.exe "
+      "outputs/budget_check_20261103/run_budget_check.py`를 실행한다. 이미 완료한 학습·평가의 원본 경로를 사용한다.")
+print("- `training/seed*/`에 실제 설정, 검증/업데이트 CSV와 best·last·재개 체크포인트를 저장했다. "
+      "`evaluation/`에 320회 로그·경로·모델 해시, 조건별 평균, 짝지은 차이, 충분성 판정, 그래프를 저장했다.")
+print("- `PICAR_INTEGRATION_KO.md`에 노션의 실제 PiCar 소스와 비교한 중앙 통신 설계, 로컬 시험 및 첫 LAN 명령을 정리했다.")
+

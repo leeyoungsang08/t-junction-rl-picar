@@ -1,0 +1,35 @@
+42 {'completed_episodes': 240, 'planned_episodes': 240, 'mode': 'revision', 'complete': True, 'updates': 28673, 'best_validation_cohort_delay_s': 9.777068364772319, 'elapsed_this_invocation_seconds': 285.0575260999999}
+43 {'completed_episodes': 240, 'planned_episodes': 240, 'mode': 'revision', 'complete': True, 'updates': 28673, 'best_validation_cohort_delay_s': 9.80445031839481, 'elapsed_this_invocation_seconds': 285.2071744}
+44 {'completed_episodes': 240, 'planned_episodes': 240, 'mode': 'revision', 'complete': True, 'updates': 28673, 'best_validation_cohort_delay_s': 9.96619554914761, 'elapsed_this_invocation_seconds': 283.9960079999996}
+medium 3400 10
+medium 3401 20
+medium 3402 30
+medium 3403 40
+medium 3404 50
+medium 3405 60
+medium 3406 70
+medium 3407 80
+south_bias 3400 90
+south_bias 3401 100
+south_bias 3402 110
+south_bias 3403 120
+south_bias 3404 130
+south_bias 3405 140
+south_bias 3406 150
+south_bias 3407 160
+unseen 3400 170
+unseen 3401 180
+unseen 3402 190
+unseen 3403 200
+unseen 3404 210
+unseen 3405 220
+unseen 3406 230
+unseen 3407 240
+heldout_reversal 3400 250
+heldout_reversal 3401 260
+heldout_reversal 3402 270
+heldout_reversal 3403 280
+heldout_reversal 3404 290
+heldout_reversal 3405 300
+heldout_reversal 3406 310
+heldout_reversal 3407 320

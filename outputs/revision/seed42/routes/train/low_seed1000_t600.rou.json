@@ -1,0 +1,199 @@
+{
+  "scenario": "low",
+  "seed": 1000,
+  "split": "train",
+  "horizon_seconds": 600,
+  "route_sha256": "0e397f3ab6e9eddd21b41d42ea16d59f146672e6373bfe3054c6322c5616e9d3",
+  "vehicles": {
+    "v000000": {
+      "requested_depart": 19.301,
+      "origin": "E",
+      "od": "E_S"
+    },
+    "v000001": {
+      "requested_depart": 43.22,
+      "origin": "W",
+      "od": "W_S"
+    },
+    "v000002": {
+      "requested_depart": 64.894,
+      "origin": "W",
+      "od": "W_S"
+    },
+    "v000003": {
+      "requested_depart": 76.528,
+      "origin": "S",
+      "od": "S_W"
+    },
+    "v000004": {
+      "requested_depart": 89.637,
+      "origin": "S",
+      "od": "S_E"
+    },
+    "v000005": {
+      "requested_depart": 130.543,
+      "origin": "W",
+      "od": "W_S"
+    },
+    "v000006": {
+      "requested_depart": 139.554,
+      "origin": "S",
+      "od": "S_E"
+    },
+    "v000007": {
+      "requested_depart": 146.582,
+      "origin": "W",
+      "od": "W_S"
+    },
+    "v000008": {
+      "requested_depart": 148.721,
+      "origin": "E",
+      "od": "E_S"
+    },
+    "v000009": {
+      "requested_depart": 157.285,
+      "origin": "S",
+      "od": "S_E"
+    },
+    "v000010": {
+      "requested_depart": 173.993,
+      "origin": "W",
+      "od": "W_E"
+    },
+    "v000011": {
+      "requested_depart": 175.092,
+      "origin": "W",
+      "od": "W_E"
+    },
+    "v000012": {
+      "requested_depart": 177.315,
+      "origin": "E",
+      "od": "E_W"
+    },
+    "v000013": {
+      "requested_depart": 183.931,
+      "origin": "S",
+      "od": "S_E"
+    },
+    "v000014": {
+      "requested_depart": 197.005,
+      "origin": "W",
+      "od": "W_E"
+    },
+    "v000015": {
+      "requested_depart": 214.263,
+      "origin": "S",
+      "od": "S_W"
+    },
+    "v000016": {
+      "requested_depart": 218.419,
+      "origin": "W",
+      "od": "W_E"
+    },
+    "v000017": {
+      "requested_depart": 224.012,
+      "origin": "E",
+      "od": "E_W"
+    },
+    "v000018": {
+      "requested_depart": 292.691,
+      "origin": "W",
+      "od": "W_E"
+    },
+    "v000019": {
+      "requested_depart": 306.065,
+      "origin": "E",
+      "od": "E_S"
+    },
+    "v000020": {
+      "requested_depart": 306.158,
+      "origin": "W",
+      "od": "W_S"
+    },
+    "v000021": {
+      "requested_depart": 308.399,
+      "origin": "E",
+      "od": "E_S"
+    },
+    "v000022": {
+      "requested_depart": 356.66,
+      "origin": "S",
+      "od": "S_W"
+    },
+    "v000023": {
+      "requested_depart": 380.63,
+      "origin": "E",
+      "od": "E_S"
+    },
+    "v000024": {
+      "requested_depart": 383.53,
+      "origin": "E",
+      "od": "E_S"
+    },
+    "v000025": {
+      "requested_depart": 397.806,
+      "origin": "S",
+      "od": "S_E"
+    },
+    "v000026": {
+      "requested_depart": 410.376,
+      "origin": "E",
+      "od": "E_S"
+    },
+    "v000027": {
+      "requested_depart": 414.774,
+      "origin": "W",
+      "od": "W_S"
+    },
+    "v000028": {
+      "requested_depart": 433.729,
+      "origin": "W",
+      "od": "W_S"
+    },
+    "v000029": {
+      "requested_depart": 437.579,
+      "origin": "W",
+      "od": "W_S"
+    },
+    "v000030": {
+      "requested_depart": 462.704,
+      "origin": "E",
+      "od": "E_S"
+    },
+    "v000031": {
+      "requested_depart": 476.825,
+      "origin": "W",
+      "od": "W_S"
+    },
+    "v000032": {
+      "requested_depart": 509.517,
+      "origin": "E",
+      "od": "E_W"
+    },
+    "v000033": {
+      "requested_depart": 523.986,
+      "origin": "W",
+      "od": "W_S"
+    },
+    "v000034": {
+      "requested_depart": 534.591,
+      "origin": "E",
+      "od": "E_S"
+    },
+    "v000035": {
+      "requested_depart": 562.637,
+      "origin": "W",
+      "od": "W_E"
+    },
+    "v000036": {
+      "requested_depart": 565.925,
+      "origin": "W",
+      "od": "W_E"
+    },
+    "v000037": {
+      "requested_depart": 577.599,
+      "origin": "S",
+      "od": "S_E"
+    }
+  }
+}

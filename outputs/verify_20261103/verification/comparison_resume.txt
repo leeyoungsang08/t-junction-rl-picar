@@ -1,0 +1,25 @@
+medium 3120
+medium 3121
+medium 3122
+medium 3123
+imbalanced 3120
+imbalanced 3121
+imbalanced 3122
+imbalanced 3123
+east_bias 3120
+east_bias 3121
+east_bias 3122
+east_bias 3123
+south_bias 3120
+south_bias 3121
+south_bias 3122
+south_bias 3123
+unseen 3120
+unseen 3121
+unseen 3122
+unseen 3123
+heldout_reversal 3120
+heldout_reversal 3121
+heldout_reversal 3122
+heldout_reversal 3123
+All 168 existing receipts reused; no comparison episode reran.

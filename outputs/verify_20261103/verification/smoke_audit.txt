@@ -1,0 +1,17 @@
+Restored online/target/optimizer/replay/RNG after episode 3. 108 decisions, 93 updates; exported weights differ from initialization.
+outputs\reference\legacy_v1.pt schema 1 input 12 device cpu metadata {'episode': 139, 'global_step': 25200, 'updates': 24201, 'training_mode': 'full', 'horizon_seconds': 900, 'double_dqn': False, 'reward_mode': 'composite', 'versions': {'python': '3.12.14', 'sumo': 'Eclipse SUMO sumo 1.28.0', 'torch': '2.15.0+cpu', 'cuda_available': False, 'gpu': None}, 'created_utc': '2026-11-02T10:54:51.970904+00:00', 'selection_metric': 'validation mean cohort_delay_s (waiting + insertion delay per scheduled vehicle)', 'performance_claim': 'No improvement guarantee; inspect held-out evaluation', 'validation_score': 11.1998958838269, 'artifact_role': 'best_validation'}
+outputs\verify_20261103\smoke\checkpoints\best_model.pt schema 2 input 25 device cpu metadata {'episode': 2, 'global_step': 108, 'updates': 93, 'training_mode': 'smoke', 'horizon_seconds': 180, 'double_dqn': False, 'reward_mode': 'composite', 'versions': {'python': '3.12.10', 'sumo': 'Eclipse SUMO sumo 1.28.0', 'torch': '2.15.0+cpu', 'cuda_available': False, 'gpu': None}, 'created_utc': '2026-11-03T05:15:00.134387+00:00', 'selection_metric': 'validation mean cohort_delay_s (waiting + insertion delay per scheduled vehicle)', 'performance_claim': 'No improvement guarantee; inspect held-out evaluation', 'validation_score': 16.591058689458688, 'artifact_role': 'best_validation'}
+eval medium seed=3000 fixed_time: wait=20.571428571428573 cohort=20.19 completed=7
+eval medium seed=3000 rule_based: wait=5.857142857142857 cohort=12.94 completed=7
+eval medium seed=3000 dqn: wait=4.818181818181818 cohort=6.19 completed=11
+eval medium seed=3000 dqn: wait=4.818181818181818 cohort=6.19 completed=11
+Evaluation resume skipped existing episodes, repaired one missing log, reproduced cohort delay.
+Notebook notebooks\00_colab_setup.ipynb schema and code compilation passed 5 code cells
+Notebook notebooks\01_map_generation.ipynb schema and code compilation passed 3 code cells
+Notebook notebooks\02_environment_test.ipynb schema and code compilation passed 4 code cells
+Notebook notebooks\03_dqn_training.ipynb schema and code compilation passed 4 code cells
+Notebook notebooks\04_model_evaluation.ipynb schema and code compilation passed 4 code cells
+Notebook notebooks\05_visualization.ipynb schema and code compilation passed 6 code cells
+Notebook notebooks\06_policy_playground.ipynb schema and code compilation passed 2 code cells
+Notebook notebooks\START_HERE.ipynb schema and code compilation passed 28 code cells
+Windows-11-10.0.26200-SP0 3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]

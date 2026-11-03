@@ -1,0 +1,6 @@
+Matched XML after normalizing line endings: 24
+Max absolute V1 cohort delay difference vs archived run: 0.0
+Validated training seed 42 best episode 80 score 9.83320397292643
+Validated training seed 43 best episode 80 score 10.794863096906832
+Validated training seed 44 best episode 40 score 12.056989466939005
+Video rerun metric agrees with comparison 16.85225165562914

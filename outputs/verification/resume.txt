@@ -1,0 +1,9 @@
+ep 1/3 steps=36 reward=-8.02 wait=14.8 queue=0.71 eps=0.886 loss=0.01694352024545272 val=21.66100170940171 elapsed=3.7s ETA~7.3s
+Resuming at episode 1; only completed checkpoint episodes are retained.
+ep 2/3 steps=72 reward=-22.53 wait=9.952380952380953 queue=2.12 eps=0.772 loss=0.04996219463646412 val=30.46997606837607 elapsed=5.9s ETA~5.9s
+ep 3/3 steps=108 reward=-42.91 wait=22.807692307692307 queue=4.06 eps=0.658 loss=0.19223280809819698 val=16.591058689458688 elapsed=8.3s ETA~0.0s
+eval medium seed=3000 fixed_time: wait=None cohort=8.72 completed=0
+eval medium seed=3000 rule_based: wait=0.0 cohort=0.72 completed=2
+eval medium seed=3000 dqn: wait=None cohort=3.83 completed=0
+eval medium seed=3000 dqn: wait=None cohort=3.83 completed=0
+Passed checkpoint restore, raw XML mirror, evaluation resume and missing episode repair.

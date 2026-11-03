@@ -1,0 +1,10 @@
+{
+  "python": "3.12.10",
+  "sumo": "Eclipse SUMO sumo 1.28.0",
+  "torch": "2.15.0+cpu",
+  "cuda_available": false,
+  "gpu": null,
+  "SUMO_HOME": "C:\\Users\\admin1\\AppData\\Local\\Temp\\sumo_home_verify_20261103",
+  "project_path": "C:\\Users\\admin1\\Documents\\ChatGPT\\\uac15\ud654\ud559\uc2b5\\work_20261103\\T_Junction_RL",
+  "netconvert": "Eclipse SUMO netconvert 1.28.0"
+}

@@ -1,0 +1,4 @@
+seed,episodes,updates,decisions,internal_active,long_wait_active,best_episode,validation_delay
+42,80,9473,9600,0,1585,80,9.83320397292643
+43,80,9473,9600,0,1888,80,10.794863096906832
+44,80,9473,9600,0,1946,40,12.056989466939005

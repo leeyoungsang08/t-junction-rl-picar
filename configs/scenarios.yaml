@@ -1,0 +1,36 @@
+splits:
+  train: {start: 1000, count: 1000}
+  validation: {start: 2000, count: 100}
+  test: {start: 3000, count: 1000}
+od_order: [W_E, W_S, E_W, E_S, S_W, S_E]
+scenarios:
+  low: {rate_veh_h: 240, weights: [1, 1, 1, 1, 1, 1]}
+  medium: {rate_veh_h: 480, weights: [1, 1, 1, 1, 1, 1]}
+  high: {rate_veh_h: 780, weights: [1, 1, 1, 1, 1, 1]}
+  imbalanced: {rate_veh_h: 660, weights: [5, 4, 1, 1, 1, 1]}
+  rush_hour:
+    rate_veh_h: 480
+    weights: [2, 2, 1, 1, 1, 1]
+    segments: [[0.0, 0.3, 0.5], [0.3, 0.7, 2.0], [0.7, 1.0, 0.7]]
+  unseen:
+    rate_veh_h: 900
+    weights: [1, 1, 1, 2, 5, 4]
+    segments: [[0.0, 0.25, 0.4], [0.25, 0.6, 1.6], [0.6, 1.0, 0.8]]
+    test_only: true
+  east_bias: {rate_veh_h: 660, weights: [1, 1, 5, 4, 1, 1]}
+  south_bias: {rate_veh_h: 660, weights: [1, 1, 1, 1, 5, 4]}
+  rotating:
+    rate_veh_h: 720
+    weights: [1, 1, 1, 1, 1, 1]
+    segments:
+      - [0.0, 0.33, 0.9, [5, 4, 1, 1, 1, 1]]
+      - [0.33, 0.67, 1.0, [1, 1, 5, 4, 1, 1]]
+      - [0.67, 1.0, 1.1, [1, 1, 1, 1, 5, 4]]
+  heldout_reversal:
+    rate_veh_h: 820
+    weights: [1, 1, 1, 1, 1, 1]
+    segments:
+      - [0.0, 0.22, 1.4, [1, 1, 1, 1, 6, 5]]
+      - [0.22, 0.55, 1.0, [1, 1, 6, 5, 1, 1]]
+      - [0.55, 1.0, 1.2, [5, 6, 1, 1, 1, 1]]
+    test_only: true

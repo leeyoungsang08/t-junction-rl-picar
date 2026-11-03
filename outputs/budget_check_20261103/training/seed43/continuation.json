@@ -1,0 +1,9 @@
+{
+  "source": "outputs/verify_20261103/training/seed43/checkpoints/training_checkpoint.pt",
+  "source_sha256": "96b85e8dc59d23008a0b4061eda8a8b45b2d19c0de5120a88f5e04c61b90ff7e",
+  "first_new_episode": 81,
+  "total_episodes": 240,
+  "changed_config_keys": [
+    "episodes"
+  ]
+}

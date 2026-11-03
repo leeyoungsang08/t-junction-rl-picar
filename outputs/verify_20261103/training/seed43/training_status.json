@@ -1,0 +1,9 @@
+{
+  "completed_episodes": 80,
+  "planned_episodes": 80,
+  "mode": "revision",
+  "complete": true,
+  "updates": 9473,
+  "best_validation_cohort_delay_s": 10.794863096906832,
+  "elapsed_this_invocation_seconds": 154.24240220000002
+}

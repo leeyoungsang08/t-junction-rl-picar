@@ -1,0 +1,16 @@
+usage: run_training.py [-h] [--mode {smoke,quick,revision,full}]
+                       [--output OUTPUT] [--resume RESUME] [--double-dqn]
+                       [--reward {simple,composite}] [--stop-after STOP_AFTER]
+                       [--training-seed TRAINING_SEED] [--mirror MIRROR]
+
+options:
+  -h, --help            show this help message and exit
+  --mode {smoke,quick,revision,full}
+  --output OUTPUT
+  --resume RESUME
+  --double-dqn
+  --reward {simple,composite}
+  --stop-after STOP_AFTER
+  --training-seed TRAINING_SEED
+  --mirror MIRROR       Periodically copy completed checkpoints and logs to
+                        Drive or another disk

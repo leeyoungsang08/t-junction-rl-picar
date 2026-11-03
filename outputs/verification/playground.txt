@@ -1,0 +1,2 @@
+outputs/reference/legacy_v1.pt playground, figure and video passed.
+outputs/revision/seed42/checkpoints/best_model.pt playground, figure and video passed.

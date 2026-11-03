@@ -1,0 +1,44 @@
+{
+  "scenario": "medium",
+  "seed": 3031,
+  "split": "test",
+  "horizon_seconds": 97,
+  "route_sha256": "e90b0e37af25bab40c1c771ec6d33f5c9740bb9cbaf0f4e12b323213d8dcd7a2",
+  "vehicles": {
+    "v000000": {
+      "requested_depart": 5.096,
+      "origin": "W",
+      "od": "W_E"
+    },
+    "v000001": {
+      "requested_depart": 9.324,
+      "origin": "E",
+      "od": "E_W"
+    },
+    "v000002": {
+      "requested_depart": 24.613,
+      "origin": "E",
+      "od": "E_W"
+    },
+    "v000003": {
+      "requested_depart": 55.564,
+      "origin": "E",
+      "od": "E_S"
+    },
+    "v000004": {
+      "requested_depart": 70.05,
+      "origin": "S",
+      "od": "S_W"
+    },
+    "v000005": {
+      "requested_depart": 77.85,
+      "origin": "S",
+      "od": "S_E"
+    },
+    "v000006": {
+      "requested_depart": 81.33,
+      "origin": "S",
+      "od": "S_E"
+    }
+  }
+}

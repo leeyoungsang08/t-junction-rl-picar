@@ -1,0 +1,18 @@
+hidden:
+- 128
+- 128
+normalization:
+  vehicles: 40
+  waiting_seconds: 120
+  internal_vehicles: 10
+  green_seconds: 45
+  queues: 20
+  pending: 20
+  longest_wait: 60
+  recent_requests: 10
+signal:
+  min_green: 10
+  max_green: 45
+  yellow: 3
+  all_red: 1
+  fixed_green: 20

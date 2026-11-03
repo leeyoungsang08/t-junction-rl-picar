@@ -1,0 +1,13 @@
+id,phase,case,expected,evidence,observed,result
+NET01,network,PC-Pi UDP echo,Matched ACK and RTT distribution recorded,,,
+NET02,network,Duplicate status,No duplicate state transition,,,
+ROS01,ros2,Per-car topic routing,Only local gate publishes motor topic,,,
+ROS02,ros2,Raw command stops,Motor watchdog causes stop,,,
+STOP01,safety,Permit expiry or AP loss,Car stops and admission locks,,,
+STOP02,safety,Obstacle or line loss,Local stop overrides permit,,,
+STOP03,safety,Server restarts,No new admission until occupancy checked,,,
+STOP04,safety,Exit event missing,Reservation remains held,,,
+TRACK01,track,One-car turn envelope,Clear of all track boundaries,,,
+TRACK02,track,Opposing demand,Zero conflicting simultaneous permissions,,,
+OBS01,shadow,Sensor dropout,Unknown state does not become zero vehicles,,,
+MET01,compare,Matched fixed-rule-DQN demand,Delay completion and safety metrics recorded,,,

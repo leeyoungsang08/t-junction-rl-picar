@@ -1,0 +1,25 @@
+seed: 42
+device: auto
+torch_threads: 1
+learning_rate: 0.0001
+gamma: 0.99
+batch_size: 64
+replay_capacity: 100000
+learning_start: 1000
+hidden: [128, 128]
+epsilon_start: 1.0
+epsilon_end: 0.05
+epsilon_decay_steps: 120000
+target_update_steps: 500
+update_every: 1
+gradient_clip: 10
+double_dqn: false
+bootstrap_truncated: true
+checkpoint_every: 5
+train_scenarios: [low, medium, high, imbalanced, east_bias, south_bias, rush_hour, rotating]
+validation_scenarios: [medium, imbalanced, east_bias, south_bias, rotating]
+modes:
+  revision: {episodes: 80, horizon_seconds: 600, validation_every: 20, validation_seeds: 1, learning_start: 128, epsilon_decay_steps: 7800}
+  smoke: {episodes: 3, horizon_seconds: 180, validation_every: 1, validation_seeds: 1, learning_start: 16, batch_size: 16, epsilon_decay_steps: 300}
+  quick: {episodes: 24, horizon_seconds: 600, validation_every: 6, validation_seeds: 2, learning_start: 64, epsilon_decay_steps: 2400}
+  full: {episodes: 300, horizon_seconds: 900, validation_every: 20, validation_seeds: 3, epsilon_decay_steps: 45000}

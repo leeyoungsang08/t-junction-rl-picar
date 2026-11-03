@@ -1,0 +1,46 @@
+<routes>
+  <vType id="car" accel="2.6" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="13.89" speedDev="0" />
+  <route id="W_E" edges="W_in E_out" />
+  <route id="W_S" edges="W_in S_out" />
+  <route id="E_W" edges="E_in W_out" />
+  <route id="E_S" edges="E_in S_out" />
+  <route id="S_W" edges="S_in W_out" />
+  <route id="S_E" edges="S_in E_out" />
+  <vehicle id="v000000" type="car" route="W_S" depart="4.486" departLane="0" departSpeed="max" />
+  <vehicle id="v000001" type="car" route="E_W" depart="21.568" departLane="0" departSpeed="max" />
+  <vehicle id="v000002" type="car" route="W_S" depart="22.531" departLane="0" departSpeed="max" />
+  <vehicle id="v000003" type="car" route="S_W" depart="32.531" departLane="0" departSpeed="max" />
+  <vehicle id="v000004" type="car" route="E_W" depart="44.817" departLane="0" departSpeed="max" />
+  <vehicle id="v000005" type="car" route="E_W" depart="45.672" departLane="0" departSpeed="max" />
+  <vehicle id="v000006" type="car" route="E_S" depart="78.21" departLane="0" departSpeed="max" />
+  <vehicle id="v000007" type="car" route="S_W" depart="90.603" departLane="0" departSpeed="max" />
+  <vehicle id="v000008" type="car" route="S_E" depart="93.191" departLane="0" departSpeed="max" />
+  <vehicle id="v000009" type="car" route="S_E" depart="95.372" departLane="0" departSpeed="max" />
+  <vehicle id="v000010" type="car" route="S_W" depart="99.224" departLane="0" departSpeed="max" />
+  <vehicle id="v000011" type="car" route="E_S" depart="124.206" departLane="0" departSpeed="max" />
+  <vehicle id="v000012" type="car" route="W_S" depart="131.908" departLane="0" departSpeed="max" />
+  <vehicle id="v000013" type="car" route="S_W" depart="138.817" departLane="0" departSpeed="max" />
+  <vehicle id="v000014" type="car" route="W_S" depart="147.304" departLane="0" departSpeed="max" />
+  <vehicle id="v000015" type="car" route="S_E" depart="154.921" departLane="0" departSpeed="max" />
+  <vehicle id="v000016" type="car" route="S_W" depart="167.584" departLane="0" departSpeed="max" />
+  <vehicle id="v000017" type="car" route="W_E" depart="170.207" departLane="0" departSpeed="max" />
+  <vehicle id="v000018" type="car" route="W_S" depart="216.693" departLane="0" departSpeed="max" />
+  <vehicle id="v000019" type="car" route="E_W" depart="253.744" departLane="0" departSpeed="max" />
+  <vehicle id="v000020" type="car" route="E_S" depart="257.58" departLane="0" departSpeed="max" />
+  <vehicle id="v000021" type="car" route="S_W" depart="277.088" departLane="0" departSpeed="max" />
+  <vehicle id="v000022" type="car" route="S_E" depart="286.412" departLane="0" departSpeed="max" />
+  <vehicle id="v000023" type="car" route="S_W" depart="346.652" departLane="0" departSpeed="max" />
+  <vehicle id="v000024" type="car" route="W_E" depart="350.248" departLane="0" departSpeed="max" />
+  <vehicle id="v000025" type="car" route="S_E" depart="360.866" departLane="0" departSpeed="max" />
+  <vehicle id="v000026" type="car" route="S_W" depart="400.5" departLane="0" departSpeed="max" />
+  <vehicle id="v000027" type="car" route="W_E" depart="433.14" departLane="0" departSpeed="max" />
+  <vehicle id="v000028" type="car" route="S_E" depart="438.476" departLane="0" departSpeed="max" />
+  <vehicle id="v000029" type="car" route="S_E" depart="462.852" departLane="0" departSpeed="max" />
+  <vehicle id="v000030" type="car" route="W_S" depart="467.111" departLane="0" departSpeed="max" />
+  <vehicle id="v000031" type="car" route="E_S" depart="469.835" departLane="0" departSpeed="max" />
+  <vehicle id="v000032" type="car" route="W_E" depart="493.784" departLane="0" departSpeed="max" />
+  <vehicle id="v000033" type="car" route="S_E" depart="533.801" departLane="0" departSpeed="max" />
+  <vehicle id="v000034" type="car" route="E_S" depart="574.117" departLane="0" departSpeed="max" />
+  <vehicle id="v000035" type="car" route="S_E" depart="593.029" departLane="0" departSpeed="max" />
+  <vehicle id="v000036" type="car" route="E_W" depart="594.374" departLane="0" departSpeed="max" />
+</routes>

@@ -1,0 +1,20 @@
+{
+  "episode": 79,
+  "global_step": 9600,
+  "updates": 9473,
+  "training_mode": "revision",
+  "horizon_seconds": 600,
+  "double_dqn": false,
+  "reward_mode": "composite",
+  "versions": {
+    "python": "3.12.10",
+    "sumo": "Eclipse SUMO sumo 1.28.0",
+    "torch": "2.15.0+cpu",
+    "cuda_available": false,
+    "gpu": null
+  },
+  "created_utc": "2026-11-03T05:17:52.305848+00:00",
+  "selection_metric": "validation mean cohort_delay_s (waiting + insertion delay per scheduled vehicle)",
+  "performance_claim": "No improvement guarantee; inspect held-out evaluation",
+  "artifact_role": "last_episode"
+}

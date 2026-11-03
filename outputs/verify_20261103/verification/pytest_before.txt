@@ -1,0 +1,602 @@
+EEEEEEEEEEEEEEEEEEEEEEEEEE                                               [100%]
+=================================== ERRORS ====================================
+____________ ERROR at setup of test_network_update_and_target_sync ____________
+
+    @pytest.fixture(scope="session", autouse=True)
+    def map_ready():
+>       generate()
+
+tests\conftest.py:21: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+maps\generate_map.py:60: in generate
+    result.check_returncode()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = CompletedProcess(args=['C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\.venv\\Lib\\site-packages\\sumo\\b...Junction_RL\\maps\\tmpr0v33mcd\\t_junction.net.xml'], returncode=1, stdout='', stderr='Quitting (on unknown error).\n')
+
+    def check_returncode(self):
+        """Raise CalledProcessError if the exit code is non-zero."""
+        if self.returncode:
+>           raise CalledProcessError(self.returncode, self.args, self.stdout,
+                                     self.stderr)
+E           subprocess.CalledProcessError: Command '['C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\.venv\\Lib\\site-packages\\sumo\\bin\\netconvert.exe', '--node-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.nod.xml', '--edge-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.edg.xml', '--connection-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.con.xml', '--no-turnarounds', 'true', '--offset.disable-normalization', 'true', '--output-file', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\tmpr0v33mcd\\t_junction.net.xml']' returned non-zero exit status 1.
+
+..\..\..\..\..\AppData\Local\Programs\Python\Python312\Lib\subprocess.py:502: CalledProcessError
+_______ ERROR at setup of test_target_mask_excludes_unavailable_high_q ________
+
+    @pytest.fixture(scope="session", autouse=True)
+    def map_ready():
+>       generate()
+
+tests\conftest.py:21: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+maps\generate_map.py:60: in generate
+    result.check_returncode()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = CompletedProcess(args=['C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\.venv\\Lib\\site-packages\\sumo\\b...Junction_RL\\maps\\tmpr0v33mcd\\t_junction.net.xml'], returncode=1, stdout='', stderr='Quitting (on unknown error).\n')
+
+    def check_returncode(self):
+        """Raise CalledProcessError if the exit code is non-zero."""
+        if self.returncode:
+>           raise CalledProcessError(self.returncode, self.args, self.stdout,
+                                     self.stderr)
+E           subprocess.CalledProcessError: Command '['C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\.venv\\Lib\\site-packages\\sumo\\bin\\netconvert.exe', '--node-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.nod.xml', '--edge-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.edg.xml', '--connection-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.con.xml', '--no-turnarounds', 'true', '--offset.disable-normalization', 'true', '--output-file', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\tmpr0v33mcd\\t_junction.net.xml']' returned non-zero exit status 1.
+
+..\..\..\..\..\AppData\Local\Programs\Python\Python312\Lib\subprocess.py:502: CalledProcessError
+_ ERROR at setup of test_checkpoint_restores_buffer_rng_optimizer_and_next_update _
+
+    @pytest.fixture(scope="session", autouse=True)
+    def map_ready():
+>       generate()
+
+tests\conftest.py:21: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+maps\generate_map.py:60: in generate
+    result.check_returncode()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = CompletedProcess(args=['C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\.venv\\Lib\\site-packages\\sumo\\b...Junction_RL\\maps\\tmpr0v33mcd\\t_junction.net.xml'], returncode=1, stdout='', stderr='Quitting (on unknown error).\n')
+
+    def check_returncode(self):
+        """Raise CalledProcessError if the exit code is non-zero."""
+        if self.returncode:
+>           raise CalledProcessError(self.returncode, self.args, self.stdout,
+                                     self.stderr)
+E           subprocess.CalledProcessError: Command '['C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\.venv\\Lib\\site-packages\\sumo\\bin\\netconvert.exe', '--node-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.nod.xml', '--edge-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.edg.xml', '--connection-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.con.xml', '--no-turnarounds', 'true', '--offset.disable-normalization', 'true', '--output-file', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\tmpr0v33mcd\\t_junction.net.xml']' returned non-zero exit status 1.
+
+..\..\..\..\..\AppData\Local\Programs\Python\Python312\Lib\subprocess.py:502: CalledProcessError
+_ ERROR at setup of test_all_six_movements_depart_and_arrive_without_collision _
+
+    @pytest.fixture(scope="session", autouse=True)
+    def map_ready():
+>       generate()
+
+tests\conftest.py:21: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+maps\generate_map.py:60: in generate
+    result.check_returncode()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = CompletedProcess(args=['C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\.venv\\Lib\\site-packages\\sumo\\b...Junction_RL\\maps\\tmpr0v33mcd\\t_junction.net.xml'], returncode=1, stdout='', stderr='Quitting (on unknown error).\n')
+
+    def check_returncode(self):
+        """Raise CalledProcessError if the exit code is non-zero."""
+        if self.returncode:
+>           raise CalledProcessError(self.returncode, self.args, self.stdout,
+                                     self.stderr)
+E           subprocess.CalledProcessError: Command '['C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\.venv\\Lib\\site-packages\\sumo\\bin\\netconvert.exe', '--node-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.nod.xml', '--edge-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.edg.xml', '--connection-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.con.xml', '--no-turnarounds', 'true', '--offset.disable-normalization', 'true', '--output-file', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\tmpr0v33mcd\\t_junction.net.xml']' returned non-zero exit status 1.
+
+..\..\..\..\..\AppData\Local\Programs\Python\Python312\Lib\subprocess.py:502: CalledProcessError
+_______ ERROR at setup of test_gym_shape_truncation_and_invalid_action ________
+
+    @pytest.fixture(scope="session", autouse=True)
+    def map_ready():
+>       generate()
+
+tests\conftest.py:21: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+maps\generate_map.py:60: in generate
+    result.check_returncode()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = CompletedProcess(args=['C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\.venv\\Lib\\site-packages\\sumo\\b...Junction_RL\\maps\\tmpr0v33mcd\\t_junction.net.xml'], returncode=1, stdout='', stderr='Quitting (on unknown error).\n')
+
+    def check_returncode(self):
+        """Raise CalledProcessError if the exit code is non-zero."""
+        if self.returncode:
+>           raise CalledProcessError(self.returncode, self.args, self.stdout,
+                                     self.stderr)
+E           subprocess.CalledProcessError: Command '['C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\.venv\\Lib\\site-packages\\sumo\\bin\\netconvert.exe', '--node-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.nod.xml', '--edge-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.edg.xml', '--connection-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.con.xml', '--no-turnarounds', 'true', '--offset.disable-normalization', 'true', '--output-file', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\tmpr0v33mcd\\t_junction.net.xml']' returned non-zero exit status 1.
+
+..\..\..\..\..\AppData\Local\Programs\Python\Python312\Lib\subprocess.py:502: CalledProcessError
+___ ERROR at setup of test_fixed_time_preserves_exact_twenty_second_greens ____
+
+    @pytest.fixture(scope="session", autouse=True)
+    def map_ready():
+>       generate()
+
+tests\conftest.py:21: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+maps\generate_map.py:60: in generate
+    result.check_returncode()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = CompletedProcess(args=['C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\.venv\\Lib\\site-packages\\sumo\\b...Junction_RL\\maps\\tmpr0v33mcd\\t_junction.net.xml'], returncode=1, stdout='', stderr='Quitting (on unknown error).\n')
+
+    def check_returncode(self):
+        """Raise CalledProcessError if the exit code is non-zero."""
+        if self.returncode:
+>           raise CalledProcessError(self.returncode, self.args, self.stdout,
+                                     self.stderr)
+E           subprocess.CalledProcessError: Command '['C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\.venv\\Lib\\site-packages\\sumo\\bin\\netconvert.exe', '--node-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.nod.xml', '--edge-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.edg.xml', '--connection-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.con.xml', '--no-turnarounds', 'true', '--offset.disable-normalization', 'true', '--output-file', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\tmpr0v33mcd\\t_junction.net.xml']' returned non-zero exit status 1.
+
+..\..\..\..\..\AppData\Local\Programs\Python\Python312\Lib\subprocess.py:502: CalledProcessError
+____________ ERROR at setup of test_export_cpu_inference_and_mask _____________
+
+    @pytest.fixture(scope="session", autouse=True)
+    def map_ready():
+>       generate()
+
+tests\conftest.py:21: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+maps\generate_map.py:60: in generate
+    result.check_returncode()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = CompletedProcess(args=['C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\.venv\\Lib\\site-packages\\sumo\\b...Junction_RL\\maps\\tmpr0v33mcd\\t_junction.net.xml'], returncode=1, stdout='', stderr='Quitting (on unknown error).\n')
+
+    def check_returncode(self):
+        """Raise CalledProcessError if the exit code is non-zero."""
+        if self.returncode:
+>           raise CalledProcessError(self.returncode, self.args, self.stdout,
+                                     self.stderr)
+E           subprocess.CalledProcessError: Command '['C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\.venv\\Lib\\site-packages\\sumo\\bin\\netconvert.exe', '--node-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.nod.xml', '--edge-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.edg.xml', '--connection-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.con.xml', '--no-turnarounds', 'true', '--offset.disable-normalization', 'true', '--output-file', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\tmpr0v33mcd\\t_junction.net.xml']' returned non-zero exit status 1.
+
+..\..\..\..\..\AppData\Local\Programs\Python\Python312\Lib\subprocess.py:502: CalledProcessError
+____ ERROR at setup of test_state_shape_range_and_reject_missing_nonfinite ____
+
+    @pytest.fixture(scope="session", autouse=True)
+    def map_ready():
+>       generate()
+
+tests\conftest.py:21: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+maps\generate_map.py:60: in generate
+    result.check_returncode()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = CompletedProcess(args=['C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\.venv\\Lib\\site-packages\\sumo\\b...Junction_RL\\maps\\tmpr0v33mcd\\t_junction.net.xml'], returncode=1, stdout='', stderr='Quitting (on unknown error).\n')
+
+    def check_returncode(self):
+        """Raise CalledProcessError if the exit code is non-zero."""
+        if self.returncode:
+>           raise CalledProcessError(self.returncode, self.args, self.stdout,
+                                     self.stderr)
+E           subprocess.CalledProcessError: Command '['C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\.venv\\Lib\\site-packages\\sumo\\bin\\netconvert.exe', '--node-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.nod.xml', '--edge-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.edg.xml', '--connection-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.con.xml', '--no-turnarounds', 'true', '--offset.disable-normalization', 'true', '--output-file', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\tmpr0v33mcd\\t_junction.net.xml']' returned non-zero exit status 1.
+
+..\..\..\..\..\AppData\Local\Programs\Python\Python312\Lib\subprocess.py:502: CalledProcessError
+_____________ ERROR at setup of test_three_approaches_and_six_od ______________
+
+    @pytest.fixture(scope="session", autouse=True)
+    def map_ready():
+>       generate()
+
+tests\conftest.py:21: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+maps\generate_map.py:60: in generate
+    result.check_returncode()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = CompletedProcess(args=['C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\.venv\\Lib\\site-packages\\sumo\\b...Junction_RL\\maps\\tmpr0v33mcd\\t_junction.net.xml'], returncode=1, stdout='', stderr='Quitting (on unknown error).\n')
+
+    def check_returncode(self):
+        """Raise CalledProcessError if the exit code is non-zero."""
+        if self.returncode:
+>           raise CalledProcessError(self.returncode, self.args, self.stdout,
+                                     self.stderr)
+E           subprocess.CalledProcessError: Command '['C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\.venv\\Lib\\site-packages\\sumo\\bin\\netconvert.exe', '--node-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.nod.xml', '--edge-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.edg.xml', '--connection-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.con.xml', '--no-turnarounds', 'true', '--offset.disable-normalization', 'true', '--output-file', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\tmpr0v33mcd\\t_junction.net.xml']' returned non-zero exit status 1.
+
+..\..\..\..\..\AppData\Local\Programs\Python\Python312\Lib\subprocess.py:502: CalledProcessError
+________ ERROR at setup of test_paired_comparison_and_zero_denominator ________
+
+    @pytest.fixture(scope="session", autouse=True)
+    def map_ready():
+>       generate()
+
+tests\conftest.py:21: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+maps\generate_map.py:60: in generate
+    result.check_returncode()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = CompletedProcess(args=['C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\.venv\\Lib\\site-packages\\sumo\\b...Junction_RL\\maps\\tmpr0v33mcd\\t_junction.net.xml'], returncode=1, stdout='', stderr='Quitting (on unknown error).\n')
+
+    def check_returncode(self):
+        """Raise CalledProcessError if the exit code is non-zero."""
+        if self.returncode:
+>           raise CalledProcessError(self.returncode, self.args, self.stdout,
+                                     self.stderr)
+E           subprocess.CalledProcessError: Command '['C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\.venv\\Lib\\site-packages\\sumo\\bin\\netconvert.exe', '--node-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.nod.xml', '--edge-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.edg.xml', '--connection-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.con.xml', '--no-turnarounds', 'true', '--offset.disable-normalization', 'true', '--output-file', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\tmpr0v33mcd\\t_junction.net.xml']' returned non-zero exit status 1.
+
+..\..\..\..\..\AppData\Local\Programs\Python\Python312\Lib\subprocess.py:502: CalledProcessError
+______ ERROR at setup of test_uninserted_vehicles_increase_cohort_delay _______
+
+    @pytest.fixture(scope="session", autouse=True)
+    def map_ready():
+>       generate()
+
+tests\conftest.py:21: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+maps\generate_map.py:60: in generate
+    result.check_returncode()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = CompletedProcess(args=['C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\.venv\\Lib\\site-packages\\sumo\\b...Junction_RL\\maps\\tmpr0v33mcd\\t_junction.net.xml'], returncode=1, stdout='', stderr='Quitting (on unknown error).\n')
+
+    def check_returncode(self):
+        """Raise CalledProcessError if the exit code is non-zero."""
+        if self.returncode:
+>           raise CalledProcessError(self.returncode, self.args, self.stdout,
+                                     self.stderr)
+E           subprocess.CalledProcessError: Command '['C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\.venv\\Lib\\site-packages\\sumo\\bin\\netconvert.exe', '--node-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.nod.xml', '--edge-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.edg.xml', '--connection-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.con.xml', '--no-turnarounds', 'true', '--offset.disable-normalization', 'true', '--output-file', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\tmpr0v33mcd\\t_junction.net.xml']' returned non-zero exit status 1.
+
+..\..\..\..\..\AppData\Local\Programs\Python\Python312\Lib\subprocess.py:502: CalledProcessError
+_ ERROR at setup of test_uninserted_tripinfo_does_not_double_count_departure_delay _
+
+    @pytest.fixture(scope="session", autouse=True)
+    def map_ready():
+>       generate()
+
+tests\conftest.py:21: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+maps\generate_map.py:60: in generate
+    result.check_returncode()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = CompletedProcess(args=['C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\.venv\\Lib\\site-packages\\sumo\\b...Junction_RL\\maps\\tmpr0v33mcd\\t_junction.net.xml'], returncode=1, stdout='', stderr='Quitting (on unknown error).\n')
+
+    def check_returncode(self):
+        """Raise CalledProcessError if the exit code is non-zero."""
+        if self.returncode:
+>           raise CalledProcessError(self.returncode, self.args, self.stdout,
+                                     self.stderr)
+E           subprocess.CalledProcessError: Command '['C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\.venv\\Lib\\site-packages\\sumo\\bin\\netconvert.exe', '--node-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.nod.xml', '--edge-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.edg.xml', '--connection-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.con.xml', '--no-turnarounds', 'true', '--offset.disable-normalization', 'true', '--output-file', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\tmpr0v33mcd\\t_junction.net.xml']' returned non-zero exit status 1.
+
+..\..\..\..\..\AppData\Local\Programs\Python\Python312\Lib\subprocess.py:502: CalledProcessError
+______ ERROR at setup of test_same_route_and_sumo_seed_reproduce_metrics ______
+
+    @pytest.fixture(scope="session", autouse=True)
+    def map_ready():
+>       generate()
+
+tests\conftest.py:21: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+maps\generate_map.py:60: in generate
+    result.check_returncode()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = CompletedProcess(args=['C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\.venv\\Lib\\site-packages\\sumo\\b...Junction_RL\\maps\\tmpr0v33mcd\\t_junction.net.xml'], returncode=1, stdout='', stderr='Quitting (on unknown error).\n')
+
+    def check_returncode(self):
+        """Raise CalledProcessError if the exit code is non-zero."""
+        if self.returncode:
+>           raise CalledProcessError(self.returncode, self.args, self.stdout,
+                                     self.stderr)
+E           subprocess.CalledProcessError: Command '['C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\.venv\\Lib\\site-packages\\sumo\\bin\\netconvert.exe', '--node-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.nod.xml', '--edge-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.edg.xml', '--connection-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.con.xml', '--no-turnarounds', 'true', '--offset.disable-normalization', 'true', '--output-file', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\tmpr0v33mcd\\t_junction.net.xml']' returned non-zero exit status 1.
+
+..\..\..\..\..\AppData\Local\Programs\Python\Python312\Lib\subprocess.py:502: CalledProcessError
+___ ERROR at setup of test_schema_v2_distinguishes_queues_and_loads_policy ____
+
+    @pytest.fixture(scope="session", autouse=True)
+    def map_ready():
+>       generate()
+
+tests\conftest.py:21: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+maps\generate_map.py:60: in generate
+    result.check_returncode()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = CompletedProcess(args=['C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\.venv\\Lib\\site-packages\\sumo\\b...Junction_RL\\maps\\tmpr0v33mcd\\t_junction.net.xml'], returncode=1, stdout='', stderr='Quitting (on unknown error).\n')
+
+    def check_returncode(self):
+        """Raise CalledProcessError if the exit code is non-zero."""
+        if self.returncode:
+>           raise CalledProcessError(self.returncode, self.args, self.stdout,
+                                     self.stderr)
+E           subprocess.CalledProcessError: Command '['C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\.venv\\Lib\\site-packages\\sumo\\bin\\netconvert.exe', '--node-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.nod.xml', '--edge-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.edg.xml', '--connection-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.con.xml', '--no-turnarounds', 'true', '--offset.disable-normalization', 'true', '--output-file', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\tmpr0v33mcd\\t_junction.net.xml']' returned non-zero exit status 1.
+
+..\..\..\..\..\AppData\Local\Programs\Python\Python312\Lib\subprocess.py:502: CalledProcessError
+_ ERROR at setup of test_pending_is_observed_and_penalized_without_future_leak _
+
+    @pytest.fixture(scope="session", autouse=True)
+    def map_ready():
+>       generate()
+
+tests\conftest.py:21: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+maps\generate_map.py:60: in generate
+    result.check_returncode()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = CompletedProcess(args=['C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\.venv\\Lib\\site-packages\\sumo\\b...Junction_RL\\maps\\tmpr0v33mcd\\t_junction.net.xml'], returncode=1, stdout='', stderr='Quitting (on unknown error).\n')
+
+    def check_returncode(self):
+        """Raise CalledProcessError if the exit code is non-zero."""
+        if self.returncode:
+>           raise CalledProcessError(self.returncode, self.args, self.stdout,
+                                     self.stderr)
+E           subprocess.CalledProcessError: Command '['C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\.venv\\Lib\\site-packages\\sumo\\bin\\netconvert.exe', '--node-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.nod.xml', '--edge-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.edg.xml', '--connection-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.con.xml', '--no-turnarounds', 'true', '--offset.disable-normalization', 'true', '--output-file', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\tmpr0v33mcd\\t_junction.net.xml']' returned non-zero exit status 1.
+
+..\..\..\..\..\AppData\Local\Programs\Python\Python312\Lib\subprocess.py:502: CalledProcessError
+_________ ERROR at setup of test_active_internal_and_long_wait_costs __________
+
+    @pytest.fixture(scope="session", autouse=True)
+    def map_ready():
+>       generate()
+
+tests\conftest.py:21: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+maps\generate_map.py:60: in generate
+    result.check_returncode()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = CompletedProcess(args=['C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\.venv\\Lib\\site-packages\\sumo\\b...Junction_RL\\maps\\tmpr0v33mcd\\t_junction.net.xml'], returncode=1, stdout='', stderr='Quitting (on unknown error).\n')
+
+    def check_returncode(self):
+        """Raise CalledProcessError if the exit code is non-zero."""
+        if self.returncode:
+>           raise CalledProcessError(self.returncode, self.args, self.stdout,
+                                     self.stderr)
+E           subprocess.CalledProcessError: Command '['C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\.venv\\Lib\\site-packages\\sumo\\bin\\netconvert.exe', '--node-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.nod.xml', '--edge-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.edg.xml', '--connection-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.con.xml', '--no-turnarounds', 'true', '--offset.disable-normalization', 'true', '--output-file', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\tmpr0v33mcd\\t_junction.net.xml']' returned non-zero exit status 1.
+
+..\..\..\..\..\AppData\Local\Programs\Python\Python312\Lib\subprocess.py:502: CalledProcessError
+_ ERROR at setup of test_truncation_bootstraps_but_true_termination_does_not __
+
+    @pytest.fixture(scope="session", autouse=True)
+    def map_ready():
+>       generate()
+
+tests\conftest.py:21: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+maps\generate_map.py:60: in generate
+    result.check_returncode()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = CompletedProcess(args=['C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\.venv\\Lib\\site-packages\\sumo\\b...Junction_RL\\maps\\tmpr0v33mcd\\t_junction.net.xml'], returncode=1, stdout='', stderr='Quitting (on unknown error).\n')
+
+    def check_returncode(self):
+        """Raise CalledProcessError if the exit code is non-zero."""
+        if self.returncode:
+>           raise CalledProcessError(self.returncode, self.args, self.stdout,
+                                     self.stderr)
+E           subprocess.CalledProcessError: Command '['C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\.venv\\Lib\\site-packages\\sumo\\bin\\netconvert.exe', '--node-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.nod.xml', '--edge-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.edg.xml', '--connection-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.con.xml', '--no-turnarounds', 'true', '--offset.disable-normalization', 'true', '--output-file', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\tmpr0v33mcd\\t_junction.net.xml']' returned non-zero exit status 1.
+
+..\..\..\..\..\AppData\Local\Programs\Python\Python312\Lib\subprocess.py:502: CalledProcessError
+____ ERROR at setup of test_stopped_vehicle_inside_junction_activates_cost ____
+
+    @pytest.fixture(scope="session", autouse=True)
+    def map_ready():
+>       generate()
+
+tests\conftest.py:21: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+maps\generate_map.py:60: in generate
+    result.check_returncode()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = CompletedProcess(args=['C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\.venv\\Lib\\site-packages\\sumo\\b...Junction_RL\\maps\\tmpr0v33mcd\\t_junction.net.xml'], returncode=1, stdout='', stderr='Quitting (on unknown error).\n')
+
+    def check_returncode(self):
+        """Raise CalledProcessError if the exit code is non-zero."""
+        if self.returncode:
+>           raise CalledProcessError(self.returncode, self.args, self.stdout,
+                                     self.stderr)
+E           subprocess.CalledProcessError: Command '['C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\.venv\\Lib\\site-packages\\sumo\\bin\\netconvert.exe', '--node-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.nod.xml', '--edge-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.edg.xml', '--connection-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.con.xml', '--no-turnarounds', 'true', '--offset.disable-normalization', 'true', '--output-file', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\tmpr0v33mcd\\t_junction.net.xml']' returned non-zero exit status 1.
+
+..\..\..\..\..\AppData\Local\Programs\Python\Python312\Lib\subprocess.py:502: CalledProcessError
+____ ERROR at setup of test_incremental_waiting_is_not_lifetime_recounted _____
+
+    @pytest.fixture(scope="session", autouse=True)
+    def map_ready():
+>       generate()
+
+tests\conftest.py:21: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+maps\generate_map.py:60: in generate
+    result.check_returncode()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = CompletedProcess(args=['C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\.venv\\Lib\\site-packages\\sumo\\b...Junction_RL\\maps\\tmpr0v33mcd\\t_junction.net.xml'], returncode=1, stdout='', stderr='Quitting (on unknown error).\n')
+
+    def check_returncode(self):
+        """Raise CalledProcessError if the exit code is non-zero."""
+        if self.returncode:
+>           raise CalledProcessError(self.returncode, self.args, self.stdout,
+                                     self.stderr)
+E           subprocess.CalledProcessError: Command '['C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\.venv\\Lib\\site-packages\\sumo\\bin\\netconvert.exe', '--node-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.nod.xml', '--edge-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.edg.xml', '--connection-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.con.xml', '--no-turnarounds', 'true', '--offset.disable-normalization', 'true', '--output-file', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\tmpr0v33mcd\\t_junction.net.xml']' returned non-zero exit status 1.
+
+..\..\..\..\..\AppData\Local\Programs\Python\Python312\Lib\subprocess.py:502: CalledProcessError
+___________ ERROR at setup of test_simple_reward_and_switch_penalty ___________
+
+    @pytest.fixture(scope="session", autouse=True)
+    def map_ready():
+>       generate()
+
+tests\conftest.py:21: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+maps\generate_map.py:60: in generate
+    result.check_returncode()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = CompletedProcess(args=['C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\.venv\\Lib\\site-packages\\sumo\\b...Junction_RL\\maps\\tmpr0v33mcd\\t_junction.net.xml'], returncode=1, stdout='', stderr='Quitting (on unknown error).\n')
+
+    def check_returncode(self):
+        """Raise CalledProcessError if the exit code is non-zero."""
+        if self.returncode:
+>           raise CalledProcessError(self.returncode, self.args, self.stdout,
+                                     self.stderr)
+E           subprocess.CalledProcessError: Command '['C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\.venv\\Lib\\site-packages\\sumo\\bin\\netconvert.exe', '--node-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.nod.xml', '--edge-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.edg.xml', '--connection-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.con.xml', '--no-turnarounds', 'true', '--offset.disable-normalization', 'true', '--output-file', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\tmpr0v33mcd\\t_junction.net.xml']' returned non-zero exit status 1.
+
+..\..\..\..\..\AppData\Local\Programs\Python\Python312\Lib\subprocess.py:502: CalledProcessError
+________ ERROR at setup of test_route_contents_and_reproducible_bytes _________
+
+    @pytest.fixture(scope="session", autouse=True)
+    def map_ready():
+>       generate()
+
+tests\conftest.py:21: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+maps\generate_map.py:60: in generate
+    result.check_returncode()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = CompletedProcess(args=['C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\.venv\\Lib\\site-packages\\sumo\\b...Junction_RL\\maps\\tmpr0v33mcd\\t_junction.net.xml'], returncode=1, stdout='', stderr='Quitting (on unknown error).\n')
+
+    def check_returncode(self):
+        """Raise CalledProcessError if the exit code is non-zero."""
+        if self.returncode:
+>           raise CalledProcessError(self.returncode, self.args, self.stdout,
+                                     self.stderr)
+E           subprocess.CalledProcessError: Command '['C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\.venv\\Lib\\site-packages\\sumo\\bin\\netconvert.exe', '--node-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.nod.xml', '--edge-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.edg.xml', '--connection-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.con.xml', '--no-turnarounds', 'true', '--offset.disable-normalization', 'true', '--output-file', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\tmpr0v33mcd\\t_junction.net.xml']' returned non-zero exit status 1.
+
+..\..\..\..\..\AppData\Local\Programs\Python\Python312\Lib\subprocess.py:502: CalledProcessError
+_______ ERROR at setup of test_split_separation_and_unseen_restriction ________
+
+    @pytest.fixture(scope="session", autouse=True)
+    def map_ready():
+>       generate()
+
+tests\conftest.py:21: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+maps\generate_map.py:60: in generate
+    result.check_returncode()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = CompletedProcess(args=['C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\.venv\\Lib\\site-packages\\sumo\\b...Junction_RL\\maps\\tmpr0v33mcd\\t_junction.net.xml'], returncode=1, stdout='', stderr='Quitting (on unknown error).\n')
+
+    def check_returncode(self):
+        """Raise CalledProcessError if the exit code is non-zero."""
+        if self.returncode:
+>           raise CalledProcessError(self.returncode, self.args, self.stdout,
+                                     self.stderr)
+E           subprocess.CalledProcessError: Command '['C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\.venv\\Lib\\site-packages\\sumo\\bin\\netconvert.exe', '--node-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.nod.xml', '--edge-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.edg.xml', '--connection-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.con.xml', '--no-turnarounds', 'true', '--offset.disable-normalization', 'true', '--output-file', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\tmpr0v33mcd\\t_junction.net.xml']' returned non-zero exit status 1.
+
+..\..\..\..\..\AppData\Local\Programs\Python\Python312\Lib\subprocess.py:502: CalledProcessError
+___________ ERROR at setup of test_minimum_green_and_invalid_action ___________
+
+    @pytest.fixture(scope="session", autouse=True)
+    def map_ready():
+>       generate()
+
+tests\conftest.py:21: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+maps\generate_map.py:60: in generate
+    result.check_returncode()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = CompletedProcess(args=['C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\.venv\\Lib\\site-packages\\sumo\\b...Junction_RL\\maps\\tmpr0v33mcd\\t_junction.net.xml'], returncode=1, stdout='', stderr='Quitting (on unknown error).\n')
+
+    def check_returncode(self):
+        """Raise CalledProcessError if the exit code is non-zero."""
+        if self.returncode:
+>           raise CalledProcessError(self.returncode, self.args, self.stdout,
+                                     self.stderr)
+E           subprocess.CalledProcessError: Command '['C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\.venv\\Lib\\site-packages\\sumo\\bin\\netconvert.exe', '--node-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.nod.xml', '--edge-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.edg.xml', '--connection-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.con.xml', '--no-turnarounds', 'true', '--offset.disable-normalization', 'true', '--output-file', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\tmpr0v33mcd\\t_junction.net.xml']' returned non-zero exit status 1.
+
+..\..\..\..\..\AppData\Local\Programs\Python\Python312\Lib\subprocess.py:502: CalledProcessError
+_________ ERROR at setup of test_exact_yellow_all_red_and_next_green __________
+
+    @pytest.fixture(scope="session", autouse=True)
+    def map_ready():
+>       generate()
+
+tests\conftest.py:21: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+maps\generate_map.py:60: in generate
+    result.check_returncode()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = CompletedProcess(args=['C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\.venv\\Lib\\site-packages\\sumo\\b...Junction_RL\\maps\\tmpr0v33mcd\\t_junction.net.xml'], returncode=1, stdout='', stderr='Quitting (on unknown error).\n')
+
+    def check_returncode(self):
+        """Raise CalledProcessError if the exit code is non-zero."""
+        if self.returncode:
+>           raise CalledProcessError(self.returncode, self.args, self.stdout,
+                                     self.stderr)
+E           subprocess.CalledProcessError: Command '['C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\.venv\\Lib\\site-packages\\sumo\\bin\\netconvert.exe', '--node-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.nod.xml', '--edge-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.edg.xml', '--connection-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.con.xml', '--no-turnarounds', 'true', '--offset.disable-normalization', 'true', '--output-file', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\tmpr0v33mcd\\t_junction.net.xml']' returned non-zero exit status 1.
+
+..\..\..\..\..\AppData\Local\Programs\Python\Python312\Lib\subprocess.py:502: CalledProcessError
+_____ ERROR at setup of test_maximum_green_forces_switch_inside_decision ______
+
+    @pytest.fixture(scope="session", autouse=True)
+    def map_ready():
+>       generate()
+
+tests\conftest.py:21: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+maps\generate_map.py:60: in generate
+    result.check_returncode()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = CompletedProcess(args=['C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\.venv\\Lib\\site-packages\\sumo\\b...Junction_RL\\maps\\tmpr0v33mcd\\t_junction.net.xml'], returncode=1, stdout='', stderr='Quitting (on unknown error).\n')
+
+    def check_returncode(self):
+        """Raise CalledProcessError if the exit code is non-zero."""
+        if self.returncode:
+>           raise CalledProcessError(self.returncode, self.args, self.stdout,
+                                     self.stderr)
+E           subprocess.CalledProcessError: Command '['C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\.venv\\Lib\\site-packages\\sumo\\bin\\netconvert.exe', '--node-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.nod.xml', '--edge-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.edg.xml', '--connection-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.con.xml', '--no-turnarounds', 'true', '--offset.disable-normalization', 'true', '--output-file', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\tmpr0v33mcd\\t_junction.net.xml']' returned non-zero exit status 1.
+
+..\..\..\..\..\AppData\Local\Programs\Python\Python312\Lib\subprocess.py:502: CalledProcessError
+_______ ERROR at setup of test_no_conflicting_origins_and_cyclic_order ________
+
+    @pytest.fixture(scope="session", autouse=True)
+    def map_ready():
+>       generate()
+
+tests\conftest.py:21: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+maps\generate_map.py:60: in generate
+    result.check_returncode()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = CompletedProcess(args=['C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\.venv\\Lib\\site-packages\\sumo\\b...Junction_RL\\maps\\tmpr0v33mcd\\t_junction.net.xml'], returncode=1, stdout='', stderr='Quitting (on unknown error).\n')
+
+    def check_returncode(self):
+        """Raise CalledProcessError if the exit code is non-zero."""
+        if self.returncode:
+>           raise CalledProcessError(self.returncode, self.args, self.stdout,
+                                     self.stderr)
+E           subprocess.CalledProcessError: Command '['C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\.venv\\Lib\\site-packages\\sumo\\bin\\netconvert.exe', '--node-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.nod.xml', '--edge-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.edg.xml', '--connection-files', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\t_junction.con.xml', '--no-turnarounds', 'true', '--offset.disable-normalization', 'true', '--output-file', 'C:\\Users\\admin1\\Documents\\ChatGPT\\강화학습\\work_20261103\\T_Junction_RL\\maps\\tmpr0v33mcd\\t_junction.net.xml']' returned non-zero exit status 1.
+
+..\..\..\..\..\AppData\Local\Programs\Python\Python312\Lib\subprocess.py:502: CalledProcessError
+=========================== short test summary info ===========================
+ERROR tests/test_dqn.py::test_network_update_and_target_sync - subprocess.Cal...
+ERROR tests/test_dqn.py::test_target_mask_excludes_unavailable_high_q - subpr...
+ERROR tests/test_dqn.py::test_checkpoint_restores_buffer_rng_optimizer_and_next_update
+ERROR tests/test_environment.py::test_all_six_movements_depart_and_arrive_without_collision
+ERROR tests/test_environment.py::test_gym_shape_truncation_and_invalid_action
+ERROR tests/test_environment.py::test_fixed_time_preserves_exact_twenty_second_greens
+ERROR tests/test_inference.py::test_export_cpu_inference_and_mask - subproces...
+ERROR tests/test_inference.py::test_state_shape_range_and_reject_missing_nonfinite
+ERROR tests/test_map.py::test_three_approaches_and_six_od - subprocess.Called...
+ERROR tests/test_metrics.py::test_paired_comparison_and_zero_denominator - su...
+ERROR tests/test_metrics.py::test_uninserted_vehicles_increase_cohort_delay
+ERROR tests/test_metrics.py::test_uninserted_tripinfo_does_not_double_count_departure_delay
+ERROR tests/test_reproducibility.py::test_same_route_and_sumo_seed_reproduce_metrics
+ERROR tests/test_revision.py::test_schema_v2_distinguishes_queues_and_loads_policy
+ERROR tests/test_revision.py::test_pending_is_observed_and_penalized_without_future_leak
+ERROR tests/test_revision.py::test_active_internal_and_long_wait_costs - subp...
+ERROR tests/test_revision.py::test_truncation_bootstraps_but_true_termination_does_not
+ERROR tests/test_revision.py::test_stopped_vehicle_inside_junction_activates_cost
+ERROR tests/test_reward.py::test_incremental_waiting_is_not_lifetime_recounted
+ERROR tests/test_reward.py::test_simple_reward_and_switch_penalty - subproces...
+ERROR tests/test_routes.py::test_route_contents_and_reproducible_bytes - subp...
+ERROR tests/test_routes.py::test_split_separation_and_unseen_restriction - su...
+ERROR tests/test_signal_safety.py::test_minimum_green_and_invalid_action - su...
+ERROR tests/test_signal_safety.py::test_exact_yellow_all_red_and_next_green
+ERROR tests/test_signal_safety.py::test_maximum_green_forces_switch_inside_decision
+ERROR tests/test_signal_safety.py::test_no_conflicting_origins_and_cyclic_order
+26 errors in 10.60s

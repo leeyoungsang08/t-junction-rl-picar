@@ -1,0 +1,38 @@
+Rows 320 matched groups 32
+Collisions 0 teleports 0
+Criterion checks
+         scenario  training_seed  budget  delay_vs_lower_rule_s  completion_vs_higher_rule_pp  pass
+heldout_reversal             42      80             -20.974014                      3.012866  True
+heldout_reversal             42     240             -24.418025                      2.863200  True
+heldout_reversal             43      80             -23.301746                      2.859420  True
+heldout_reversal             43     240             -25.843473                      3.116754  True
+heldout_reversal             44      80              57.353340                     -1.496338 False
+heldout_reversal             44     240             -24.810412                      3.093667  True
+          unseen             42      80              88.785111                    -17.569535 False
+          unseen             42     240             -30.918767                      1.341903  True
+          unseen             43      80             -26.911795                      1.284814  True
+          unseen             43     240             -30.866284                      1.585675  True
+          unseen             44      80             153.625065                    -23.219086 False
+          unseen             44     240             -29.342638                      1.336048  True
+Model selection
+  training_seed  budget  best_episode  best_validation_delay_s  last_validation_delay_s  updates_at_budget  updates_in_selected_model
+            42      80            80                 9.833204                 9.833204               9473                       9473
+            42     240           220                 9.777068                10.432443              28673                      26273
+            43      80            80                10.794863                10.794863               9473                       9473
+            43     240           140                 9.804450                11.065694              28673                      16673
+            44      80            40                12.056989                12.101885               9473                       4673
+            44     240           180                 9.966196                11.063889              28673                      21473
+Delay means
+ controller        fixed_time  rule_based  rule_observed          v1  v2_42_240    v2_42_80  v2_43_240   v2_43_80  v2_44_240    v2_44_80
+scenario                                                                                                                               
+heldout_reversal  120.469049   43.599053      46.458781   67.406605  19.181028   22.625039  17.755580  20.297307  18.788642  100.952394
+medium             17.925841   11.186948      11.468148   10.958176  10.599865   10.807228  11.459897  11.124664  11.138592   12.573432
+south_bias         78.353510   19.612811      18.854259   11.912102  11.590194   12.265157  12.417598  11.649552  11.436750   26.307819
+unseen            210.900715   68.605439      79.900587  203.344367  37.686673  157.390550  37.739155  41.693645  39.262801  222.230504
+Completion means
+ controller        fixed_time  rule_based  rule_observed         v1  v2_42_240   v2_42_80  v2_43_240   v2_43_80  v2_44_240   v2_44_80
+scenario                                                                                                                            
+heldout_reversal   83.678247   93.379267      93.260474  95.448262  96.242466  96.392133  96.496020  96.238687  96.472933  91.882928
+medium             96.401718   96.915463      96.934301  96.966420  96.820824  96.751118  96.930304  96.977755  96.962145  96.798305
+south_bias         89.111106   95.718331      95.736600  96.219164  96.245739  96.190842  96.234217  96.248406  96.398987  94.356421
+unseen             75.566015   96.106169      95.002478  74.262870  97.448072  78.536634  97.691844  97.390983  97.442217  72.887083

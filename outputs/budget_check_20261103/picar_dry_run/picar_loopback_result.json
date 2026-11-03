@@ -1,0 +1,20 @@
+{
+  "transport": "real UDP on localhost",
+  "motor_output": "mock only",
+  "model_device": "cpu",
+  "matching_shadow_decisions": 360,
+  "lease_ms": 250,
+  "checks": {
+    "fresh_green": true,
+    "opposing_red": true,
+    "duplicate_no_renewal": true,
+    "obstacle_overrides_grant": true,
+    "line_loss_overrides_grant": true,
+    "clearance_stop": true,
+    "occupancy_stop": true,
+    "unknown_observation_stop": true,
+    "dropped_reply_lease_expires": true,
+    "late_reply_rejected": true,
+    "fresh_poll_recovers": true
+  }
+}

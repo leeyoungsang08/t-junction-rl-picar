@@ -1,0 +1,21 @@
+# Frozen hardware inventory. Fill measured values before choosing GPIO/I2C or running motors.
+car_id:
+board_model:
+raspberry_pi_model:
+os_release:
+ros_distro:
+motor_driver:
+motor_driver_version:
+lane:
+route:
+host:
+length_m:
+width_m:
+max_test_speed_mps:
+stop_distance_m:
+turn_envelope_m:
+go_to_start_p95_ms:
+safe_sensor_stale_ms:
+motor_watchdog_ms:
+measured_exit_clearance_s:
+operator:

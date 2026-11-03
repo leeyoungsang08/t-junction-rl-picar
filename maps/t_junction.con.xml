@@ -1,0 +1,8 @@
+<connections>
+  <connection from="W_in" to="E_out" fromLane="0" toLane="0" />
+  <connection from="W_in" to="S_out" fromLane="0" toLane="0" />
+  <connection from="E_in" to="W_out" fromLane="0" toLane="0" />
+  <connection from="E_in" to="S_out" fromLane="0" toLane="0" />
+  <connection from="S_in" to="W_out" fromLane="0" toLane="0" />
+  <connection from="S_in" to="E_out" fromLane="0" toLane="0" />
+</connections>

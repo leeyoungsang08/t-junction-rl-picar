@@ -1,0 +1,40 @@
+{
+  "shape": [
+    25
+  ],
+  "dtype": "float32",
+  "direction_order": [
+    "W",
+    "E",
+    "S"
+  ],
+  "features": [
+    "vehicles_W",
+    "vehicles_E",
+    "vehicles_S",
+    "mean_wait_W",
+    "mean_wait_E",
+    "mean_wait_S",
+    "internal_vehicles",
+    "phase_W",
+    "phase_E",
+    "phase_S",
+    "green_elapsed",
+    "transitioning",
+    "queues_W",
+    "queues_E",
+    "queues_S",
+    "pending_W",
+    "pending_E",
+    "pending_S",
+    "longest_wait_W",
+    "longest_wait_E",
+    "longest_wait_S",
+    "recent_requests_W",
+    "recent_requests_E",
+    "recent_requests_S",
+    "clearance_remaining"
+  ],
+  "schema_version": 2,
+  "scaling": "V1: divide then clip; V2: open-ended traffic features use x/(scale+x)"
+}

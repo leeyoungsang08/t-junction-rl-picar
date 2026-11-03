@@ -1,0 +1,153 @@
+{
+  "observation_source": "Recorded SUMO decisions, validation-selected seed 43 model",
+  "actuation": "mock clients only",
+  "cases": [
+    {
+      "traffic_seed": 3401,
+      "time_s": 595,
+      "state": {
+        "vehicles": [
+          2,
+          2,
+          2
+        ],
+        "mean_waiting_seconds": [
+          1.5,
+          0.0,
+          13.0
+        ],
+        "internal_vehicles": 0,
+        "phase": 1,
+        "green_elapsed": 21,
+        "transitioning": false,
+        "queues": [
+          1,
+          0,
+          1
+        ],
+        "pending": [
+          0,
+          0,
+          0
+        ],
+        "longest_wait": [
+          3,
+          0.0,
+          26
+        ],
+        "recent_requests": [
+          2,
+          5,
+          1
+        ],
+        "clearance_remaining": 0
+      },
+      "logged_action": 0,
+      "prediction": {
+        "action_id": 0,
+        "action": "KEEP",
+        "q_values": [
+          -17.052555084228516,
+          -17.56312370300293
+        ],
+        "valid_actions": [
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "traffic_seed": 3405,
+      "time_s": 950,
+      "state": {
+        "vehicles": [
+          2,
+          1,
+          2
+        ],
+        "mean_waiting_seconds": [
+          0.0,
+          0.0,
+          11.5
+        ],
+        "internal_vehicles": 0,
+        "phase": 1,
+        "green_elapsed": 21,
+        "transitioning": false,
+        "queues": [
+          0,
+          0,
+          2
+        ],
+        "pending": [
+          0,
+          0,
+          0
+        ],
+        "longest_wait": [
+          0.0,
+          0.0,
+          21
+        ],
+        "recent_requests": [
+          2,
+          2,
+          1
+        ],
+        "clearance_remaining": 0
+      },
+      "logged_action": 1,
+      "prediction": {
+        "action_id": 1,
+        "action": "SWITCH",
+        "q_values": [
+          -13.629273414611816,
+          -12.763171195983887
+        ],
+        "valid_actions": [
+          true,
+          true
+        ]
+      }
+    }
+  ],
+  "timeline": [
+    {
+      "offset_sim_s": 0,
+      "stage": "yellow",
+      "tls": "yyrrrr",
+      "E1": "STOP",
+      "S1": "STOP"
+    },
+    {
+      "offset_sim_s": 1,
+      "stage": "yellow",
+      "tls": "yyrrrr",
+      "E1": "STOP",
+      "S1": "STOP"
+    },
+    {
+      "offset_sim_s": 2,
+      "stage": "yellow",
+      "tls": "yyrrrr",
+      "E1": "STOP",
+      "S1": "STOP"
+    },
+    {
+      "offset_sim_s": 3,
+      "stage": "all_red",
+      "tls": "rrrrrr",
+      "E1": "STOP",
+      "S1": "STOP"
+    },
+    {
+      "offset_sim_s": 4,
+      "stage": "green",
+      "tls": "rrGGrr",
+      "E1": "STOP",
+      "S1": "GO"
+    }
+  ],
+  "next_car_while_reserved": "STOP",
+  "next_car_after_emulated_exit": "GO"
+}

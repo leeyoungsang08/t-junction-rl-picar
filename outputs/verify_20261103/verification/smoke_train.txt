@@ -1,0 +1,1 @@
+ep 1/3 steps=36 reward=-8.02 wait=14.8 queue=0.71 eps=0.886 loss=0.01694352011240664 val=21.66100170940171 elapsed=5.3s ETA~10.6s

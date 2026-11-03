@@ -1,0 +1,320 @@
+{
+  "scenarios": [
+    "medium"
+  ],
+  "controllers": [
+    "fixed_time",
+    "rule_based",
+    "dqn"
+  ],
+  "seeds": 1,
+  "horizon": 120,
+  "environment": {
+    "observation_schema": 2,
+    "map": {
+      "length_m": 250,
+      "speed_mps": 13.89,
+      "lane_width_m": 3.2,
+      "tls_id": "J"
+    },
+    "simulation": {
+      "step_seconds": 1,
+      "decision_seconds": 5,
+      "horizon_seconds": 120,
+      "backend": "traci"
+    },
+    "signal": {
+      "min_green": 10,
+      "max_green": 45,
+      "yellow": 3,
+      "all_red": 1,
+      "fixed_green": 20
+    },
+    "normalization": {
+      "vehicles": 40,
+      "waiting_seconds": 120,
+      "internal_vehicles": 10,
+      "green_seconds": 45,
+      "queues": 20,
+      "pending": 20,
+      "longest_wait": 60,
+      "recent_requests": 10
+    },
+    "reward": {
+      "mode": "composite",
+      "queue_weight": 1.0,
+      "waiting_weight": 1.5,
+      "internal_weight": 0.2,
+      "starvation_weight": 0.5,
+      "switch_weight": 0.1,
+      "queue_scale": 30,
+      "waiting_scale": 30,
+      "internal_scale": 5,
+      "starvation_seconds": 35,
+      "internal_free_occupancy": 2,
+      "queue_weight_composite": 0.0,
+      "starvation_scale": 90
+    },
+    "baseline": {
+      "queue_margin": 2,
+      "starvation_seconds": 35
+    }
+  },
+  "traffic": {
+    "splits": {
+      "train": {
+        "start": 1000,
+        "count": 1000
+      },
+      "validation": {
+        "start": 2000,
+        "count": 100
+      },
+      "test": {
+        "start": 3000,
+        "count": 1000
+      }
+    },
+    "od_order": [
+      "W_E",
+      "W_S",
+      "E_W",
+      "E_S",
+      "S_W",
+      "S_E"
+    ],
+    "scenarios": {
+      "low": {
+        "rate_veh_h": 240,
+        "weights": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "medium": {
+        "rate_veh_h": 480,
+        "weights": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "high": {
+        "rate_veh_h": 780,
+        "weights": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "imbalanced": {
+        "rate_veh_h": 660,
+        "weights": [
+          5,
+          4,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "rush_hour": {
+        "rate_veh_h": 480,
+        "weights": [
+          2,
+          2,
+          1,
+          1,
+          1,
+          1
+        ],
+        "segments": [
+          [
+            0.0,
+            0.3,
+            0.5
+          ],
+          [
+            0.3,
+            0.7,
+            2.0
+          ],
+          [
+            0.7,
+            1.0,
+            0.7
+          ]
+        ]
+      },
+      "unseen": {
+        "rate_veh_h": 900,
+        "weights": [
+          1,
+          1,
+          1,
+          2,
+          5,
+          4
+        ],
+        "segments": [
+          [
+            0.0,
+            0.25,
+            0.4
+          ],
+          [
+            0.25,
+            0.6,
+            1.6
+          ],
+          [
+            0.6,
+            1.0,
+            0.8
+          ]
+        ],
+        "test_only": true
+      },
+      "east_bias": {
+        "rate_veh_h": 660,
+        "weights": [
+          1,
+          1,
+          5,
+          4,
+          1,
+          1
+        ]
+      },
+      "south_bias": {
+        "rate_veh_h": 660,
+        "weights": [
+          1,
+          1,
+          1,
+          1,
+          5,
+          4
+        ]
+      },
+      "rotating": {
+        "rate_veh_h": 720,
+        "weights": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "segments": [
+          [
+            0.0,
+            0.33,
+            0.9,
+            [
+              5,
+              4,
+              1,
+              1,
+              1,
+              1
+            ]
+          ],
+          [
+            0.33,
+            0.67,
+            1.0,
+            [
+              1,
+              1,
+              5,
+              4,
+              1,
+              1
+            ]
+          ],
+          [
+            0.67,
+            1.0,
+            1.1,
+            [
+              1,
+              1,
+              1,
+              1,
+              5,
+              4
+            ]
+          ]
+        ]
+      },
+      "heldout_reversal": {
+        "rate_veh_h": 820,
+        "weights": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "segments": [
+          [
+            0.0,
+            0.22,
+            1.4,
+            [
+              1,
+              1,
+              1,
+              1,
+              6,
+              5
+            ]
+          ],
+          [
+            0.22,
+            0.55,
+            1.0,
+            [
+              1,
+              1,
+              6,
+              5,
+              1,
+              1
+            ]
+          ],
+          [
+            0.55,
+            1.0,
+            1.2,
+            [
+              5,
+              6,
+              1,
+              1,
+              1,
+              1
+            ]
+          ]
+        ],
+        "test_only": true
+      }
+    }
+  },
+  "mode": "quick",
+  "model_sha256": "464baa3762895f18054e6f0ef599e84deb7c27ea302db1a9ff899144d7677540",
+  "net_sha256": "85ab5d2cbc8ea5de21983d54f523fefb5f23cf7ae3d9b3618797c7ec707563b6"
+}

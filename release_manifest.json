@@ -1,0 +1,14 @@
+{
+  "revision": 2,
+  "observation_schema": 2,
+  "observation_size": 25,
+  "training_seeds": [
+    42,
+    43,
+    44
+  ],
+  "training_episodes_per_seed": 80,
+  "evaluation_episodes": 168,
+  "report": "DELIVERY_STATUS.md",
+  "results": "outputs/revision_comparison/seed_level_results.csv"
+}

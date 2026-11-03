@@ -1,0 +1,3 @@
+video 117019 bytes
+frame_count, duration (200, 20.0)
+decoder metadata {'ffmpeg_version': '9.0.2-essentials_build-www.gyan.dev built with gcc 16.2.0 (Rev3, Built by MSYS2 project)', 'codec': 'h264', 'pix_fmt': 'yuv420p(progressive)', 'fps': 10.0, 'source_size': (700, 480), 'size': (700, 480), 'rotate': 0, 'duration': 20.0}

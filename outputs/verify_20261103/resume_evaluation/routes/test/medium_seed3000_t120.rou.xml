@@ -1,0 +1,25 @@
+<routes>
+  <vType id="car" accel="2.6" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="13.89" speedDev="0" />
+  <route id="W_E" edges="W_in E_out" />
+  <route id="W_S" edges="W_in S_out" />
+  <route id="E_W" edges="E_in W_out" />
+  <route id="E_S" edges="E_in S_out" />
+  <route id="S_W" edges="S_in W_out" />
+  <route id="S_E" edges="S_in E_out" />
+  <vehicle id="v000000" type="car" route="W_S" depart="9.093" departLane="0" departSpeed="max" />
+  <vehicle id="v000001" type="car" route="W_S" depart="13.796" departLane="0" departSpeed="max" />
+  <vehicle id="v000002" type="car" route="W_S" depart="19.383" departLane="0" departSpeed="max" />
+  <vehicle id="v000003" type="car" route="S_E" depart="36.404" departLane="0" departSpeed="max" />
+  <vehicle id="v000004" type="car" route="E_W" depart="43.334" departLane="0" departSpeed="max" />
+  <vehicle id="v000005" type="car" route="S_W" depart="56.053" departLane="0" departSpeed="max" />
+  <vehicle id="v000006" type="car" route="W_E" depart="57.123" departLane="0" departSpeed="max" />
+  <vehicle id="v000007" type="car" route="S_E" depart="58.992" departLane="0" departSpeed="max" />
+  <vehicle id="v000008" type="car" route="S_W" depart="59.38" departLane="0" departSpeed="max" />
+  <vehicle id="v000009" type="car" route="E_S" depart="67.364" departLane="0" departSpeed="max" />
+  <vehicle id="v000010" type="car" route="W_S" depart="71.142" departLane="0" departSpeed="max" />
+  <vehicle id="v000011" type="car" route="W_S" depart="72.525" departLane="0" departSpeed="max" />
+  <vehicle id="v000012" type="car" route="E_W" depart="72.769" departLane="0" departSpeed="max" />
+  <vehicle id="v000013" type="car" route="W_E" depart="85.685" departLane="0" departSpeed="max" />
+  <vehicle id="v000014" type="car" route="W_E" depart="101.275" departLane="0" departSpeed="max" />
+  <vehicle id="v000015" type="car" route="W_E" depart="112.724" departLane="0" departSpeed="max" />
+</routes>

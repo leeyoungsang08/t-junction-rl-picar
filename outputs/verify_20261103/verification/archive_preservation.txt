@@ -1,0 +1,4 @@
+Source ZIP SHA256: 5ef53cf29329c600a4bf38e95d51b6a2a6293455e31e8bf4e5b03c163018df71
+Original model/log/result files preserved byte for byte: 3509
+Archived map: 8a5a9fb3edfc2f15965981e134303184a62fceee0ec73ba9e706d730341ca250
+Working map: 8a5a9fb3edfc2f15965981e134303184a62fceee0ec73ba9e706d730341ca250

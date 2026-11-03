@@ -1,0 +1,9 @@
+{
+  "completed_episodes": 3,
+  "planned_episodes": 3,
+  "mode": "smoke",
+  "complete": true,
+  "updates": 93,
+  "best_validation_cohort_delay_s": 16.591058689458688,
+  "elapsed_this_invocation_seconds": 10.338282499999991
+}

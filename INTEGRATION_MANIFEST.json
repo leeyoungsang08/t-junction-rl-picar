@@ -1,0 +1,32 @@
+{
+  "bundle": "T-junction DQN and motorless PiCar UDP lab",
+  "start": "START_HERE_KO.md",
+  "board_status": "Source inspection only; motors disconnected for bundled lab",
+  "revision_80_evaluation_rows": 168,
+  "revision_240_evaluation_rows": 320,
+  "ros2_sources": {
+    "notion": "https://app.notion.com/p/39a9c197abc7805eb149d473a1338426",
+    "archives": {
+      "i2c": {
+        "sha256": "38d6c0167508ead81fb9802ac0fbe08de217a52655f7417d7ee0c68a0c0743cb"
+      },
+      "gpio_pwm": {
+        "sha256": "48ad66ec637bfa139f16dbbd44b5b1601477ba62eb5e4f97000eea596f5881c4"
+      }
+    }
+  },
+  "selected_240_models": {
+    "42": {
+      "path": "outputs/budget_check_20261103/training/seed42/checkpoints/best_model.pt",
+      "sha256": "a549d7471033e759b46b0a42415ecd11b84860b4ed84385e679d479dc0fd6cc2"
+    },
+    "43": {
+      "path": "outputs/budget_check_20261103/training/seed43/checkpoints/best_model.pt",
+      "sha256": "bc77d0cfb36372f81101ac5c9705c881c38e21c04d4a4748a0afafa31b710600"
+    },
+    "44": {
+      "path": "outputs/budget_check_20261103/training/seed44/checkpoints/best_model.pt",
+      "sha256": "f2a80f04abce3509d3278d09234856208c9bacbf13bc0d4137322959033eac45"
+    }
+  }
+}

@@ -1,0 +1,9 @@
+scenario,controller,metric,n_pairs,difference_other_minus_fixed,ci95_low,ci95_high,improvement_pct
+medium,rule_based,mean_waiting_s,1,-14.714285714285715,,,71.52777777777779
+medium,rule_based,cohort_delay_s,1,-7.25,,,35.91331269349845
+medium,rule_based,throughput_veh_h,1,0.0,,,0.0
+medium,rule_based,mean_queue_veh,1,-0.9666666666666668,,,36.94267515923567
+medium,dqn,mean_waiting_s,1,-15.753246753246755,,,76.57828282828282
+medium,dqn,cohort_delay_s,1,-14.0,,,69.3498452012384
+medium,dqn,throughput_veh_h,1,120.0,,,57.14285714285714
+medium,dqn,mean_queue_veh,1,-1.8666666666666667,,,71.3375796178344

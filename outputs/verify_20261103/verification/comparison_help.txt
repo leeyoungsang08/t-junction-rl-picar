@@ -1,0 +1,9 @@
+usage: compare_revision.py [-h] [--output OUTPUT] [--workers WORKERS]
+                           [--training-root TRAINING_ROOT] [--resume]
+
+options:
+  -h, --help            show this help message and exit
+  --output OUTPUT
+  --workers WORKERS
+  --training-root TRAINING_ROOT
+  --resume

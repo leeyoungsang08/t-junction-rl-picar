@@ -1,0 +1,12 @@
+{
+  "action_id": 1,
+  "action": "SWITCH",
+  "q_values": [
+    -0.22502830624580383,
+    -0.17346389591693878
+  ],
+  "valid_actions": [
+    true,
+    true
+  ]
+}

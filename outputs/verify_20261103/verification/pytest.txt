@@ -1,0 +1,36 @@
+..........................                                               [100%]
+============================== warnings summary ===============================
+tests/test_metrics.py::test_paired_comparison_and_zero_denominator
+  C:\Users\admin1\Documents\ChatGPT\강화학습\work_20261103\T_Junction_RL\src\metrics.py:67: Pandas4Warning: The 'lsuffix' and 'rsuffix' keywords in DataFrame.join are deprecated and will be removed in a future version. Use the 'suffixes' keyword instead.
+    joint = fixed.join(other, lsuffix="_fixed", rsuffix="_other", how="inner")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=================================== PASSES ====================================
+=========================== short test summary info ===========================
+PASSED tests/test_dqn.py::test_network_update_and_target_sync
+PASSED tests/test_dqn.py::test_target_mask_excludes_unavailable_high_q
+PASSED tests/test_dqn.py::test_checkpoint_restores_buffer_rng_optimizer_and_next_update
+PASSED tests/test_environment.py::test_all_six_movements_depart_and_arrive_without_collision
+PASSED tests/test_environment.py::test_gym_shape_truncation_and_invalid_action
+PASSED tests/test_environment.py::test_fixed_time_preserves_exact_twenty_second_greens
+PASSED tests/test_inference.py::test_export_cpu_inference_and_mask
+PASSED tests/test_inference.py::test_state_shape_range_and_reject_missing_nonfinite
+PASSED tests/test_map.py::test_three_approaches_and_six_od
+PASSED tests/test_metrics.py::test_paired_comparison_and_zero_denominator
+PASSED tests/test_metrics.py::test_uninserted_vehicles_increase_cohort_delay
+PASSED tests/test_metrics.py::test_uninserted_tripinfo_does_not_double_count_departure_delay
+PASSED tests/test_reproducibility.py::test_same_route_and_sumo_seed_reproduce_metrics
+PASSED tests/test_revision.py::test_schema_v2_distinguishes_queues_and_loads_policy
+PASSED tests/test_revision.py::test_pending_is_observed_and_penalized_without_future_leak
+PASSED tests/test_revision.py::test_active_internal_and_long_wait_costs
+PASSED tests/test_revision.py::test_truncation_bootstraps_but_true_termination_does_not
+PASSED tests/test_revision.py::test_stopped_vehicle_inside_junction_activates_cost
+PASSED tests/test_reward.py::test_incremental_waiting_is_not_lifetime_recounted
+PASSED tests/test_reward.py::test_simple_reward_and_switch_penalty
+PASSED tests/test_routes.py::test_route_contents_and_reproducible_bytes
+PASSED tests/test_routes.py::test_split_separation_and_unseen_restriction
+PASSED tests/test_signal_safety.py::test_minimum_green_and_invalid_action
+PASSED tests/test_signal_safety.py::test_exact_yellow_all_red_and_next_green
+PASSED tests/test_signal_safety.py::test_maximum_green_forces_switch_inside_decision
+PASSED tests/test_signal_safety.py::test_no_conflicting_origins_and_cyclic_order
+26 passed, 1 warning in 12.98s

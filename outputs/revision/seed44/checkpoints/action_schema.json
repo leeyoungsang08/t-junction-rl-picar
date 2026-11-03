@@ -1,0 +1,9 @@
+{
+  "0": "KEEP",
+  "1": "SWITCH",
+  "phase_order": [
+    "W",
+    "E",
+    "S"
+  ]
+}

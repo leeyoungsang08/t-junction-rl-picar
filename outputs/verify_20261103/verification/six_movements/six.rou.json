@@ -1,0 +1,29 @@
+{
+  "horizon_seconds": 650,
+  "vehicles": {
+    "v0": {
+      "requested_depart": 1,
+      "origin": "W"
+    },
+    "v1": {
+      "requested_depart": 81,
+      "origin": "W"
+    },
+    "v2": {
+      "requested_depart": 161,
+      "origin": "E"
+    },
+    "v3": {
+      "requested_depart": 241,
+      "origin": "E"
+    },
+    "v4": {
+      "requested_depart": 321,
+      "origin": "S"
+    },
+    "v5": {
+      "requested_depart": 401,
+      "origin": "S"
+    }
+  }
+}
