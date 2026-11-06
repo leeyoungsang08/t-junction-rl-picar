@@ -1,0 +1,43 @@
+observation_schema: 2
+map:
+  length_m: 250
+  speed_mps: 13.89
+  lane_width_m: 3.2
+  tls_id: J
+simulation:
+  step_seconds: 1
+  decision_seconds: 5
+  horizon_seconds: 3600
+  backend: traci
+signal:
+  min_green: 10
+  max_green: 45
+  yellow: 3
+  all_red: 1
+  fixed_green: 20
+normalization:
+  vehicles: 40
+  waiting_seconds: 120
+  internal_vehicles: 10
+  green_seconds: 45
+  queues: 20
+  pending: 20
+  longest_wait: 60
+  recent_requests: 10
+reward:
+  mode: composite
+  queue_weight: 1.0
+  waiting_weight: 1.5
+  internal_weight: 0.2
+  starvation_weight: 0.5
+  switch_weight: 0.1
+  queue_scale: 30
+  waiting_scale: 30
+  internal_scale: 5
+  starvation_seconds: 35
+  internal_free_occupancy: 2
+  queue_weight_composite: 0.0
+  starvation_scale: 90
+baseline:
+  queue_margin: 2
+  starvation_seconds: 35

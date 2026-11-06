@@ -1,0 +1,251 @@
+{
+  "horizon_seconds": 1200,
+  "scenarios": {
+    "balanced": [
+      [
+        0,
+        1080,
+        690,
+        [
+          1,
+          1,
+          1
+        ]
+      ]
+    ],
+    "reversal": [
+      [
+        0,
+        360,
+        930,
+        [
+          7,
+          2,
+          1
+        ]
+      ],
+      [
+        360,
+        720,
+        930,
+        [
+          2,
+          7,
+          1
+        ]
+      ],
+      [
+        720,
+        1080,
+        930,
+        [
+          1,
+          2,
+          7
+        ]
+      ]
+    ],
+    "south_pulse": [
+      [
+        0,
+        360,
+        650,
+        [
+          4,
+          4,
+          2
+        ]
+      ],
+      [
+        360,
+        720,
+        1480,
+        [
+          1,
+          1,
+          12
+        ]
+      ],
+      [
+        720,
+        1080,
+        650,
+        [
+          4,
+          4,
+          2
+        ]
+      ]
+    ]
+  },
+  "seeds": [
+    81000,
+    81001,
+    81002,
+    81003,
+    81004,
+    81005,
+    81006,
+    81007,
+    81008,
+    81009,
+    81010,
+    81011
+  ],
+  "maps": {
+    "source": {
+      "sha256": "85ab5d2cbc8ea5de21983d54f523fefb5f23cf7ae3d9b3618797c7ec707563b6",
+      "approaches": {
+        "E_in": {
+          "length": "242.80",
+          "speed": "13.89",
+          "width": "3.20",
+          "shape": "250.00,1.60 7.20,1.60"
+        },
+        "S_in": {
+          "length": "242.80",
+          "speed": "13.89",
+          "width": "3.20",
+          "shape": "1.60,-250.00 1.60,-7.20"
+        },
+        "W_in": {
+          "length": "242.80",
+          "speed": "13.89",
+          "width": "3.20",
+          "shape": "-250.00,-1.60 -7.20,-1.60"
+        }
+      }
+    },
+    "new": {
+      "sha256": "066ff975cb4a8d23a34b58b7c8a60327cf621745c6275f03977e287f43ec8a71",
+      "approaches": {
+        "E_in": {
+          "length": "208.16",
+          "speed": "11.11",
+          "width": "3.20",
+          "shape": "201.42,79.49 7.24,4.51"
+        },
+        "S_in": {
+          "length": "148.77",
+          "speed": "8.33",
+          "width": "3.00",
+          "shape": "105.13,-117.01 6.76,-5.40"
+        },
+        "W_in": {
+          "length": "393.06",
+          "speed": "13.89",
+          "width": "3.50",
+          "shape": "-389.64,-83.71 -4.99,-2.84"
+        }
+      }
+    }
+  },
+  "route_hashes": {
+    "balanced_81000.rou.xml": "2db6666bfb74dc6a26edf455b3c425f18bab9aaab234a3ec65d8f70f8c87e090",
+    "balanced_81001.rou.xml": "909edcf2a5497ac939b69a17dfa4c3a9daca49f428470edf6531b15d3573da3a",
+    "balanced_81002.rou.xml": "ee17fec7cae22dcb85207b095d09dc8aa5cc478e4f4e63a8f1ecba79eb451950",
+    "balanced_81003.rou.xml": "e8d9a61179877e323e5234a921d930478504235968eaff6cd4908c6a68b5c98e",
+    "balanced_81004.rou.xml": "13e5053be22c718ff982c584cc4e251b027ae419728c32347ecdcdb5c3329d6f",
+    "balanced_81005.rou.xml": "04a83dfdb6560c61636ce69a3a85bc5348f509cbc82fb579a3808e807974348c",
+    "balanced_81006.rou.xml": "ff079173e4c7eeea24556dce60443250cc04803ca50039a42ed4c8aa72af5f9c",
+    "balanced_81007.rou.xml": "80e3a43b5d56cc2c42e6f386585dd1f1f6c73b5b9453f828fe4f4a19da08e2ad",
+    "balanced_81008.rou.xml": "e465d78812ff5f9b0dfad8b8db51b50c2e48e2d79651440987a1b9cd66bbbb80",
+    "balanced_81009.rou.xml": "bc340528a582b54052dbb9b43626aa2dd12d352d2e137a3b13b4cb89acb8f205",
+    "balanced_81010.rou.xml": "5ff94d4989b88843c8bf543e81300cf08c25485b121034fe377f8871109cae8c",
+    "balanced_81011.rou.xml": "fc0b84e235dbe6912b375f4096d74adef4ee2d9949ecbc03989ec9561a74ca8d",
+    "reversal_81000.rou.xml": "807035c78c0825bb15f0e86fe266cfea8ed271ba1803968cab7b797282186bb2",
+    "reversal_81001.rou.xml": "12839c2512018ca7ac5dda9f0869c2d4a68f108068fe795b8e952aa03bf02ff7",
+    "reversal_81002.rou.xml": "2d01bbc3c52b2dd5e03e798828b867b0e587c6fd9fea1097ab61f212919d0c4e",
+    "reversal_81003.rou.xml": "f09ff5e043be977adfc2416a9cad822d97af8e42a460f66a702b6de0bdeb1d12",
+    "reversal_81004.rou.xml": "e16148929a40d1d0a9b4b2770e77645380a9b4e6ceaabce33c535e65df22d2ff",
+    "reversal_81005.rou.xml": "94b4387c798159804c16db2c67e34cf35fea674b8ac7ea98c6126d420fa8de83",
+    "reversal_81006.rou.xml": "06e764fd418b1b3bcdd8f3058435f704f2d974a9be3bf3bbc5ac3ac4779d5326",
+    "reversal_81007.rou.xml": "cbe454f0ef25963da1a1269a1149cb571d9b182af99a71871285f0735b177af7",
+    "reversal_81008.rou.xml": "f97360ed737b66cd3b3d20f8d007318f5187101f5378b36f780c32e8b76a0eee",
+    "reversal_81009.rou.xml": "0864def3083fb9c701de10aa8b70986ee778ff60f73234cb1f8fbdddaf55c383",
+    "reversal_81010.rou.xml": "d7d62f74a8c8fe75d49da3ccd5e35a8ffd90cf02e144a300986bcc8feb74bd49",
+    "reversal_81011.rou.xml": "5f453158974419b84364e3f2f3a213514e0045c7a514e9e148809ccb09bab270",
+    "south_pulse_81000.rou.xml": "591bc8c95e0b804b2cc9e005ffef1a6f0cadbb33be684108a0242719d53c8c87",
+    "south_pulse_81001.rou.xml": "0c9b0e4f550d0a29f168b86a704ccc51b00a7afdd0c0423455a89baa3be47072",
+    "south_pulse_81002.rou.xml": "974594cc9cc60e313efb30eedc25119fd6df976e57ed7c3db3bb1197cc8d6802",
+    "south_pulse_81003.rou.xml": "abc06d918465c5b0766d6b912b474f608872c876ae896230ef2b7113466422b4",
+    "south_pulse_81004.rou.xml": "990354240f0a3a2e40d37a430cdb809647c8552976b76c6450f15f4b04f53776",
+    "south_pulse_81005.rou.xml": "a1573709a0025df81b984f04ca6c792a786558adbcd4c37a13ff2b42e53733f5",
+    "south_pulse_81006.rou.xml": "712deed6caa494b093f7b93a3e973b32aa06761ea9d76c95aef37dd2c6b3990e",
+    "south_pulse_81007.rou.xml": "2e5980a9e261704bb537f3ccfba84b98431466e9259b72272bbae62f9654f9a6",
+    "south_pulse_81008.rou.xml": "6ff3d2589f56e5f2815d0a09fd9dbc56b3be31c7c3d64897691a55190c301d0f",
+    "south_pulse_81009.rou.xml": "9dbab9ad0935f41a526aa0ad702a6128d99be891f7bc16f960607b8478336d26",
+    "south_pulse_81010.rou.xml": "3752c88ef0bac5c4588d879340149385dd8f0357979ef8229e71244e682f9762",
+    "south_pulse_81011.rou.xml": "5c9198f1ce9324395bfd13f9625c8744e84a76e27cf4e271bde5c2d0b92f1b6b"
+  },
+  "model_hashes": {
+    "direct_rainbow_lite_seed42": "9fbfc0fea31e4581561d75638a91166a32a81446e83db0a773647aea2e06964e",
+    "direct_rainbow_lite_seed43": "252786275fd764d9f60282b00f7ed9a9c520e574b666ec7a560bffe558ddae19",
+    "direct_rainbow_lite_seed44": "ed0ac99313d23fac28782841578f0536a127e7b2d1da6cd02021b16763ba0f00"
+  },
+  "baselines": [
+    "fixed20",
+    "queue_proxy",
+    "queue_wait"
+  ],
+  "environment": {
+    "observation_schema": 2,
+    "map": {
+      "length_m": 250,
+      "speed_mps": 13.89,
+      "lane_width_m": 3.2,
+      "tls_id": "J"
+    },
+    "simulation": {
+      "step_seconds": 1,
+      "decision_seconds": 5,
+      "horizon_seconds": 900,
+      "backend": "libsumo"
+    },
+    "signal": {
+      "min_green": 10,
+      "max_green": 45,
+      "yellow": 3,
+      "all_red": 1,
+      "fixed_green": 20,
+      "control_mode": "direct"
+    },
+    "normalization": {
+      "vehicles": 40,
+      "waiting_seconds": 120,
+      "internal_vehicles": 10,
+      "green_seconds": 45,
+      "queues": 20,
+      "pending": 20,
+      "longest_wait": 60,
+      "recent_requests": 10
+    },
+    "reward": {
+      "mode": "composite",
+      "queue_weight": 1.0,
+      "waiting_weight": 1.5,
+      "internal_weight": 0.2,
+      "starvation_weight": 0.5,
+      "switch_weight": 0.1,
+      "queue_scale": 30,
+      "waiting_scale": 30,
+      "internal_scale": 5,
+      "starvation_seconds": 35,
+      "internal_free_occupancy": 2,
+      "queue_weight_composite": 0.0,
+      "starvation_scale": 90
+    },
+    "baseline": {
+      "queue_margin": 2,
+      "starvation_seconds": 35
+    }
+  },
+  "options": [
+    "--time-to-teleport",
+    "-1",
+    "--collision.check-junctions",
+    "true",
+    "--collision.action",
+    "warn"
+  ]
+}

@@ -1,0 +1,207 @@
+{
+  "delivery": {
+    "rows": 990,
+    "unique_demand_files": 110,
+    "sumo_seconds": 891000,
+    "tripinfo_date_range": [
+      "2026-11-03T22:54:24.356036+09:00",
+      "2026-11-03T22:56:02.948716+09:00"
+    ],
+    "max_delay_vs_csv": 8.526512829121202e-14
+  },
+  "reproduction": {
+    "rows": 990,
+    "unique_demand_files": 110,
+    "sumo_seconds": 891000,
+    "tripinfo_date_range": [
+      "2026-11-04T10:15:42.824362+09:00",
+      "2026-11-04T10:17:17.737785+09:00"
+    ],
+    "max_delay_vs_csv": 8.526512829121202e-14
+  },
+  "identical_independent_rows": 990,
+  "distinct_development_route_hashes": {
+    "train": 327,
+    "validation": 30
+  },
+  "overall": {
+    "cycle_rainbow_lite": {
+      "macro_delay": 24.561478837021564,
+      "macro_completion": 0.91225364421503,
+      "request_weighted_delay": 36.66407611812648,
+      "teleports": 0,
+      "collisions": 0
+    },
+    "direct_rainbow_lite": {
+      "macro_delay": 18.174991937948477,
+      "macro_completion": 0.9264644701751144,
+      "request_weighted_delay": 26.432366654927804,
+      "teleports": 8,
+      "collisions": 0
+    },
+    "fixed_time": {
+      "macro_delay": 57.42409066748268,
+      "macro_completion": 0.8371928391517569,
+      "request_weighted_delay": 79.65711083161443,
+      "teleports": 0,
+      "collisions": 0
+    },
+    "max_pressure_proxy": {
+      "macro_delay": 20.620318735860142,
+      "macro_completion": 0.9199946859910372,
+      "request_weighted_delay": 29.23681687377371,
+      "teleports": 17,
+      "collisions": 0
+    },
+    "rule_based": {
+      "macro_delay": 33.2341685937282,
+      "macro_completion": 0.8961861625382626,
+      "request_weighted_delay": 46.991087689289124,
+      "teleports": 0,
+      "collisions": 0
+    }
+  },
+  "paired_direct_vs_proxy": {
+    "east_bias": {
+      "direct": 7.827070515144677,
+      "proxy": 8.956737663528031,
+      "delta": -1.1296671483833545,
+      "ci95": [
+        -2.056613572562943,
+        -0.20272072420376608
+      ],
+      "n": 10,
+      "direct_wins": 8
+    },
+    "heldout_reversal": {
+      "direct": 12.16822809754846,
+      "proxy": 16.207411234099922,
+      "delta": -4.039183136551462,
+      "ci95": [
+        -4.844666601496842,
+        -3.233699671606082
+      ],
+      "n": 10,
+      "direct_wins": 10
+    },
+    "high": {
+      "direct": 11.611408667778544,
+      "proxy": 12.362033584644763,
+      "delta": -0.7506249168662181,
+      "ci95": [
+        -1.7364640158601805,
+        0.23521418212774425
+      ],
+      "n": 10,
+      "direct_wins": 7
+    },
+    "imbalanced": {
+      "direct": 7.957910040233301,
+      "proxy": 9.562457892304383,
+      "delta": -1.604547852071082,
+      "ci95": [
+        -2.6027892241118042,
+        -0.6063064800303601
+      ],
+      "n": 10,
+      "direct_wins": 8
+    },
+    "low": {
+      "direct": 5.542289338760956,
+      "proxy": 8.018625412276624,
+      "delta": -2.476336073515667,
+      "ci95": [
+        -3.356918948297459,
+        -1.5957531987338753
+      ],
+      "n": 10,
+      "direct_wins": 10
+    },
+    "medium": {
+      "direct": 8.815502925371351,
+      "proxy": 9.867719753687691,
+      "delta": -1.0522168283163384,
+      "ci95": [
+        -1.6882647503043509,
+        -0.41616890632832615
+      ],
+      "n": 10,
+      "direct_wins": 9
+    },
+    "rotating": {
+      "direct": 9.076877873982323,
+      "proxy": 10.621731242023259,
+      "delta": -1.544853368040936,
+      "ci95": [
+        -2.7099997864911805,
+        -0.37970694959069173
+      ],
+      "n": 10,
+      "direct_wins": 8
+    },
+    "rush_hour": {
+      "direct": 12.525981100669147,
+      "proxy": 15.015655570656996,
+      "delta": -2.4896744699878486,
+      "ci95": [
+        -4.337157662697144,
+        -0.6421912772785532
+      ],
+      "n": 10,
+      "direct_wins": 9
+    },
+    "south_bias": {
+      "direct": 8.432493535480843,
+      "proxy": 9.878015252580715,
+      "delta": -1.4455217170998722,
+      "ci95": [
+        -2.2195870406864047,
+        -0.6714563935133397
+      ],
+      "n": 10,
+      "direct_wins": 8
+    },
+    "south_oversaturated": {
+      "direct": 89.97286944939859,
+      "proxy": 94.12420854973529,
+      "delta": -4.151339100336696,
+      "ci95": [
+        -6.237044163559267,
+        -2.0656340371141266
+      ],
+      "n": 10,
+      "direct_wins": 9
+    },
+    "unseen": {
+      "direct": 25.994279773065056,
+      "proxy": 32.208909938923895,
+      "delta": -6.214630165858843,
+      "ci95": [
+        -8.11526634891428,
+        -4.313993982803404
+      ],
+      "n": 10,
+      "direct_wins": 10
+    }
+  },
+  "reproduction_checkpoint_and_validation_check": {
+    "smoke": {
+      "runs": 4,
+      "episodes": 12,
+      "exact_best_validation_score_matches": 4,
+      "exact_checkpoint_tensor_matches": 4
+    },
+    "quick": {
+      "runs": 24,
+      "episodes": 576,
+      "exact_best_validation_score_matches": 24,
+      "exact_checkpoint_tensor_matches": 24
+    },
+    "full": {
+      "runs": 6,
+      "episodes": 1800,
+      "exact_best_validation_score_matches": 6,
+      "exact_checkpoint_tensor_matches": 6
+    }
+  }
+}

@@ -1,0 +1,16 @@
+eclipse-sumo==1.28.0
+sumo-data==1.28.0
+traci==1.28.0
+sumolib==1.28.0
+torch>=2.4,<3
+numpy>=1.26,<3
+pandas>=2.1,<4
+scipy>=1.11,<2
+matplotlib>=3.8,<4
+gymnasium>=1.0,<2
+PyYAML>=6,<7
+pytest>=8,<10
+imageio>=2.34,<3
+imageio-ffmpeg>=0.5,<1
+nbformat>=5.10,<6
+ipywidgets>=8,<9

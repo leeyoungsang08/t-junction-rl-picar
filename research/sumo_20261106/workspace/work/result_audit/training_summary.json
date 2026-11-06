@@ -1,0 +1,43 @@
+{
+  "source_files_identical_to_delivery_for_live_replay": 49,
+  "delivery": {
+    "smoke": {
+      "runs": 4,
+      "training_episodes": 12,
+      "training_sumo_seconds": 2160,
+      "optimizer_updates": 372
+    },
+    "quick": {
+      "runs": 24,
+      "training_episodes": 576,
+      "training_sumo_seconds": 345600,
+      "optimizer_updates": 67608
+    },
+    "full": {
+      "runs": 6,
+      "training_episodes": 1800,
+      "training_sumo_seconds": 1620000,
+      "optimizer_updates": 318006
+    }
+  },
+  "reproduction": {
+    "smoke": {
+      "runs": 4,
+      "training_episodes": 12,
+      "training_sumo_seconds": 2160,
+      "optimizer_updates": 372
+    },
+    "quick": {
+      "runs": 24,
+      "training_episodes": 576,
+      "training_sumo_seconds": 345600,
+      "optimizer_updates": 67608
+    },
+    "full": {
+      "runs": 6,
+      "training_episodes": 1800,
+      "training_sumo_seconds": 1620000,
+      "optimizer_updates": 318006
+    }
+  }
+}

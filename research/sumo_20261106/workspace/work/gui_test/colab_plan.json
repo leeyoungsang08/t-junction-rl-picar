@@ -1,0 +1,54 @@
+{
+  "maps": [
+    "test0",
+    "test1"
+  ],
+  "scenarios": [
+    "medium",
+    "high",
+    "heldout_reversal",
+    "south_oversaturated"
+  ],
+  "seeds": [
+    70400,
+    70401,
+    70402,
+    70403,
+    70404,
+    70405,
+    70406,
+    70407,
+    70408,
+    70409
+  ],
+  "models": [
+    42,
+    43,
+    44,
+    45,
+    46
+  ],
+  "checkpoints": [
+    "best_at_300",
+    "best_model"
+  ],
+  "guard_threshold": 80,
+  "horizon": 900,
+  "note": "fixed evaluation after all training; 80s is an intervention trigger",
+  "model_sha256": {
+    "42_best_at_300": "aef45c7ec9d20ebbe8d3a03629dbe13af69d0e556bcf9e9dbc54069815f8fbfa",
+    "42_best_model": "28c0de0e392704d6fdf6da3ca13ce80a37ce1b6c8faae515bd04841906f30d45",
+    "43_best_at_300": "c727453940b6bb1ed86573da3fcf218a2edf9594154a9abae06282043a950ce4",
+    "43_best_model": "7db25b1314144a145ffb5e56e6411e3702e4a8ded361428c9a3f0e79a3214e05",
+    "44_best_at_300": "8ac5e1d6145dcb2dd73985e3720740e96dee4d201dcba6c275f8dae787f62087",
+    "44_best_model": "3721177bdb7d1381890f7caba5d255d4d8f0d0d4811bb1577397e0a8be4a2100",
+    "45_best_at_300": "823d45a43d282b0855bfbb89cced57893dcf1ab1f57bbb0b1195783bbc72a98a",
+    "45_best_model": "e1f97f9c8fe95228aebeb2e5ecf69bb14ea00e9182adc1dbc7f2655122e405f3",
+    "46_best_at_300": "ced02a55e3003c98eec3fb8d2005c9a00dcc82d7400a6c89953d43d0793c58a6",
+    "46_best_model": "633c097cb9dd3fdc87c1b8eb774e4dd366c34802b994de683450bff936407e88"
+  },
+  "map_sha256": {
+    "test0": "57f75a7f4ac955f1db5573ce00df7f5474902d5db778c89f303bf0a4fb7ab9ff",
+    "test1": "12307a7a0e1ff952ec0869dd9f2e74e725e3ecc3c76ee87b86ad576f1a2c1097"
+  }
+}

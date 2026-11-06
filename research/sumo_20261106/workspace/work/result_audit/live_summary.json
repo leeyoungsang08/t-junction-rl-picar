@@ -1,0 +1,62 @@
+{
+  "counts": {
+    "original": 270,
+    "no_teleport": 90,
+    "junction_check": 90
+  },
+  "options": {
+    "original": [],
+    "no_teleport": [
+      "--time-to-teleport",
+      "-1"
+    ],
+    "junction_check": [
+      "--collision.check-junctions",
+      "true"
+    ]
+  },
+  "maximum_absolute_difference": {
+    "requested_vehicles": 0,
+    "departed_vehicles": 0,
+    "completed_vehicles": 0,
+    "unfinished_vehicles": 0,
+    "uninserted_vehicles": 0,
+    "completion_rate": 0,
+    "mean_waiting_s": 0,
+    "max_waiting_s": 0,
+    "incomplete_vehicles": 0,
+    "mean_travel_s": 0,
+    "mean_time_loss_s": 0,
+    "p95_waiting_s": 0,
+    "mean_queue_veh": 0,
+    "max_queue_veh": 0,
+    "throughput_veh_h": 0,
+    "mean_depart_delay_s": 0,
+    "uninserted_delay_s": 3.637978807091713e-11,
+    "cohort_delay_s": 8.526512829121202e-14,
+    "max_consecutive_wait_s": 0,
+    "signal_switches": 0,
+    "forced_switches": 0,
+    "collision_events": 0,
+    "teleport_events": 0,
+    "observed_seconds": 0,
+    "mean_waiting_W_s": 0,
+    "cohort_delay_W_s": 0,
+    "p95_cohort_delay_W_s": 0,
+    "uninserted_W": 0,
+    "mean_waiting_E_s": 0,
+    "cohort_delay_E_s": 0,
+    "p95_cohort_delay_E_s": 0,
+    "uninserted_E": 0,
+    "mean_waiting_S_s": 0,
+    "cohort_delay_S_s": 0,
+    "p95_cohort_delay_S_s": 0,
+    "uninserted_S": 0,
+    "median_cohort_delay_s": 0,
+    "p95_cohort_delay_s": 0,
+    "worst_direction_cohort_delay_s": 0,
+    "direction_delay_gap_s": 0,
+    "episode_reward": 0
+  },
+  "differences_over_1e_9": []
+}

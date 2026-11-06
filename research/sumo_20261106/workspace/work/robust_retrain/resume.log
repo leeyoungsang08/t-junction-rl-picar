@@ -1,0 +1,11 @@
+ep 1/3 steps=36 reward=-7.10 wait=8.375 queue=0.60 eps=0.886 loss=0.008857124773341985 val=31.953306102023774 elapsed=1.7s ETA~3.4s
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "R:\robust_retrain\T_Junction_RL\src\train.py", line 265, in <module>
+    main()
+  File "R:\robust_retrain\T_Junction_RL\src\train.py", line 261, in main
+    train(a.mode, a.output, a.resume, a.double_dqn, a.reward, a.stop_after, a.mirror, a.training_seed, a.algorithm, a.control_mode, a.use_existing_map, a.device, a.backend)
+  File "R:\robust_retrain\T_Junction_RL\src\train.py", line 99, in train
+    raise ValueError("SUMO map differs from checkpoint")
+ValueError: SUMO map differs from checkpoint

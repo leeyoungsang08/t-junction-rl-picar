@@ -1,0 +1,4 @@
+scenarios: [low, medium, high, imbalanced, east_bias, south_bias, rush_hour, rotating, unseen, heldout_reversal]
+controllers: [fixed_time, rule_based, max_pressure_proxy, dqn]
+quick: {seeds: 5, horizon_seconds: 600}
+full: {seeds: 10, horizon_seconds: 1800}

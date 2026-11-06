@@ -1,0 +1,24 @@
+{
+  "selected": "hybrid_0.6",
+  "criterion": "maximize worst map-scenario mean percentage gain vs guarded proxy, subject to observed backlog red <=115 and no collision",
+  "results": {
+    "hybrid_0.5": {
+      "worst_map_scenario_mean_gain_pct": -4.202822970264374,
+      "average_gain_pct": 10.163108441497247,
+      "max_backlog_red": 103,
+      "collisions": 0
+    },
+    "hybrid_0.6": {
+      "worst_map_scenario_mean_gain_pct": -1.5351637581250852,
+      "average_gain_pct": 8.855036082853381,
+      "max_backlog_red": 103,
+      "collisions": 0
+    },
+    "hybrid_0.7": {
+      "worst_map_scenario_mean_gain_pct": -3.905258166499897,
+      "average_gain_pct": 5.5517111315813334,
+      "max_backlog_red": 103,
+      "collisions": 0
+    }
+  }
+}

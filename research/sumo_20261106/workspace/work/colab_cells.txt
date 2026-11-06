@@ -1,0 +1,126 @@
+# SUMO T자형 교차로 V3 재현
+
+정식 학습과 최종 평가는 선택 실행입니다. 먼저 smoke를 완료하고 예비 학습 또는 정식 학습을 수행합니다. 배포 ZIP에 포함된 실험과 별도로 `outputs/v3_research/colab/`에 결과를 저장합니다.
+---code---
+from pathlib import Path
+import os
+import shutil
+import subprocess
+import sys
+from zipfile import ZipFile
+from google.colab import files
+
+root = Path("/content/T_Junction_RL")
+if not (root / "requirements.txt").is_file():
+    uploaded = files.upload()
+    archives = [Path(name) for name in uploaded if name.endswith(".zip")]
+    if len(archives) != 1:
+        raise ValueError("프로젝트 ZIP 한 개를 업로드하세요.")
+    with ZipFile(archives[0]) as package:
+        for member in package.namelist():
+            member_path = Path(member)
+            if member_path.is_absolute() or ".." in member_path.parts or member_path.parts[0] != root.name:
+                raise ValueError(f"잘못된 ZIP 경로: {member}")
+        package.extractall(root.parent)
+assert (root / "requirements.txt").is_file()
+---markdown---
+## 환경 설치 및 지도 검증
+---code---
+subprocess.run(["bash", "scripts/setup_colab.sh"], cwd=root, check=True)
+
+def run(module, *args):
+    subprocess.run([sys.executable, "-m", module, *map(str, args)], cwd=root, check=True)
+
+run("maps.generate_map")
+run("scripts.check_environment")
+run("pytest", "-ra")
+run("scripts.benchmark_device")
+---markdown---
+## 실행 및 Drive 보관 설정
+
+학습을 중단했다면 같은 단계를 재실행합니다. Drive를 사용하면 그곳의 실행 디렉터리를 복원하고 새 체크포인트를 복사합니다. CPU와 CUDA에서 실행할 수 있으며 GPU 한 개에는 기본 `JOBS=1`을 사용합니다.
+---code---
+RUN_SMOKE = True
+RUN_QUICK_TRAIN = False
+RUN_FULL_TRAIN = False
+RUN_FINAL_TEST = False
+USE_DRIVE = False
+JOBS = 1
+
+research = root / "outputs/v3_research/colab"
+research.mkdir(parents=True, exist_ok=True)
+backup = None
+if USE_DRIVE:
+    from google.colab import drive
+    drive.mount("/content/drive")
+    backup = Path("/content/drive/MyDrive/T_Junction_RL_v3_research")
+    backup.mkdir(parents=True, exist_ok=True)
+    for name in ("smoke", "quick", "full"):
+        if (backup / name).exists() and not (research / name).exists():
+            shutil.copytree(backup / name, research / name)
+
+def train_matrix(mode, *options):
+    args = ["--mode", mode, "--output", research / mode, "--jobs", JOBS, "--execute", *options]
+    if backup:
+        args += ["--mirror", backup / mode]
+    run("scripts.research_matrix", *args)
+---markdown---
+## Smoke Test 및 예비 학습
+---code---
+if RUN_SMOKE:
+    train_matrix("smoke", "--algorithms", "dqn", "rainbow_lite", "--training-seeds", "42")
+if RUN_QUICK_TRAIN:
+    train_matrix("quick")
+---markdown---
+## 정식 학습과 validation
+---code---
+run("scripts.research_matrix", "--mode", "full")
+if RUN_FULL_TRAIN:
+    train_matrix("full")
+
+import pandas as pd
+
+mode = "full" if RUN_FULL_TRAIN else "quick"
+training = research / mode
+selected = []
+if training.exists():
+    run("scripts.summarize_v3", "--root", training)
+    scores = pd.read_csv(training / "validation_leaderboard.csv")
+    display(scores)
+    winners = scores.sort_values(["mean_validation_delay_s", "algorithm"]).groupby("control_mode").first()
+    selected = [f"{control}_{row.algorithm}" for control, row in winners.iterrows()]
+    print("Validation selection:", selected)
+    validation = training / "validation_eval"
+    resume = ["--resume"] if (validation / "evaluation_plan.json").exists() else []
+    run("scripts.research_evaluation", "--training", training, "--output", validation, "--split",
+        "validation", "--seeds", 3 if mode == "full" else 2, "--horizon",
+        900 if mode == "full" else 600, "--jobs", JOBS, *resume)
+---markdown---
+## 새 수요에서 최종 평가 및 시각화
+
+위에서 선택한 Cycle/Direct 조합의 모든 학습 시드를 공통 수요에서 평가합니다. 기존 평가 계획이 있으면 동일 계획으로 이어갑니다.
+---code---
+evaluation = training / "final_eval"
+if RUN_FINAL_TEST:
+    if not selected:
+        raise RuntimeError("예비 학습 또는 정식 학습과 validation을 먼저 완료하세요.")
+    resume = ["--resume"] if (evaluation / "evaluation_plan.json").exists() else []
+    run("scripts.research_evaluation", "--training", training, "--output", evaluation, "--split", "final",
+        "--seeds", 10, "--horizon", 900 if mode == "full" else 600, "--jobs", JOBS, "--groups",
+        *selected, *resume)
+    if backup:
+        shutil.copytree(evaluation, backup / mode / "final_eval", dirs_exist_ok=True)
+
+if training.exists():
+    report_args = []
+    for candidate in (evaluation, training / "validation_eval"):
+        if (candidate / "evaluation_status.json").exists():
+            report_args = ["--evaluation", candidate]
+            break
+    run("scripts.research_report", "--training", training, "--output", training / "figures", *report_args)
+    display(pd.read_csv(training / "figures/algorithm_validation.csv"))
+---markdown---
+## 모델·로그·그래프 다운로드
+---code---
+archive = shutil.make_archive("/content/T_Junction_RL_Colab_Results", "zip", research)
+files.download(archive)

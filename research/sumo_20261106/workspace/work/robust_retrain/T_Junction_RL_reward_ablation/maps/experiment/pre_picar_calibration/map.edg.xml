@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<edges>
+  <edge id="W_in" from="W" to="J" numLanes="1" speed="11.0" width="3.2" />
+  <edge id="W_out" from="J" to="W" numLanes="1" speed="11.0" width="3.2" />
+  <edge id="E_in" from="E" to="J" numLanes="1" speed="11.0" width="3.2" />
+  <edge id="E_out" from="J" to="E" numLanes="1" speed="11.0" width="3.2" />
+  <edge id="S_in" from="S" to="J" numLanes="1" speed="10.0" width="3.2" />
+  <edge id="S_out" from="J" to="S" numLanes="1" speed="10.0" width="3.2" />
+</edges>

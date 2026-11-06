@@ -1,0 +1,3 @@
+artifacts/** -text -diff -delta
+*.png binary
+*.pt binary

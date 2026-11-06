@@ -1,0 +1,860 @@
+{
+  "chunk_bytes": 25165824,
+  "artifacts": [
+    {
+      "logical_path": "outputs/SUMO_20261105_후보_재학습_결과.md",
+      "size": 3344,
+      "sha256": "e1e637cef9f71a7078f7f4f97ced9e26f7e03f7443574cfb4e3a8c30e86b7e9a",
+      "parts": [
+        {
+          "path": "artifacts/001/part001.bin",
+          "size": 3344,
+          "sha256": "e1e637cef9f71a7078f7f4f97ced9e26f7e03f7443574cfb4e3a8c30e86b7e9a"
+        }
+      ]
+    },
+    {
+      "logical_path": "outputs/SUMO_balanceA_대기와지연_비교.png",
+      "size": 91133,
+      "sha256": "d8f1b86f4a72bf3b6dad799fe22ca4c97f44a3f619b101211092425d0db9b0e4",
+      "parts": [
+        {
+          "path": "artifacts/002/part001.bin",
+          "size": 91133,
+          "sha256": "d8f1b86f4a72bf3b6dad799fe22ca4c97f44a3f619b101211092425d0db9b0e4"
+        }
+      ]
+    },
+    {
+      "logical_path": "outputs/SUMO_balanceA_안정화_재학습_결과.zip",
+      "size": 86041982,
+      "sha256": "15b83be13bfefea87dfb5cd010abb7ffb67673b1fedd951fd4c800bb71cdbb9f",
+      "parts": [
+        {
+          "path": "artifacts/003/part001.bin",
+          "size": 25165824,
+          "sha256": "e3cfccadba3b2c784856ec9cf7846ee8053c671acb201286173756692b496e8c"
+        },
+        {
+          "path": "artifacts/003/part002.bin",
+          "size": 25165824,
+          "sha256": "9c1383c0f3e08f7c7c24b4b14ee0e538d555cf0a9555d4b38ea8a9f7b1fdd4d4"
+        },
+        {
+          "path": "artifacts/003/part003.bin",
+          "size": 25165824,
+          "sha256": "e6dace7d1fbdaa03649b5d03870fca538fa09ac4d8a499c8338182092d40d2f7"
+        },
+        {
+          "path": "artifacts/003/part004.bin",
+          "size": 10544510,
+          "sha256": "37c88f7c4c271c64d4770cf8291e62eb30f30eb702626f7f3bc203bc736604dd"
+        }
+      ]
+    },
+    {
+      "logical_path": "outputs/SUMO_balanceA_안정화_재학습_보고서.md",
+      "size": 9235,
+      "sha256": "8eaeb521900c2f59cd24ada44f1f1276932bdc210ba5555c98f42b8d2ffaca20",
+      "parts": [
+        {
+          "path": "artifacts/004/part001.bin",
+          "size": 9235,
+          "sha256": "8eaeb521900c2f59cd24ada44f1f1276932bdc210ba5555c98f42b8d2ffaca20"
+        }
+      ]
+    },
+    {
+      "logical_path": "outputs/SUMO_balanceA_조건별_비교.png",
+      "size": 78445,
+      "sha256": "e54410b7d38466749a6de4990189c3d93e1d35f986fa1f8f88f7e82e904539c2",
+      "parts": [
+        {
+          "path": "artifacts/005/part001.bin",
+          "size": 78445,
+          "sha256": "e54410b7d38466749a6de4990189c3d93e1d35f986fa1f8f88f7e82e904539c2"
+        }
+      ]
+    },
+    {
+      "logical_path": "outputs/SUMO_PiCar_새교차로_신호변화.png",
+      "size": 150356,
+      "sha256": "196d4aaa6d0b9871f2a7425c1235b40c7b800b0d837afb0067dc693f7b197214",
+      "parts": [
+        {
+          "path": "artifacts/006/part001.bin",
+          "size": 150356,
+          "sha256": "196d4aaa6d0b9871f2a7425c1235b40c7b800b0d837afb0067dc693f7b197214"
+        }
+      ]
+    },
+    {
+      "logical_path": "outputs/SUMO_PiCar_신호추천_시제품.py",
+      "size": 5526,
+      "sha256": "2fe3954adc61cd25caf1b87f57db1915e84d8d4e0bc7ce824bdbe23bb14ddd0f",
+      "parts": [
+        {
+          "path": "artifacts/007/part001.bin",
+          "size": 5526,
+          "sha256": "2fe3954adc61cd25caf1b87f57db1915e84d8d4e0bc7ce824bdbe23bb14ddd0f"
+        }
+      ]
+    },
+    {
+      "logical_path": "outputs/SUMO_PiCar_실측_및_연결_준비.md",
+      "size": 4776,
+      "sha256": "a39a175e9c4c90f3eb4343cabcf237ad54aee823b50ea451eb5457043e0ad194",
+      "parts": [
+        {
+          "path": "artifacts/008/part001.bin",
+          "size": 4776,
+          "sha256": "a39a175e9c4c90f3eb4343cabcf237ad54aee823b50ea451eb5457043e0ad194"
+        }
+      ]
+    },
+    {
+      "logical_path": "outputs/SUMO_PiCar_연결전_실험보고서.md",
+      "size": 10808,
+      "sha256": "79addc4821c193758caf3d4faac386d8beddec703a9e40d2ff5e3a3a5ed49703",
+      "parts": [
+        {
+          "path": "artifacts/009/part001.bin",
+          "size": 10808,
+          "sha256": "79addc4821c193758caf3d4faac386d8beddec703a9e40d2ff5e3a3a5ed49703"
+        }
+      ]
+    },
+    {
+      "logical_path": "outputs/SUMO_PiCar_연결전_코드_결과.zip",
+      "size": 64650718,
+      "sha256": "1861a5fb27f959d658bec237a79c9c2b96c0959b37041102005fb824af5919e0",
+      "parts": [
+        {
+          "path": "artifacts/010/part001.bin",
+          "size": 25165824,
+          "sha256": "7d288852f8c2ffec36259853ef6fb63b8fb8b44c8eb1ca8b6921b170d252f637"
+        },
+        {
+          "path": "artifacts/010/part002.bin",
+          "size": 25165824,
+          "sha256": "85039f7ce8c773d88642e9bf7a6c78fd24eac4c7e835c5639361c5719c5e11c4"
+        },
+        {
+          "path": "artifacts/010/part003.bin",
+          "size": 14319070,
+          "sha256": "8c76d3ffe9ffee260e274dad9a4206cdf80656a135f088036fe7177392b8493a"
+        }
+      ]
+    },
+    {
+      "logical_path": "outputs/SUMO_PiCar_전_센서별_비교.png",
+      "size": 66339,
+      "sha256": "ba10ff82b981b2903f7e8d650a1d2f168fc11705f8fed7bb38a282e2df3d61a8",
+      "parts": [
+        {
+          "path": "artifacts/011/part001.bin",
+          "size": 66339,
+          "sha256": "ba10ff82b981b2903f7e8d650a1d2f168fc11705f8fed7bb38a282e2df3d61a8"
+        }
+      ]
+    },
+    {
+      "logical_path": "outputs/SUMO_robust_signal_evidence.png",
+      "size": 87032,
+      "sha256": "ac5b3bd88c79d8973363456b05b1081dbe7db96f5e44d75159ffb436b206af61",
+      "parts": [
+        {
+          "path": "artifacts/012/part001.bin",
+          "size": 87032,
+          "sha256": "ac5b3bd88c79d8973363456b05b1081dbe7db96f5e44d75159ffb436b206af61"
+        }
+      ]
+    },
+    {
+      "logical_path": "outputs/SUMO_고정입력_새교차로_실험_20261105.md",
+      "size": 2957,
+      "sha256": "6080a7b47e16996c668f7dfce026e57b7df52c3e47f1d0a579bca4f827c9793e",
+      "parts": [
+        {
+          "path": "artifacts/013/part001.bin",
+          "size": 2957,
+          "sha256": "6080a7b47e16996c668f7dfce026e57b7df52c3e47f1d0a579bca4f827c9793e"
+        }
+      ]
+    },
+    {
+      "logical_path": "outputs/SUMO_미세조정_실험계획_20261105.md",
+      "size": 4092,
+      "sha256": "868952922efb3fd75d4b7086f16ae29769546bfb46cd1acce355776ba9fa9367",
+      "parts": [
+        {
+          "path": "artifacts/014/part001.bin",
+          "size": 4092,
+          "sha256": "868952922efb3fd75d4b7086f16ae29769546bfb46cd1acce355776ba9fa9367"
+        }
+      ]
+    },
+    {
+      "logical_path": "outputs/SUMO_보상_단일변경_재학습_기록.md",
+      "size": 5356,
+      "sha256": "01aeb9ad5f300b837a2de90eaee9d75ce4ff7622f1d7cbc2820f78a3995fedc2",
+      "parts": [
+        {
+          "path": "artifacts/015/part001.bin",
+          "size": 5356,
+          "sha256": "01aeb9ad5f300b837a2de90eaee9d75ce4ff7622f1d7cbc2820f78a3995fedc2"
+        }
+      ]
+    },
+    {
+      "logical_path": "outputs/SUMO_후보43_추가검증_20261105.md",
+      "size": 3465,
+      "sha256": "38e3bd141c8debc2e1c85c74f84e4551473a010d34222f2b35875722645d52b7",
+      "parts": [
+        {
+          "path": "artifacts/016/part001.bin",
+          "size": 3465,
+          "sha256": "38e3bd141c8debc2e1c85c74f84e4551473a010d34222f2b35875722645d52b7"
+        }
+      ]
+    },
+    {
+      "logical_path": "outputs/T_Junction_Colab_Multimap_Study.ipynb",
+      "size": 131043,
+      "sha256": "f7d523167aad630f0488ed5091d04c60c6f48e0ef3ec15ea123bffda082e640a",
+      "parts": [
+        {
+          "path": "artifacts/017/part001.bin",
+          "size": 131043,
+          "sha256": "f7d523167aad630f0488ed5091d04c60c6f48e0ef3ec15ea123bffda082e640a"
+        }
+      ]
+    },
+    {
+      "logical_path": "outputs/T_Junction_Colab_Result_Analysis.zip",
+      "size": 149329,
+      "sha256": "546a2ff792e274fcc830efcb12fe2c28ac4d0860651ed260d259f7a4e9814028",
+      "parts": [
+        {
+          "path": "artifacts/018/part001.bin",
+          "size": 149329,
+          "sha256": "546a2ff792e274fcc830efcb12fe2c28ac4d0860651ed260d259f7a4e9814028"
+        }
+      ]
+    },
+    {
+      "logical_path": "outputs/T_Junction_Colab_Result_Interpretation_KR.md",
+      "size": 5512,
+      "sha256": "156faabf09a0f78b3dffc15b19568ffc0f3ad9e10c32ca722017455fd580ec8e",
+      "parts": [
+        {
+          "path": "artifacts/019/part001.bin",
+          "size": 5512,
+          "sha256": "156faabf09a0f78b3dffc15b19568ffc0f3ad9e10c32ca722017455fd580ec8e"
+        }
+      ]
+    },
+    {
+      "logical_path": "outputs/T_Junction_Colab_Robust_Retrain.ipynb",
+      "size": 266620,
+      "sha256": "206caf5d254774910de3a352ab926853ce74745248abbfa9efedce7a58ba8fb1",
+      "parts": [
+        {
+          "path": "artifacts/020/part001.bin",
+          "size": 266620,
+          "sha256": "206caf5d254774910de3a352ab926853ce74745248abbfa9efedce7a58ba8fb1"
+        }
+      ]
+    },
+    {
+      "logical_path": "outputs/T_Junction_Guard_Change_Log_KR.md",
+      "size": 8085,
+      "sha256": "fae11921205bb1bc2022d9f224bfc20e3f6bef5318f0e80a0815b1d2658f5296",
+      "parts": [
+        {
+          "path": "artifacts/021/part001.bin",
+          "size": 8085,
+          "sha256": "fae11921205bb1bc2022d9f224bfc20e3f6bef5318f0e80a0815b1d2658f5296"
+        }
+      ]
+    },
+    {
+      "logical_path": "outputs/T_Junction_Guard_Incident.png",
+      "size": 75679,
+      "sha256": "cba6c3b7736b7fe7b606036dbc876c57891af7d049374a69f8417561eeadc1a0",
+      "parts": [
+        {
+          "path": "artifacts/022/part001.bin",
+          "size": 75679,
+          "sha256": "cba6c3b7736b7fe7b606036dbc876c57891af7d049374a69f8417561eeadc1a0"
+        }
+      ]
+    },
+    {
+      "logical_path": "outputs/T_Junction_Guard_Project_and_Evidence.zip",
+      "size": 28027582,
+      "sha256": "9ab0c913d99d987b4fc9f396d712ea03f6b1548fac796cf4332ce57569856a66",
+      "parts": [
+        {
+          "path": "artifacts/023/part001.bin",
+          "size": 25165824,
+          "sha256": "504e1c6c8ebbaefc7b76ba47413ef0c928862510f241949e1d7fba638cd09631"
+        },
+        {
+          "path": "artifacts/023/part002.bin",
+          "size": 2861758,
+          "sha256": "3ecb6746ba89bda10df5b8a446cb6c1ef565e8e97bf04673a5bbffda14a3ae08"
+        }
+      ]
+    },
+    {
+      "logical_path": "outputs/T_Junction_RL_Project_Validated_Final.zip",
+      "size": 346502165,
+      "sha256": "3d2ea0ed922a34e3f0601e566e53f6e7396a35f588ad7ab5ca250185d923a6ec",
+      "parts": [
+        {
+          "path": "artifacts/024/part001.bin",
+          "size": 25165824,
+          "sha256": "28c1800393597921919c0f8bf6a4c962a265fd217259344e84a973d77e4b7029"
+        },
+        {
+          "path": "artifacts/024/part002.bin",
+          "size": 25165824,
+          "sha256": "f1c42145c99422b65a7e456077ff28ed0cad045ec9df0c924962270227f12236"
+        },
+        {
+          "path": "artifacts/024/part003.bin",
+          "size": 25165824,
+          "sha256": "f5dc541576b388744b5aeddf1104ecd20ef1de3d940435e3e1525fb29c4471bc"
+        },
+        {
+          "path": "artifacts/024/part004.bin",
+          "size": 25165824,
+          "sha256": "80daecf53adf933213cb482fd788082369cf32d1026f899d0d818ac79b615087"
+        },
+        {
+          "path": "artifacts/024/part005.bin",
+          "size": 25165824,
+          "sha256": "494f882908c31482c4fa8ac47dd301905a188d9ac823efd0646b7619e2cb6b14"
+        },
+        {
+          "path": "artifacts/024/part006.bin",
+          "size": 25165824,
+          "sha256": "6c2e63b6a7404916e1b0a98190f3c17f5d73542dbb57598e788688306e937544"
+        },
+        {
+          "path": "artifacts/024/part007.bin",
+          "size": 25165824,
+          "sha256": "6a9829fb3cc9c8d85b321ea310038eb27c15b4a1b401534cbd0ca4ef83cc7517"
+        },
+        {
+          "path": "artifacts/024/part008.bin",
+          "size": 25165824,
+          "sha256": "4cce73dd868d09da823a3f66fec826b2049bed463299081a48f0ff1e47a5043c"
+        },
+        {
+          "path": "artifacts/024/part009.bin",
+          "size": 25165824,
+          "sha256": "9a1b37b06853179186718f57e4bfe65def632880e3794999708924b1ccec3405"
+        },
+        {
+          "path": "artifacts/024/part010.bin",
+          "size": 25165824,
+          "sha256": "dca6e93940a79591d317f595ffcc7a8209f6bb58a97ec4ab673b714811b005a0"
+        },
+        {
+          "path": "artifacts/024/part011.bin",
+          "size": 25165824,
+          "sha256": "9774500ffde7008ee181e232c11038e9700171b9471511a12803243a294a7a3c"
+        },
+        {
+          "path": "artifacts/024/part012.bin",
+          "size": 25165824,
+          "sha256": "e49f95ade44aae3c9bf6ed0a03a71e4e5d368e450640344379b9a2c2e9f9b7b4"
+        },
+        {
+          "path": "artifacts/024/part013.bin",
+          "size": 25165824,
+          "sha256": "a587f754f5ad1c428312c6e2f92a5125f20decb770519976270a34f12968ea00"
+        },
+        {
+          "path": "artifacts/024/part014.bin",
+          "size": 19346453,
+          "sha256": "e8cd322e954dafc4af2116c89706f8be40a46c458539623bc12f9eefe335f14a"
+        }
+      ]
+    },
+    {
+      "logical_path": "outputs/T_Junction_RL_Reassessment_Evidence.zip",
+      "size": 22473531,
+      "sha256": "499c8c01a58591579da9a7146374a8e7fda6b6a11f932f91bff57bf64e1b6a28",
+      "parts": [
+        {
+          "path": "artifacts/025/part001.bin",
+          "size": 22473531,
+          "sha256": "499c8c01a58591579da9a7146374a8e7fda6b6a11f932f91bff57bf64e1b6a28"
+        }
+      ]
+    },
+    {
+      "logical_path": "outputs/T_Junction_RL_Reassessment_KR.md",
+      "size": 8162,
+      "sha256": "50d15c368445916286fc237b4385415c8461e17386ebbbfd2d39e1bbedd87e38",
+      "parts": [
+        {
+          "path": "artifacts/026/part001.bin",
+          "size": 8162,
+          "sha256": "50d15c368445916286fc237b4385415c8461e17386ebbbfd2d39e1bbedd87e38"
+        }
+      ]
+    },
+    {
+      "logical_path": "outputs/T_Junction_RL_Reproduced_Results.zip",
+      "size": 261718076,
+      "sha256": "13f9bb473e9573f8592b2c2ce27351a76aa497a1ea64edaaf8a87bdb01244697",
+      "parts": [
+        {
+          "path": "artifacts/027/part001.bin",
+          "size": 25165824,
+          "sha256": "eae5c2f7f1247928933e34c4967ca5a4144c5c7a93d5d10caff4ef603ce2f877"
+        },
+        {
+          "path": "artifacts/027/part002.bin",
+          "size": 25165824,
+          "sha256": "06e23b167af899b150766408cceadbe3a09be8c8a9f0ede21cdbfe2bd690cb82"
+        },
+        {
+          "path": "artifacts/027/part003.bin",
+          "size": 25165824,
+          "sha256": "47284b14a2f81432f9d806750de4329dd71a2bdb4d9533c6d94b31b87e157d69"
+        },
+        {
+          "path": "artifacts/027/part004.bin",
+          "size": 25165824,
+          "sha256": "2fdf4cb4c4d58d1b2836bc173a44a8e0f6fc09caf55f1260c5dd981c3d481ffd"
+        },
+        {
+          "path": "artifacts/027/part005.bin",
+          "size": 25165824,
+          "sha256": "76f873fa4059c8df20eb4ffc579ab9af15fa6fa04d3180ee459814b7f4f7bfc4"
+        },
+        {
+          "path": "artifacts/027/part006.bin",
+          "size": 25165824,
+          "sha256": "8a676866b2fc8a7f6d2de09969119e7ee21b378f35ef8944608059e54e6a9a80"
+        },
+        {
+          "path": "artifacts/027/part007.bin",
+          "size": 25165824,
+          "sha256": "14308fe544b4f4369db30dcd981310a4087770edc0095cd568827eea64b6e22f"
+        },
+        {
+          "path": "artifacts/027/part008.bin",
+          "size": 25165824,
+          "sha256": "332815d261c7a25332f7e24ff1aadbc7f4cf4633239012a537a88087d9015fc7"
+        },
+        {
+          "path": "artifacts/027/part009.bin",
+          "size": 25165824,
+          "sha256": "9dcf749d43b40743d425efafcdac3679bba4c9d7589d008569417551af7e1185"
+        },
+        {
+          "path": "artifacts/027/part010.bin",
+          "size": 25165824,
+          "sha256": "bdd8c322d0a254767f3d924f7b62a9f10fbc7b9060c186ca5f64bea54cee0fbf"
+        },
+        {
+          "path": "artifacts/027/part011.bin",
+          "size": 10059836,
+          "sha256": "c2b5efc99f7bfb429475f4133ca1550ff34533a2874c5220fed0490cc81aeaac"
+        }
+      ]
+    },
+    {
+      "logical_path": "outputs/T_Junction_RL_Result_Audit_Evidence.zip",
+      "size": 25353809,
+      "sha256": "2a5536f51e6fa03de290c60b46fa1452cb9266f484b67ee4a955fcd64a22edc7",
+      "parts": [
+        {
+          "path": "artifacts/028/part001.bin",
+          "size": 25165824,
+          "sha256": "2c60ea4d6b968ca953819d7cc075619a59bf77f7b513560b7fb4493c85dbf544"
+        },
+        {
+          "path": "artifacts/028/part002.bin",
+          "size": 187985,
+          "sha256": "a92a0e411516add02134ff51c2e155188979ef6680d01f4829a26476bc408b17"
+        }
+      ]
+    },
+    {
+      "logical_path": "outputs/T_Junction_RL_Result_Audit_KR.md",
+      "size": 7328,
+      "sha256": "8fed76806ee261988f699bcd14c396ff4455b525c963951e62589bf25712926c",
+      "parts": [
+        {
+          "path": "artifacts/029/part001.bin",
+          "size": 7328,
+          "sha256": "8fed76806ee261988f699bcd14c396ff4455b525c963951e62589bf25712926c"
+        }
+      ]
+    },
+    {
+      "logical_path": "outputs/T_Junction_Robustness_Study_Evidence.zip",
+      "size": 33622008,
+      "sha256": "245592fd53e240e02a82ca287dc70b253f85047813488f8a7abdfdf927bde1c2",
+      "parts": [
+        {
+          "path": "artifacts/030/part001.bin",
+          "size": 25165824,
+          "sha256": "2a0eeeb22ab30b21b84bdd00b83376082304a383397cd19455c612436f849445"
+        },
+        {
+          "path": "artifacts/030/part002.bin",
+          "size": 8456184,
+          "sha256": "6b52d9e95781c12e7bc7f72be1a0e759beed1d240e98d330bd361c227849d65b"
+        }
+      ]
+    },
+    {
+      "logical_path": "outputs/T_Junction_Robustness_Study_KR.md",
+      "size": 5833,
+      "sha256": "183328405e781dc813ca291db9969dca4b26e3f851177bff60a087983c29a753",
+      "parts": [
+        {
+          "path": "artifacts/031/part001.bin",
+          "size": 5833,
+          "sha256": "183328405e781dc813ca291db9969dca4b26e3f851177bff60a087983c29a753"
+        }
+      ]
+    },
+    {
+      "logical_path": "outputs/T_Junction_SUMO_GUI_400s.png",
+      "size": 14345,
+      "sha256": "3e42739a08346381cf470b050dabe03f2895415a98aae6294fa27d3bdf6985b6",
+      "parts": [
+        {
+          "path": "artifacts/032/part001.bin",
+          "size": 14345,
+          "sha256": "3e42739a08346381cf470b050dabe03f2895415a98aae6294fa27d3bdf6985b6"
+        }
+      ]
+    },
+    {
+      "logical_path": "outputs/T_Junction_SUMO_GUI_Evidence.zip",
+      "size": 1448777,
+      "sha256": "9a84df45e7bca0bb18d99958dd7c74d13d7bf35bb6144b21c722198ef1cc63e3",
+      "parts": [
+        {
+          "path": "artifacts/033/part001.bin",
+          "size": 1448777,
+          "sha256": "9a84df45e7bca0bb18d99958dd7c74d13d7bf35bb6144b21c722198ef1cc63e3"
+        }
+      ]
+    },
+    {
+      "logical_path": "outputs/T_Junction_SUMO_GUI_Signal_Timeline.png",
+      "size": 25529,
+      "sha256": "6493ec525915ea896bd6696f73ab3944b6f957ec5fb7b2cceaad42f9ec887bf0",
+      "parts": [
+        {
+          "path": "artifacts/034/part001.bin",
+          "size": 25529,
+          "sha256": "6493ec525915ea896bd6696f73ab3944b6f957ec5fb7b2cceaad42f9ec887bf0"
+        }
+      ]
+    },
+    {
+      "logical_path": "outputs/T_Junction_SUMO_GUI_Test_KR.md",
+      "size": 3557,
+      "sha256": "6f683fba0a495a04c0b5101e2479b95f5deed2c45c03124aac2c34378419a92d",
+      "parts": [
+        {
+          "path": "artifacts/035/part001.bin",
+          "size": 3557,
+          "sha256": "6f683fba0a495a04c0b5101e2479b95f5deed2c45c03124aac2c34378419a92d"
+        }
+      ]
+    },
+    {
+      "logical_path": "outputs/T_Junction_Transfer_Evidence.zip",
+      "size": 23929063,
+      "sha256": "06cd9f3aeab19f1231fc866c2d6e70a6c1f1f251117686a38579c6d300cdbfc6",
+      "parts": [
+        {
+          "path": "artifacts/036/part001.bin",
+          "size": 23929063,
+          "sha256": "06cd9f3aeab19f1231fc866c2d6e70a6c1f1f251117686a38579c6d300cdbfc6"
+        }
+      ]
+    },
+    {
+      "logical_path": "outputs/T_Junction_Transfer_Report_KR.md",
+      "size": 7104,
+      "sha256": "85fb31cb8f9ecdc6dafa8a400895e97f52fad355b324e4cf632b5e5c1d3049b2",
+      "parts": [
+        {
+          "path": "artifacts/037/part001.bin",
+          "size": 7104,
+          "sha256": "85fb31cb8f9ecdc6dafa8a400895e97f52fad355b324e4cf632b5e5c1d3049b2"
+        }
+      ]
+    },
+    {
+      "logical_path": "outputs/T_Junction_Transfer_Signal_Replay.html",
+      "size": 1162189,
+      "sha256": "134ba4fc74dc7a9c70ef8996834b92415fa9190b05e7122879d741d7b724e702",
+      "parts": [
+        {
+          "path": "artifacts/038/part001.bin",
+          "size": 1162189,
+          "sha256": "134ba4fc74dc7a9c70ef8996834b92415fa9190b05e7122879d741d7b724e702"
+        }
+      ]
+    },
+    {
+      "logical_path": "archives/SUMO_balanceA_기준정책_안전판_검증.zip",
+      "size": 16121307,
+      "sha256": "49804782be8a4de9ad3c4248fe4c4d150c5cb94f4d29fda85ae318f376f81f65",
+      "parts": [
+        {
+          "path": "artifacts/039/part001.bin",
+          "size": 16121307,
+          "sha256": "49804782be8a4de9ad3c4248fe4c4d150c5cb94f4d29fda85ae318f376f81f65"
+        }
+      ]
+    },
+    {
+      "logical_path": "archives/SUMO_balanceA_독립시험_20261105.zip",
+      "size": 38135918,
+      "sha256": "ec4d4d8ec2fb7b6f9fbc6d9434db060e8b7345ecc6aca472d2c78a70440889c6",
+      "parts": [
+        {
+          "path": "artifacts/040/part001.bin",
+          "size": 25165824,
+          "sha256": "2a4babe48b3552ac5f48dcaac1d4a910b4bc378ef2368c12cab9089e662ddb50"
+        },
+        {
+          "path": "artifacts/040/part002.bin",
+          "size": 12970094,
+          "sha256": "9761de3a52960b5ed36fd41056711701e8cd0da48563623914bb1264608d0dbf"
+        }
+      ]
+    },
+    {
+      "logical_path": "archives/SUMO_balanceA_안정화_20261105.zip",
+      "size": 112851773,
+      "sha256": "a13ec9d4ee00137aa3ad9fffc6b7d2ea79993a0868b2d76537d306e673de112d",
+      "parts": [
+        {
+          "path": "artifacts/041/part001.bin",
+          "size": 25165824,
+          "sha256": "ec47cbcfd4a89fc666c093bd2ac1218ac996ee64744f4cacd633606ba941fef4"
+        },
+        {
+          "path": "artifacts/041/part002.bin",
+          "size": 25165824,
+          "sha256": "7f25c14373925da72ca693969a5863f44f3e7843aed351024978c3fa93d78eda"
+        },
+        {
+          "path": "artifacts/041/part003.bin",
+          "size": 25165824,
+          "sha256": "fcac64d5e165f4e55833aa2a87ae15eb783f4fdbe7bc3c94380080542ca85423"
+        },
+        {
+          "path": "artifacts/041/part004.bin",
+          "size": 25165824,
+          "sha256": "94d3e8ecbd2a3aa8d611000e6059b11c26568bd454807e4d64ac206d7c91d6ed"
+        },
+        {
+          "path": "artifacts/041/part005.bin",
+          "size": 12188477,
+          "sha256": "a84058a0f53afb1e143d39dc937bebc603a0c62ae3e02f2857a24ea361329c91"
+        }
+      ]
+    },
+    {
+      "logical_path": "archives/SUMO_balanceA_장시간대기_추가시험.zip",
+      "size": 17733114,
+      "sha256": "da1a6baa7827f7816b9da32e2f4360e3fd8aa3c00631621f696318e8b965c398",
+      "parts": [
+        {
+          "path": "artifacts/042/part001.bin",
+          "size": 17733114,
+          "sha256": "da1a6baa7827f7816b9da32e2f4360e3fd8aa3c00631621f696318e8b965c398"
+        }
+      ]
+    },
+    {
+      "logical_path": "archives/SUMO_PiCar_전_고정신호_조정.zip",
+      "size": 7748057,
+      "sha256": "75b7b8b7c1a0a17d5c1c5979f8c6c0619208a80d9f5e779fcec268d3d99bd566",
+      "parts": [
+        {
+          "path": "artifacts/043/part001.bin",
+          "size": 7748057,
+          "sha256": "75b7b8b7c1a0a17d5c1c5979f8c6c0619208a80d9f5e779fcec268d3d99bd566"
+        }
+      ]
+    },
+    {
+      "logical_path": "archives/SUMO_PiCar_전_균형선택_새시험.zip",
+      "size": 20133229,
+      "sha256": "7b418154122a418730e075686f4012e505f9b6487d9079615b92d28266984f75",
+      "parts": [
+        {
+          "path": "artifacts/044/part001.bin",
+          "size": 20133229,
+          "sha256": "7b418154122a418730e075686f4012e505f9b6487d9079615b92d28266984f75"
+        }
+      ]
+    },
+    {
+      "logical_path": "archives/SUMO_PiCar_전_균형선택_재학습.zip",
+      "size": 32239566,
+      "sha256": "91fffad907b899d9e0ddd31fb1bf67423e98b630b5a9321c6d463d6fce5a6a2d",
+      "parts": [
+        {
+          "path": "artifacts/045/part001.bin",
+          "size": 25165824,
+          "sha256": "d653c206aabcc3c45522d06990c2c2677a3aa7300679cc66fe00f8c0ba6ff695"
+        },
+        {
+          "path": "artifacts/045/part002.bin",
+          "size": 7073742,
+          "sha256": "48c418cbfef16c2ea573c16d872163fdaba5a3c879ef737eb490397c5ea7dbfb"
+        }
+      ]
+    },
+    {
+      "logical_path": "archives/SUMO_PiCar_전_센서시험.zip",
+      "size": 10402815,
+      "sha256": "b33fd2448edd49239e248987bc314cef7cbaba085708db917c6e04b29770edea",
+      "parts": [
+        {
+          "path": "artifacts/046/part001.bin",
+          "size": 10402815,
+          "sha256": "b33fd2448edd49239e248987bc314cef7cbaba085708db917c6e04b29770edea"
+        }
+      ]
+    },
+    {
+      "logical_path": "archives/SUMO_PiCar_전_센서재학습.zip",
+      "size": 32777030,
+      "sha256": "e22eb24c539b07ba68856fe92986f1e79b3bd2076ad954967112e0c4cf2d98cd",
+      "parts": [
+        {
+          "path": "artifacts/047/part001.bin",
+          "size": 25165824,
+          "sha256": "d5f05a0d5342a27b44515565f39114349f86f4ab5d9d2e3727bf14d4de536d96"
+        },
+        {
+          "path": "artifacts/047/part002.bin",
+          "size": 7611206,
+          "sha256": "83b7462c514be1de9f3a9245d06138522b433d9bb683de289b8326010fa4cb3c"
+        }
+      ]
+    },
+    {
+      "logical_path": "archives/SUMO_PiCar_전_신호감시_시험.zip",
+      "size": 934312,
+      "sha256": "23628ff257a1918f6b41b22a2ecddba55e195b14d7ecdbeed4f68472b7cc0ecb",
+      "parts": [
+        {
+          "path": "artifacts/048/part001.bin",
+          "size": 934312,
+          "sha256": "23628ff257a1918f6b41b22a2ecddba55e195b14d7ecdbeed4f68472b7cc0ecb"
+        }
+      ]
+    },
+    {
+      "logical_path": "archives/SUMO_PiCar_전_재학습_비교.zip",
+      "size": 17263302,
+      "sha256": "00155164dec0213a8126893602c6c764307622d2f86d4c52182227a16d289a9d",
+      "parts": [
+        {
+          "path": "artifacts/049/part001.bin",
+          "size": 17263302,
+          "sha256": "00155164dec0213a8126893602c6c764307622d2f86d4c52182227a16d289a9d"
+        }
+      ]
+    },
+    {
+      "logical_path": "archives/SUMO_PiCar_전_통신중단_대응.zip",
+      "size": 918515,
+      "sha256": "affbc57bddcdef12dff8b2ed6547a3b05889c33073127af9eb8014830d0c63c5",
+      "parts": [
+        {
+          "path": "artifacts/050/part001.bin",
+          "size": 918515,
+          "sha256": "affbc57bddcdef12dff8b2ed6547a3b05889c33073127af9eb8014830d0c63c5"
+        }
+      ]
+    },
+    {
+      "logical_path": "archives/SUMO_결과계산_결정성_수정.zip",
+      "size": 9963,
+      "sha256": "6ce4d95640982976c9a0e926d12b5d36874a36a763c3d2f2839128652954ecf6",
+      "parts": [
+        {
+          "path": "artifacts/051/part001.bin",
+          "size": 9963,
+          "sha256": "6ce4d95640982976c9a0e926d12b5d36874a36a763c3d2f2839128652954ecf6"
+        }
+      ]
+    },
+    {
+      "logical_path": "inputs/T_Junction_RL_Project_Paper_V3.zip",
+      "size": 27070905,
+      "sha256": "51b795c8105ef75e7589b2f54cb910effd2fb64782bdcb70fa67caa6a97d5658",
+      "parts": [
+        {
+          "path": "artifacts/052/part001.bin",
+          "size": 25165824,
+          "sha256": "e84e1676f70a838ff923d7db3c24bbde6dd0c0cdeb076d65caafac8f9ab12b81"
+        },
+        {
+          "path": "artifacts/052/part002.bin",
+          "size": 1905081,
+          "sha256": "54b07103fb65fa96e60f563f6917f5a2fdcb78b8b41d1ef3e5f26d597a545301"
+        }
+      ]
+    },
+    {
+      "logical_path": "inputs/USER_MASTER_PROMPT_KO.txt",
+      "size": 21285,
+      "sha256": "9804c0e37e3db6f8a7f4d235f5d34ccecf666976253ad638cdcea3f10d77013b",
+      "parts": [
+        {
+          "path": "artifacts/053/part001.bin",
+          "size": 21285,
+          "sha256": "9804c0e37e3db6f8a7f4d235f5d34ccecf666976253ad638cdcea3f10d77013b"
+        }
+      ]
+    },
+    {
+      "logical_path": "archives/work_formal_bench.zip",
+      "size": 1722053,
+      "sha256": "16a6906b818d5aca070850f06a33c6e6828f1f6484ec1c7c64ec5d3519154132",
+      "parts": [
+        {
+          "path": "artifacts/054/part001.bin",
+          "size": 1722053,
+          "sha256": "16a6906b818d5aca070850f06a33c6e6828f1f6484ec1c7c64ec5d3519154132"
+        }
+      ]
+    },
+    {
+      "logical_path": "archives/work_backend_checks.zip",
+      "size": 232903,
+      "sha256": "cffcb4da8b92e754cb52f87dc06d61a713d22ef587d3a9506048907b2c7c81ba",
+      "parts": [
+        {
+          "path": "artifacts/055/part001.bin",
+          "size": 232903,
+          "sha256": "cffcb4da8b92e754cb52f87dc06d61a713d22ef587d3a9506048907b2c7c81ba"
+        }
+      ]
+    }
+  ]
+}
