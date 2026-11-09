@@ -1,0 +1,104 @@
+{
+ "dqn_picar_v3_direct_seed42": {
+  "requests": 1680,
+  "mean_delay_s": 12.4,
+  "p95_threshold_s": 43.0,
+  "worst_approach_counts": {
+   "W": 57,
+   "E": 27,
+   "N": 1
+  },
+  "share_all_requests": {
+   "other_phase": 0.276,
+   "min_green_lock": 0.247,
+   "clearance": 0.342,
+   "exit_full": 0.087,
+   "green_queue_or_startup": 0.048,
+   "fault": 0.0
+  },
+  "share_worst_5pct": {
+   "other_phase": 0.307,
+   "min_green_lock": 0.239,
+   "clearance": 0.295,
+   "exit_full": 0.129,
+   "green_queue_or_startup": 0.03,
+   "fault": 0.0
+  }
+ },
+ "dqn_picar_v3_direct_seed43": {
+  "requests": 1695,
+  "mean_delay_s": 12.0,
+  "p95_threshold_s": 42.2,
+  "worst_approach_counts": {
+   "W": 69,
+   "E": 16
+  },
+  "share_all_requests": {
+   "other_phase": 0.253,
+   "min_green_lock": 0.26,
+   "clearance": 0.347,
+   "exit_full": 0.086,
+   "green_queue_or_startup": 0.053,
+   "fault": 0.0
+  },
+  "share_worst_5pct": {
+   "other_phase": 0.23,
+   "min_green_lock": 0.28,
+   "clearance": 0.327,
+   "exit_full": 0.115,
+   "green_queue_or_startup": 0.049,
+   "fault": 0.0
+  }
+ },
+ "dqn_picar_v3_direct_seed44": {
+  "requests": 1579,
+  "mean_delay_s": 12.5,
+  "p95_threshold_s": 44.0,
+  "worst_approach_counts": {
+   "W": 52,
+   "E": 27
+  },
+  "share_all_requests": {
+   "other_phase": 0.128,
+   "min_green_lock": 0.274,
+   "clearance": 0.365,
+   "exit_full": 0.161,
+   "green_queue_or_startup": 0.071,
+   "fault": 0.0
+  },
+  "share_worst_5pct": {
+   "other_phase": 0.105,
+   "min_green_lock": 0.255,
+   "clearance": 0.318,
+   "exit_full": 0.249,
+   "green_queue_or_startup": 0.073,
+   "fault": 0.0
+  }
+ },
+ "queue_rule": {
+  "requests": 1485,
+  "mean_delay_s": 13.29,
+  "p95_threshold_s": 37.9,
+  "worst_approach_counts": {
+   "W": 44,
+   "E": 27,
+   "N": 4
+  },
+  "share_all_requests": {
+   "other_phase": 0.308,
+   "min_green_lock": 0.164,
+   "clearance": 0.246,
+   "exit_full": 0.212,
+   "green_queue_or_startup": 0.072,
+   "fault": 0.0
+  },
+  "share_worst_5pct": {
+   "other_phase": 0.149,
+   "min_green_lock": 0.174,
+   "clearance": 0.234,
+   "exit_full": 0.374,
+   "green_queue_or_startup": 0.069,
+   "fault": 0.0
+  }
+ }
+}

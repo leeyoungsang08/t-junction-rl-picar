@@ -1,0 +1,25 @@
+{
+ "runs": [
+  "runs/picar_v3_direct",
+  "runs/picar_v5_direct_val6",
+  "runs/picar_v6_direct_switch"
+ ],
+ "policies": [
+  "dqn_picar_v3_direct_seed42",
+  "dqn_picar_v3_direct_seed43",
+  "dqn_picar_v3_direct_seed44",
+  "dqn_picar_v5_direct_val6_seed42",
+  "dqn_picar_v5_direct_val6_seed43",
+  "dqn_picar_v5_direct_val6_seed44",
+  "dqn_picar_v6_direct_switch_seed42",
+  "dqn_picar_v6_direct_switch_seed43",
+  "dqn_picar_v6_direct_switch_seed44"
+ ],
+ "control_mode": "direct",
+ "split": "test",
+ "seeds_per": 30,
+ "conditions": [
+  "noisy"
+ ],
+ "episodes": 990
+}

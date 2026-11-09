@@ -133,6 +133,8 @@ def train(seed, episodes, out, resume=False, backend="auto", control_mode=None, 
             score, _ = validate(env, cfg, greedy, acfg["validation_seeds_per"])
             row["val_score"] = round(score, 3)
             save_policy(out / "last_policy.npz", agent.weights(), {**meta, "episode": ep + 1, "val_score": score})
+            save_policy(out / "policies" / f"ep{ep + 1:05d}.npz", agent.weights(),      # for post-hoc re-selection
+                        {**meta, "episode": ep + 1, "val_score": score})
             if score < best:
                 best = score
                 save_policy(out / "best_policy.npz", agent.weights(), {**meta, "episode": ep + 1, "val_score": score})
@@ -171,8 +173,10 @@ if __name__ == "__main__":
     p.add_argument("--time-budget-min", type=float)
     p.add_argument("--starvation-s", type=float, help="reward: wait above this is penalised (default config 20)")
     p.add_argument("--starvation-weight", type=float, help="reward: long-wait penalty weight (default config 0.5)")
+    p.add_argument("--switch-weight", type=float, help="reward: cost per phase switch (default config 0.1)")
     p.add_argument("--val-seeds-per", type=int, default=2, help="validation episodes per scenario")
     a = p.parse_args()
-    rew = {k: v for k, v in (("starvation_s", a.starvation_s), ("starvation_weight", a.starvation_weight)) if v is not None}
+    rew = {k: v for k, v in (("starvation_s", a.starvation_s), ("starvation_weight", a.starvation_weight),
+                             ("switch_weight", a.switch_weight)) if v is not None}
     train(a.seed, a.episodes, a.out, a.resume, a.backend, a.control_mode, a.randomize, a.time_budget_min,
           {"validation_seeds_per": a.val_seeds_per}, rew)

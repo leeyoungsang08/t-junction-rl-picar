@@ -60,6 +60,7 @@ class PicarEnv:
         self.obs_size, self.n_actions = self.encoder.size, self.sup.n_actions
         self.k = None
         self.auto_route = True        # closed-loop recirculation (calibration scripts switch it off)
+        self.diagnose = False         # attribute every waiting second at J to a cause (picar_sim.diagnose)
         net = sumolib.net.readNet(str(self.net))
         self.lane_len = {f"{a}_{d}": net.getEdge(f"{a}_{d}").getLane(0).getLength()
                          for a in APPROACHES for d in ("in", "out")}
@@ -159,6 +160,7 @@ class PicarEnv:
         self.decisions, self.event_log, self.obs_log = [], [], []
         self.deadlock = False
         self.link_seen = 0.0
+        self.wait_parts, self.diag_records = {}, []
         for car, e in self.initial_edge.items():       # cars register their start segment with the central PC
             self._queue_event({"car": car, "junction": None, "state": "REGISTER", "lane": None, "edge": e}, force=True)
         self._deliver()
@@ -220,6 +222,10 @@ class PicarEnv:
                 if spd < 0.02:
                     waiting += 1
                     front_wait[arm] = max(front_wait[arm], self.t - self.requests[car][1])
+                    if self.diagnose:
+                        parts = self.wait_parts.setdefault(car, {})
+                        cause = self._wait_cause(arm, route[-1])
+                        parts[cause] = parts.get(cause, 0.0) + self.dt
             if state == "IN":
                 in_arms[jn].add(self.in_arm.get(car))
             self.truth[car] = (jn, state, arm)
@@ -229,6 +235,18 @@ class PicarEnv:
                 self.conflict_steps += 1
         self.still_since = self.t if moving else self.still_since
         return waiting, front_wait
+
+    def _wait_cause(self, arm, target):
+        st = self.sup.status()
+        if st.fault:
+            return "fault"
+        if st.stage != "green":
+            return "clearance"
+        if APPROACHES[st.phase] != arm:
+            return "min_green_lock" if st.green_elapsed < self.cfg["signal"]["min_green_s"] else "other_phase"
+        if self.tracker.free(target) <= 0:
+            return "exit_full"
+        return "green_queue_or_startup"
 
     def _entered(self, car, jn, arm, target):
         self._queue_event({"car": car, "junction": jn, "state": "IN", "lane": arm, "next": target}, force=True)
@@ -243,6 +261,9 @@ class PicarEnv:
             free = self.cfg["course"]["approach_zone_m"] / self.car_speed[car]
             self.delays[a].append(max(0.0, self.t - t0 - free))
             self.crossings += 1
+            if self.diagnose:
+                self.diag_records.append({"approach": a, "delay": self.delays[a][-1], "censored": False,
+                                          **self.wait_parts.pop(car, {})})
 
     def _queue_event(self, e, force=False):
         """Status packet from a car / exit beam. ARRIVE may be missed by the IR and APPROACH/ARRIVE
@@ -357,6 +378,10 @@ class PicarEnv:
         return self._obs(), reward, terminated, truncated, info
 
     def metrics(self):
+        if self.diagnose:
+            for car, (a, t0) in self.requests.items():
+                self.diag_records.append({"approach": a, "delay": self.t - t0, "censored": True,
+                                          **self.wait_parts.pop(car, {})})
         all_delays, per = [], {}
         for a in APPROACHES:
             open_ = [self.t - t0 for car, (arm, t0) in self.requests.items() if arm == a]   # censored at end

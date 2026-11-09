@@ -1,0 +1,12 @@
+condition,controller,mean_delay_s,p95_delay_s,completion_rate,max_wait_s,max_wait_W_s,max_wait_E_s,max_wait_N_s,throughput_per_min,switches,collisions,conflict_steps,stopline_violations,deadlock,fault_events
+nominal,dqn_picar_v3_direct_seed42,13.677,40.508,0.936,52.983,40.601,47.531,15.881,7.149,37.344,0.0,0.0,0.0,0.0,0.0
+nominal,dqn_picar_v3_direct_seed43,13.468,40.249,0.936,55.123,51.541,35.507,14.662,7.058,37.689,0.0,0.0,0.0,0.0,0.0
+nominal,dqn_picar_v3_direct_seed44,13.872,39.955,0.937,52.833,39.203,44.439,19.326,6.769,42.878,0.0,0.0,0.0,0.0,0.0
+nominal,dqn_picar_v5_direct_val6_seed42,13.826,37.707,0.938,48.436,40.842,40.95,15.693,6.838,33.944,0.0,0.0,0.0,0.0,0.0
+nominal,dqn_picar_v5_direct_val6_seed43,13.468,40.249,0.936,55.123,51.541,35.507,14.662,7.058,37.689,0.0,0.0,0.0,0.0,0.0
+nominal,dqn_picar_v5_direct_val6_seed44,13.937,39.744,0.936,50.452,43.573,40.118,16.286,7.14,35.722,0.0,0.0,0.0,0.0,0.0
+nominal,dqn_picar_v6_direct_switch_seed42,13.542,36.856,0.938,49.061,44.648,37.887,14.416,6.898,39.7,0.0,0.0,0.0,0.0,0.0
+nominal,dqn_picar_v6_direct_switch_seed43,13.956,40.691,0.94,53.419,47.484,40.909,10.831,7.191,36.322,0.0,0.0,0.0,0.0,0.0
+nominal,dqn_picar_v6_direct_switch_seed44,13.312,36.574,0.941,48.932,39.178,42.58,19.077,7.242,35.867,0.0,0.0,0.0,0.0,0.0
+nominal,fixed_time,20.226,57.139,0.91,71.273,37.062,68.74,13.848,5.524,36.689,0.0,0.0,0.0,0.0,0.0
+nominal,queue_rule,14.042,32.871,0.934,42.189,37.319,35.768,22.572,6.433,25.378,0.0,0.0,0.0,0.0,0.0

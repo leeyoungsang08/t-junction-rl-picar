@@ -13,3 +13,4 @@ runs/picar_v1_cycle/
 runs/picar_v2_cycle/
 runs/picar_v2_direct/
 picar_sim/__pycache__/
+runs/**/policies/

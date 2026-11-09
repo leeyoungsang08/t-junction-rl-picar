@@ -56,10 +56,12 @@ scenarios:                # closed-loop traffic: N cars recirculating, turn prob
     - {cars: [3, 4, 5], bias: west_heavy}
     - {cars: [3, 4, 5], bias: connector_heavy}
     - {cars: [3, 4, 5], bias: east_heavy}
-  validation:
+  validation:             # includes 6 cars so model selection covers the busiest test condition
     - {cars: [3, 5], bias: uniform}
     - {cars: [4], bias: connector_heavy}
     - {cars: [4], bias: west_heavy}
+    - {cars: [6], bias: uniform}
+    - {cars: [6], bias: east_heavy}
   test:                   # held out: never used for training or model selection
     - {cars: [6], bias: uniform}
     - {cars: [6], bias: connector_heavy}
