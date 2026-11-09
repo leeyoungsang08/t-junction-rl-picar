@@ -1,0 +1,21 @@
+{
+ "runs": [
+  "runs/picar_v3_direct",
+  "runs/picar_v4_direct_wait"
+ ],
+ "policies": [
+  "dqn_picar_v3_direct_seed42",
+  "dqn_picar_v3_direct_seed43",
+  "dqn_picar_v3_direct_seed44",
+  "dqn_picar_v4_direct_wait_seed42",
+  "dqn_picar_v4_direct_wait_seed43",
+  "dqn_picar_v4_direct_wait_seed44"
+ ],
+ "control_mode": "direct",
+ "split": "test",
+ "seeds_per": 30,
+ "conditions": [
+  "noisy"
+ ],
+ "episodes": 720
+}

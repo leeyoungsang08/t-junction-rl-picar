@@ -20,7 +20,7 @@ from picar_sim.map_builder import load_config
 AGENT_DEFAULTS = {"hidden": [128, 128], "lr": 5e-4, "gamma": 0.98, "batch": 64, "replay": 100_000,
                   "learning_start": 2_000, "target_sync": 1_000, "grad_clip": 10.0, "double": True,
                   "eps_start": 1.0, "eps_end": 0.05, "eps_decay_frac": 0.4, "device": "auto",
-                  "validation_every": 25}
+                  "validation_every": 25, "validation_seeds_per": 2}
 
 
 def scenario_list(cfg, split):
@@ -65,8 +65,9 @@ def validate(env, cfg, act, seeds_per=2):
 
 
 def train(seed, episodes, out, resume=False, backend="auto", control_mode=None, randomize=False,
-          time_budget_min=None, agent_overrides=None):
+          time_budget_min=None, agent_overrides=None, reward_overrides=None):
     cfg = load_config()
+    cfg["reward"].update(reward_overrides or {})
     if control_mode:
         cfg["signal"]["control_mode"] = control_mode
     acfg = {**AGENT_DEFAULTS, **(agent_overrides or {})}
@@ -91,7 +92,8 @@ def train(seed, episodes, out, resume=False, backend="auto", control_mode=None, 
         print(f"resumed seed {seed} at episode {ep0}", flush=True)
     meta = {"schema": "picar_v1", "features": __import__("picar_sim.observation", fromlist=["FEATURES"]).FEATURES,
             "control_mode": cfg["signal"]["control_mode"], "signal": cfg["signal"], "seed": seed,
-            "n_actions": env.n_actions, "randomize": randomize, "agent": acfg, "backend": str(agent.device)}
+            "n_actions": env.n_actions, "randomize": randomize, "agent": acfg, "reward": cfg["reward"],
+            "backend": str(agent.device)}
     (out / "config_snapshot.json").write_text(json.dumps({"course": cfg, "agent": acfg, "meta": meta}, indent=1, default=str))
     train_sc = scenario_list(cfg, "train")
     lo, hi = cfg["seeds"]["train"]
@@ -128,7 +130,7 @@ def train(seed, episodes, out, resume=False, backend="auto", control_mode=None, 
                "wall_s": round(time.time() - t0, 2), "val_score": ""}
         if (ep + 1) % acfg["validation_every"] == 0 or ep + 1 == episodes:
             greedy = lambda o, mk: int(np.where(mk, agent.q(o), -np.inf).argmax())
-            score, _ = validate(env, cfg, greedy)
+            score, _ = validate(env, cfg, greedy, acfg["validation_seeds_per"])
             row["val_score"] = round(score, 3)
             save_policy(out / "last_policy.npz", agent.weights(), {**meta, "episode": ep + 1, "val_score": score})
             if score < best:
@@ -167,5 +169,10 @@ if __name__ == "__main__":
     p.add_argument("--control-mode", choices=["cycle", "direct"])
     p.add_argument("--randomize", action="store_true")
     p.add_argument("--time-budget-min", type=float)
+    p.add_argument("--starvation-s", type=float, help="reward: wait above this is penalised (default config 20)")
+    p.add_argument("--starvation-weight", type=float, help="reward: long-wait penalty weight (default config 0.5)")
+    p.add_argument("--val-seeds-per", type=int, default=2, help="validation episodes per scenario")
     a = p.parse_args()
-    train(a.seed, a.episodes, a.out, a.resume, a.backend, a.control_mode, a.randomize, a.time_budget_min)
+    rew = {k: v for k, v in (("starvation_s", a.starvation_s), ("starvation_weight", a.starvation_weight)) if v is not None}
+    train(a.seed, a.episodes, a.out, a.resume, a.backend, a.control_mode, a.randomize, a.time_budget_min,
+          {"validation_seeds_per": a.val_seeds_per}, rew)

@@ -1,0 +1,9 @@
+condition,controller,mean_delay_s,p95_delay_s,completion_rate,max_wait_s,max_wait_W_s,max_wait_E_s,max_wait_N_s,throughput_per_min,switches,collisions,conflict_steps,stopline_violations,deadlock,fault_events
+nominal,dqn_picar_v3_direct_seed42,13.677,40.508,0.936,52.983,40.601,47.531,15.881,7.149,37.344,0.0,0.0,0.0,0.0,0.0
+nominal,dqn_picar_v3_direct_seed43,13.468,40.249,0.936,55.123,51.541,35.507,14.662,7.058,37.689,0.0,0.0,0.0,0.0,0.0
+nominal,dqn_picar_v3_direct_seed44,13.872,39.955,0.937,52.833,39.203,44.439,19.326,6.769,42.878,0.0,0.0,0.0,0.0,0.0
+nominal,dqn_picar_v4_direct_wait_seed42,15.724,42.539,0.927,53.8,41.888,46.843,17.599,6.636,38.633,0.0,0.0,0.0,0.0,0.0
+nominal,dqn_picar_v4_direct_wait_seed43,15.464,41.68,0.926,53.757,48.326,38.98,26.553,6.378,37.533,0.0,0.0,0.0,0.0,0.0
+nominal,dqn_picar_v4_direct_wait_seed44,14.849,41.371,0.933,54.348,40.864,46.733,14.162,6.711,39.389,0.0,0.0,0.0,0.0,0.0
+nominal,fixed_time,20.226,57.139,0.91,71.273,37.062,68.74,13.848,5.524,36.689,0.0,0.0,0.0,0.0,0.0
+nominal,queue_rule,14.042,32.871,0.934,42.189,37.319,35.768,22.572,6.433,25.378,0.0,0.0,0.0,0.0,0.0

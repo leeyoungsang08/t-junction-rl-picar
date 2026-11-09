@@ -1,0 +1,13 @@
+                                           mean_delay_s  p95_delay_s  completion_rate  max_wait_s  max_wait_W_s  max_wait_E_s  max_wait_N_s  throughput_per_min  switches  collisions  conflict_steps  stopline_violations  deadlock  fault_events
+condition controller                                                                                                                                                                                                                              
+noisy     dqn_picar_v3_direct_seed42             14.827       42.209            0.935      55.034        43.489        48.552        16.745               6.693    36.222         0.0             0.0                  0.0       0.0           0.0
+          dqn_picar_v3_direct_seed43             14.325       42.205            0.936      55.512        50.502        39.916        13.790               6.693    36.667         0.0             0.0                  0.0       0.0           0.0
+          dqn_picar_v3_direct_seed44             14.640       42.037            0.931      55.100        43.533        44.831        18.182               6.387    41.711         0.0             0.0                  0.0       0.0           0.0
+          dqn_picar_v4_direct_wait_seed42        16.285       43.988            0.927      56.256        44.816        47.875        16.515               6.340    36.589         0.0             0.0                  0.0       0.0           0.0
+          dqn_picar_v4_direct_wait_seed43        16.226       42.609            0.929      53.378        42.977        43.609        25.237               6.131    37.356         0.0             0.0                  0.0       0.0           0.0
+          dqn_picar_v4_direct_wait_seed44        15.745       44.151            0.926      56.409        44.705        48.217        17.053               6.400    37.622         0.0             0.0                  0.0       0.0           0.0
+          fixed_time                             20.739       57.085            0.909      70.397        39.027        65.368        13.668               5.338    36.556         0.0             0.0                  0.0       0.0           0.0
+          queue_rule                             15.177       36.522            0.925      46.445        38.691        40.133        22.292               6.053    24.978         0.0             0.0                  0.0       0.0           0.0
+             mean    std     min     max
+condition                               
+noisy      15.341  0.852  14.325  16.285

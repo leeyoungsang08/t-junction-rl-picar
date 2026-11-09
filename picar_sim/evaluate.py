@@ -24,7 +24,8 @@ def evaluate(runs, out, seeds_per=10, conditions=("nominal", "noisy"), split="te
     cfg = load_config()
     out = Path(out)
     out.mkdir(parents=True, exist_ok=True)
-    policies = {f"dqn_{p.parent.name}": Policy(p) for r in runs for p in sorted(Path(r).glob(f"seed*/{policy_name}"))}
+    policies = {(f"dqn_{Path(r).name}_{p.parent.name}" if len(runs) > 1 else f"dqn_{p.parent.name}"): Policy(p)
+                for r in runs for p in sorted(Path(r).glob(f"seed*/{policy_name}"))}
     modes = {pol.meta["control_mode"] for pol in policies.values()} or {cfg["signal"]["control_mode"]}
     if len(modes) != 1:
         raise ValueError("evaluate one control mode at a time")
