@@ -4,3 +4,12 @@ __pycache__/
 .venv/
 outputs/
 routes/generated/
+# picar_sim: keep final policies/logs/evaluations, not resume checkpoints or superseded runs
+runs/**/checkpoint.pkl
+runs/**/checkpoint.tmp
+runs/logs/
+runs/logs2/
+runs/picar_v1_cycle/
+runs/picar_v2_cycle/
+runs/picar_v2_direct/
+picar_sim/__pycache__/

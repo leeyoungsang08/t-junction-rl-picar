@@ -1,4 +1,5 @@
 eclipse-sumo==1.28.0
+libsumo==1.28.0
 traci==1.28.0
 sumolib==1.28.0
 torch>=2.4,<3

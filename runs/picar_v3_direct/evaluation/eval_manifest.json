@@ -1,0 +1,18 @@
+{
+ "runs": [
+  "runs/picar_v3_direct"
+ ],
+ "policies": [
+  "dqn_seed42",
+  "dqn_seed43",
+  "dqn_seed44"
+ ],
+ "control_mode": "direct",
+ "split": "test",
+ "seeds_per": 10,
+ "conditions": [
+  "nominal",
+  "noisy"
+ ],
+ "episodes": 300
+}

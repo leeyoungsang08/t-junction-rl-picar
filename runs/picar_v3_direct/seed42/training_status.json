@@ -1,0 +1,7 @@
+{
+ "episodes_done": 1500,
+ "planned": 1500,
+ "best_val_score": 9.520996997067126,
+ "updates": 447703,
+ "backend": "numpy-cpu"
+}

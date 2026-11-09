@@ -1,0 +1,259 @@
+{
+ "course": {
+  "course": {
+   "width_m": 3.5,
+   "depth_m": 2.2,
+   "lane_width_m": 0.35,
+   "corner_radius_m": 0.4,
+   "connector_x_m": 1.75,
+   "stopline_offset_m": 0.12,
+   "approach_zone_m": 1.2,
+   "arrive_window_m": 0.15,
+   "exit_line_m": 0.05,
+   "controlled_junction": "J"
+  },
+  "vehicle": {
+   "length_m": 0.24,
+   "width_m": 0.17,
+   "speed_mps": 0.25,
+   "accel_mps2": 0.5,
+   "decel_mps2": 1.0,
+   "min_gap_m": 0.1,
+   "tau_s": 0.5,
+   "startup_delay_s": 0.3
+  },
+  "simulation": {
+   "step_s": 0.1,
+   "decision_s": 1.0,
+   "horizon_s": 300,
+   "deadlock_s": 60,
+   "backend": "libsumo"
+  },
+  "signal": {
+   "min_green_s": 3,
+   "max_green_s": 15,
+   "yellow_s": 1.0,
+   "all_red_min_s": 1.0,
+   "clear_timeout_s": 12,
+   "occupancy_stale_s": 1.0,
+   "link_timeout_s": 0.5,
+   "control_mode": "direct"
+  },
+  "reward": {
+   "wait_weight": 1.0,
+   "starvation_s": 20,
+   "starvation_weight": 0.5,
+   "switch_weight": 0.1
+  },
+  "randomization": {
+   "enabled": false,
+   "speed_mps": [
+    0.2,
+    0.3
+   ],
+   "accel_mps2": [
+    0.4,
+    0.6
+   ],
+   "decel_mps2": [
+    0.8,
+    1.2
+   ],
+   "startup_delay_s": [
+    0.1,
+    0.5
+   ],
+   "command_latency_s": [
+    0.0,
+    0.3
+   ],
+   "observation_delay_s": [
+    0.0,
+    0.2
+   ],
+   "ir_detect_prob": [
+    0.85,
+    1.0
+   ],
+   "status_loss_prob": [
+    0.0,
+    0.05
+   ]
+  },
+  "scenarios": {
+   "train": [
+    {
+     "cars": [
+      2,
+      3,
+      4,
+      5
+     ],
+     "bias": "uniform"
+    },
+    {
+     "cars": [
+      3,
+      4,
+      5
+     ],
+     "bias": "west_heavy"
+    },
+    {
+     "cars": [
+      3,
+      4,
+      5
+     ],
+     "bias": "connector_heavy"
+    },
+    {
+     "cars": [
+      3,
+      4,
+      5
+     ],
+     "bias": "east_heavy"
+    }
+   ],
+   "validation": [
+    {
+     "cars": [
+      3,
+      5
+     ],
+     "bias": "uniform"
+    },
+    {
+     "cars": [
+      4
+     ],
+     "bias": "connector_heavy"
+    },
+    {
+     "cars": [
+      4
+     ],
+     "bias": "west_heavy"
+    }
+   ],
+   "test": [
+    {
+     "cars": [
+      6
+     ],
+     "bias": "uniform"
+    },
+    {
+     "cars": [
+      6
+     ],
+     "bias": "connector_heavy"
+    },
+    {
+     "cars": [
+      5
+     ],
+     "bias": "alternating"
+    }
+   ]
+  },
+  "seeds": {
+   "train": [
+    1000,
+    1999
+   ],
+   "validation": [
+    2000,
+    2099
+   ],
+   "test": [
+    3000,
+    3999
+   ]
+  }
+ },
+ "agent": {
+  "hidden": [
+   128,
+   128
+  ],
+  "lr": 0.0005,
+  "gamma": 0.98,
+  "batch": 64,
+  "replay": 100000,
+  "learning_start": 2000,
+  "target_sync": 1000,
+  "grad_clip": 10.0,
+  "double": true,
+  "eps_start": 1.0,
+  "eps_end": 0.05,
+  "eps_decay_frac": 0.4,
+  "device": "auto",
+  "validation_every": 25
+ },
+ "meta": {
+  "schema": "picar_v1",
+  "features": [
+   "arrived_W",
+   "arrived_E",
+   "arrived_N",
+   "wait_W",
+   "wait_E",
+   "wait_N",
+   "approach_n_W",
+   "approach_n_E",
+   "approach_n_N",
+   "recent_W",
+   "recent_E",
+   "recent_N",
+   "occupancy",
+   "phase_W",
+   "phase_E",
+   "phase_N",
+   "stage_green",
+   "stage_yellow",
+   "stage_clear",
+   "green_elapsed",
+   "clear_elapsed",
+   "fault",
+   "exit_free_W",
+   "exit_free_E",
+   "exit_free_N"
+  ],
+  "control_mode": "direct",
+  "signal": {
+   "min_green_s": 3,
+   "max_green_s": 15,
+   "yellow_s": 1.0,
+   "all_red_min_s": 1.0,
+   "clear_timeout_s": 12,
+   "occupancy_stale_s": 1.0,
+   "link_timeout_s": 0.5,
+   "control_mode": "direct"
+  },
+  "seed": 44,
+  "n_actions": 3,
+  "randomize": false,
+  "agent": {
+   "hidden": [
+    128,
+    128
+   ],
+   "lr": 0.0005,
+   "gamma": 0.98,
+   "batch": 64,
+   "replay": 100000,
+   "learning_start": 2000,
+   "target_sync": 1000,
+   "grad_clip": 10.0,
+   "double": true,
+   "eps_start": 1.0,
+   "eps_end": 0.05,
+   "eps_decay_frac": 0.4,
+   "device": "auto",
+   "validation_every": 25
+  },
+  "backend": "numpy-cpu"
+ }
+}

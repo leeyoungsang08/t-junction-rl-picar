@@ -1,5 +1,7 @@
 # T자 교차로 DQN · PiCar 연동
 
+**PiCar Real-to-Sim (2026-11-09):** 실물 코스를 본뜬 미터 단위 SUMO 맵, 실차와 같은 관측·안전 제어기, 3시드 학습·평가 → [계획·결과](docs/PICAR_REAL2SIM_PLAN_KO.md) · [`picar_sim/`](picar_sim/) · [Colab](notebooks/08_picar_real2sim_colab.ipynb)
+
 **후속 연구 자료(2026-11-03~05):** [SUMO 다중 교차로·재학습·센서 및 대기 평가 기록](research/sumo_20261106/README.md). 후속 실험의 직접 방향 선택 모델은 아래 기존 KEEP/SWITCH 모델과 입력·행동 공간이 다르며 자동으로 교체하지 않았습니다.
 
 SUMO의 T자 교차로에서 신호를 **유지하거나 다음 방향으로 전환**하는 DQN을 학습했습니다. 같은 교통 수요에서 고정 신호·규칙 기반 제어와 비교하고, 저장된 정책의 결정을 중앙 PC에서 UDP로 가상 PiCar에 전달하는 흐름을 검증했습니다.

@@ -1,0 +1,70 @@
+# PiCar Real-to-Sim course + vehicle + controller parameters (SI units: m, s, m/s).
+# Every value tagged ASSUMED must be replaced with a field measurement (picar_sim/calibrate.py).
+course:
+  width_m: 3.5            # ASSUMED (user draft 3.5 x 2.2 m) - measure first
+  depth_m: 2.2            # ASSUMED
+  lane_width_m: 0.35      # ASSUMED effective lane width, one lane per direction
+  corner_radius_m: 0.40   # ASSUMED road-centreline radius of the 4 outer corners
+  connector_x_m: 1.75     # ASSUMED centre connector joins the two long sides at mid-span
+  stopline_offset_m: 0.12 # ASSUMED distance stop line -> conflict box edge (>= stop-error p95 + IR-to-bumper)
+  approach_zone_m: 1.20   # ASSUMED APPROACH marker distance upstream of the stop line
+  arrive_window_m: 0.15   # car counts as ARRIVE (stop-line IR) when stopped within this distance of the line
+  exit_line_m: 0.05       # rear bumper must pass this far beyond the conflict box (exit sensor)
+  controlled_junction: J  # bottom T (W/E arms = outer loop, N arm = connector). Top T "J2" = fixed priority rule
+vehicle:                  # nominal values; per-car randomisation ranges under randomization
+  length_m: 0.24          # ASSUMED (user range 0.22-0.25)
+  width_m: 0.17           # ASSUMED (user range 0.15-0.18)
+  speed_mps: 0.25         # ASSUMED low line-tracking speed
+  accel_mps2: 0.5         # ASSUMED
+  decel_mps2: 1.0         # ASSUMED
+  min_gap_m: 0.10         # ASSUMED
+  tau_s: 0.5              # ASSUMED headway
+  startup_delay_s: 0.3    # ASSUMED GO-received -> wheels moving
+simulation:
+  step_s: 0.1
+  decision_s: 1.0
+  horizon_s: 300
+  deadlock_s: 60          # no vehicle movement for this long -> episode flagged as deadlock
+  backend: libsumo        # libsumo (fast, in-process) or traci
+signal:                   # IntersectionSupervisor timing (same object runs on the real central PC)
+  min_green_s: 3
+  max_green_s: 15
+  yellow_s: 1.0           # STOP to new entries; cars already past the stop line finish crossing
+  all_red_min_s: 1.0      # then additionally wait until measured occupancy == 0
+  clear_timeout_s: 12     # occupancy never clears -> FAULT (all STOP) until resolved
+  occupancy_stale_s: 1.0  # occupancy older than this -> no new GO
+  link_timeout_s: 0.5     # UDP heartbeat loss -> no new GO
+  control_mode: cycle     # cycle (KEEP/SWITCH, W->E->N) or direct (choose W/E/N)
+reward:
+  wait_weight: 1.0
+  starvation_s: 20
+  starvation_weight: 0.5
+  switch_weight: 0.1
+randomization:            # disabled until measured ranges exist (enable with --randomize)
+  enabled: false
+  speed_mps: [0.20, 0.30]
+  accel_mps2: [0.4, 0.6]
+  decel_mps2: [0.8, 1.2]
+  startup_delay_s: [0.1, 0.5]
+  command_latency_s: [0.0, 0.3]
+  observation_delay_s: [0.0, 0.2]
+  ir_detect_prob: [0.85, 1.0]      # per 0.1 s step probability a stopped car is seen at the stop line
+  status_loss_prob: [0.0, 0.05]    # UDP status packet loss
+scenarios:                # closed-loop traffic: N cars recirculating, turn probabilities at each T
+  train:
+    - {cars: [2, 3, 4, 5], bias: uniform}
+    - {cars: [3, 4, 5], bias: west_heavy}
+    - {cars: [3, 4, 5], bias: connector_heavy}
+    - {cars: [3, 4, 5], bias: east_heavy}
+  validation:
+    - {cars: [3, 5], bias: uniform}
+    - {cars: [4], bias: connector_heavy}
+    - {cars: [4], bias: west_heavy}
+  test:                   # held out: never used for training or model selection
+    - {cars: [6], bias: uniform}
+    - {cars: [6], bias: connector_heavy}
+    - {cars: [5], bias: alternating}
+seeds:
+  train: [1000, 1999]
+  validation: [2000, 2099]
+  test: [3000, 3999]

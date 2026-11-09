@@ -1,0 +1,6 @@
+run_id,metric,value
+EXAMPLE_ONLY_replace_with_measurements,speed_mps,0.25
+EXAMPLE_ONLY_replace_with_measurements,stop_error_m,0.03
+EXAMPLE_ONLY_replace_with_measurements,crossing_time_s,6.0
+EXAMPLE_ONLY_replace_with_measurements,startup_delay_s,0.3
+EXAMPLE_ONLY_replace_with_measurements,command_latency_s,0.08
