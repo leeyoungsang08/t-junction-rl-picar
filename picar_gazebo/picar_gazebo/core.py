@@ -3,6 +3,8 @@
 No ROS / Gazebo imports here, so it can be unit-tested anywhere.
 Conventions: x east, y north, metres; right-hand traffic; one lane per direction, lane width lw;
 junction box = 2*lw square around each T centre (as in the SUMO map); stop line far edge = box edge - stopline_offset.
+Painted lines follow the real course (photo): every road has an outer edge, a centre divider and an inner edge;
+the divider ends at the stop lines, and inside a box only the through road's far edge continues.
 """
 import math
 import os
@@ -17,10 +19,11 @@ if str(REPO) not in sys.path:
 
 from picar_sim.map_builder import APPROACHES, load_config, road_shapes  # noqa: E402
 
-STOP_TAPE_M = 0.05        # thickness of the stop-line tape
-APPROACH_TAPE_M = 0.015   # thickness of the approach marker tape
+STOP_TAPE_M = 0.03        # thickness of the stop-line tape (photo: same tape as the lane lines)
+APPROACH_TAPE_M = 0.015   # legacy approach marker (the real course has none: APPROACH comes from odometry)
 LINE_TAPE_M = 0.025       # lane line tape width (>= sensor spacing + margin; 18 mm zigzags)
 CROSS_TAPE_LEN = 0.30     # length of perpendicular tapes across the lane
+TEX_MARGIN = 0.15         # white floor around the outer line in the texture / Gazebo floor (m)
 
 
 def _unit(v):
@@ -156,6 +159,66 @@ class Course:
         angle = 90.0 if turn == "left" else -90.0
         return {"turn": turn, "d1": round(d1, 3), "angle_deg": angle,
                 "d2_min": round(max(0.0, d_after - 0.02), 3), "d2_max": round(max(0.05, d_after) + 0.20, 3)}
+
+    def _painted(self, p, arm, divider, so):
+        for jn, c in self.centres.items():
+            s = 1.0 if jn == "J" else -1.0                        # connector leaves J towards +y, J2 towards -y
+            dx, dy = p[0] - c[0], (p[1] - c[1]) * s
+            if abs(dx) <= self.lw + 1e-6 and -self.lw + 1e-4 < dy < self.lw + 1e-4:
+                return False                                      # inside the box (far edge of the through road stays)
+            if divider and arm == "N" and abs(dx) < 1e-3 and dy < self.lw + so:
+                return False                                      # connector divider ends at its stop lines
+            if divider and arm != "N" and abs(dy) < 1e-3 and abs(dx) < self.lw + so:
+                return False                                      # loop divider ends at its stop lines
+        return True
+
+    def road_lines(self):
+        """Painted lane lines as polylines (outer edge, divider, inner edge of every road), split at the gaps."""
+        so = self.cfg["course"]["stopline_offset_m"]
+        lines = []
+        for arm, pts in self.roads.items():
+            dense = _densify(pts)
+            for d in (-self.lw, 0.0, self.lw):
+                line = _offset_polyline(dense, d) if d else dense
+                keep = [self._painted(q, arm, d == 0.0, so) for q in line]
+                run = []
+                for q, k in zip(line, keep):
+                    if k:
+                        run.append(q)
+                    elif len(run) > 1:
+                        lines.append(np.array(run))
+                        run = []
+                    else:
+                        run = []
+                if len(run) > 1:
+                    lines.append(np.array(run))
+        return lines
+
+    def arc_of(self, edge, point):
+        pts = self.lanes[edge]
+        return float(self.arc[edge][int(np.argmin(np.linalg.norm(pts - np.asarray(point), axis=1)))])
+
+    def approach_point(self, edge):
+        """Where a car on `edge` sends APPROACH: approach_zone_m before the stop line along the lane, but not
+        before the upstream exit beam (no tape on the real course: the car measures it by odometry)."""
+        arm, kind = edge.split("_")
+        down, up = ("J", "J2") if kind == "in" else ("J2", "J")
+        far, near, _ = self.stopline(down, arm)
+        s_stop = self.arc_of(edge, near)
+        s_exit = self.arc_of(edge, self.exit_line(up, arm)[0])
+        return max(s_stop - self.cfg["course"]["approach_zone_m"], s_exit + 0.05), s_exit
+
+    def approach_after_exit(self, edge):
+        s_appr, s_exit = self.approach_point(edge)
+        return round(s_appr - s_exit, 3)
+
+    def lane_tolerance(self, car_width):
+        """Lane departure: car centre so far off the lane centre that the body covers a whole lane line."""
+        return round((self.lw - car_width) / 2 + LINE_TAPE_M, 4)
+
+    def tex_bounds(self):
+        """(x0, x1, y0, y1) of the floor texture: the course plus TEX_MARGIN of white floor on every side."""
+        return -TEX_MARGIN, self.width + TEX_MARGIN, -TEX_MARGIN, self.depth + TEX_MARGIN
 
     def in_box(self, point, margin=0.0):
         return any(np.max(np.abs(np.asarray(point) - c)) <= self.lw + margin for c in self.centres.values())

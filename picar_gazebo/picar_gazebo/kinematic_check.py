@@ -1,7 +1,8 @@
 """2D kinematic pre-check of the Gazebo setup (no ROS, no Gazebo needed).
 
-Each car: unicycle model with acceleration limits and motor imperfections, IR sensors read from the generated
-course_texture.png (exactly the floor Gazebo renders), virtual ultrasonic, and the real CarBrain + CarAgent.
+Each car: unicycle model with acceleration limits and motor imperfections, a front camera rendered from the
+generated course_texture.png (the floor Gazebo renders) through the same CameraModel, IR sensors read from the
+texture, virtual ultrasonic, and the real CameraBrain + CarAgent (--driver ir: the legacy centre-tape CarBrain).
 Cars talk to the real CentralServer over UDP; exit beams come from the same exit lines as in Gazebo.
 
 python3 -m picar_gazebo.kinematic_check --cars 3 --seconds 180 --out /tmp/kin --video
@@ -20,6 +21,9 @@ from picar_gazebo.core import Course, crossed, footprint, forward_range, overlap
 from picar_gazebo.world_gen import generate
 from picar_lab.car_agent.agent import CarAgent
 from picar_lab.car_agent.brain import CarBrain
+from picar_lab.car_agent.camera_brain import CameraBrain
+from picar_lab.car_agent.lane_camera import CameraModel
+from picar_gazebo.cam_render import CamRenderer
 from picar_lab.car_agent.protocol import VERSION, decode, encode
 from picar_sim.central_server import CentralServer
 
@@ -29,11 +33,16 @@ MOTOR = {"latency_s": 0.05, "deadband": 0.03, "gain_l": 1.0, "gain_r": 0.97, "ac
 
 
 class KinCar:
-    def __init__(self, spec, plans, car, speed, motor, calib):
+    def __init__(self, spec, plans, car, speed, motor, calib, driver="camera", approach_after=None, lane_width=0.21):
         self.name, self.x, self.y, self.yaw = spec["name"], spec["x"], spec["y"], spec["yaw"]
         self.v = self.w = 0.0
         self.agent = CarAgent(self.name, spec["route"])
-        self.brain = CarBrain(self.agent, plans, speed_mps=speed, stop_min_m=0.04, **calib)
+        self.driver = driver
+        if driver == "camera":
+            self.brain = CameraBrain(self.agent, plans, approach_after or {}, speed_mps=speed, lane_width=lane_width,
+                                     camera=car.get("front_cam"), approach_in_m=spec.get("approach_in_m"), **calib)
+        else:
+            self.brain = CarBrain(self.agent, plans, speed_mps=speed, stop_min_m=0.04, **calib)
         self.car, self.motor = car, motor
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.sock.bind(("127.0.0.1", 0))
@@ -97,21 +106,25 @@ def calibrate(motor, car):
 
 
 def run(cars=3, seconds=180, seed=1, out="/tmp/kin", policy=None, mode="shadow", video=False, port=0,
-        calibrated=True, motor=None, ir_flip=0.0):
+        calibrated=True, motor=None, ir_flip=0.0, driver="camera"):
     out = Path(out)
     generate(out, cars, seed)
     meta = yaml.safe_load((out / "course_meta.yaml").read_text())
-    plans = yaml.safe_load((out / "maneuvers.yaml").read_text())["maneuvers"]
+    man = yaml.safe_load((out / "maneuvers.yaml").read_text())
+    plans, approach_after = man["maneuvers"], man.get("approach_after_exit_m", {})
     tex = np.asarray(Image.open(out / "course_texture.png").convert("L"), dtype=float) / 255.0
     H, W = tex.shape
     course = Course()
-    ppm = W / course.width
+    tx0, tx1, ty0, ty1 = course.tex_bounds()
+    ppm = W / (tx1 - tx0)
     car = meta["car"]
     motor = motor or dict(MOTOR)
     calib = calibrate(motor, car) if calibrated else {"trim_per_m": 0.0, "turn_scale": 1.0, "accel_mps2": 1e9, "latency_s": 0.0}
     server = CentralServer("127.0.0.1", port, policy, mode)
     beam_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    fleet = [KinCar(c, plans, car, 0.25, motor, calib) for c in meta["cars"]]
+    fleet = [KinCar(c, plans, car, 0.25, motor, calib, driver, approach_after, course.lw) for c in meta["cars"]]
+    renderer = CamRenderer(tex, course.tex_bounds(), CameraModel(car.get("front_cam"))) if driver == "camera" else None
+    lane_tol = meta.get("lane_tolerance_m", 0.08)
     for k in fleet:
         k.agent.register(0.0)
     dt_phys, dt_ctrl = 0.01, 0.05
@@ -123,7 +136,7 @@ def run(cars=3, seconds=180, seed=1, out="/tmp/kin", policy=None, mode="shadow",
     noise = np.random.default_rng(seed + 1000)
 
     def dark(px, py):
-        u, v = int(px * ppm), int((course.depth - py) * ppm)
+        u, v = int((px - tx0) * ppm), int((ty1 - py) * ppm)
         return 1 if 0 <= u < W and 0 <= v < H and tex[v, u] < 0.5 else 0
 
     while t < seconds - 1e-9:
@@ -143,7 +156,10 @@ def run(cars=3, seconds=180, seed=1, out="/tmp/kin", policy=None, mode="shadow",
                     values = [1 - x if noise.random() < ir_flip else x for x in values]
                 rng = forward_range(k.pose(), [o.pose() for o in fleet if o is not k], car["length"], car["width"])
                 n_ev = len(k.brain.events)
-                v, w = k.brain.step(values, t, range_m=rng)
+                if renderer is not None:
+                    v, w = k.brain.step(renderer.render(k.x, k.y, k.yaw), values, t, range_m=rng)
+                else:
+                    v, w = k.brain.step(values, t, range_m=rng)
                 for _, text in k.brain.events[n_ev:]:
                     if text.startswith("enter"):
                         m["crossings"] += 1
@@ -172,7 +188,7 @@ def run(cars=3, seconds=180, seed=1, out="/tmp/kin", policy=None, mode="shadow",
             k.prev_rear = rear
             centre = np.array([k.x, k.y])
             if int(round(t / dt_phys)) % 10 == 0:                     # lane check at 10 Hz
-                off = (not course.in_box(centre, 0.05)) and course.lane_distance(centre) > 0.08
+                off = (not course.in_box(centre, 0.05)) and course.lane_distance(centre) > lane_tol
                 if off and k.name not in departed:
                     m["lane_departures"] += 1
                 departed.discard(k.name) if not off else departed.add(k.name)
@@ -226,7 +242,7 @@ def animate(out, frames, course, car):
     from matplotlib.patches import Polygon
     img = Image.open(out / "course_texture.png")
     fig, ax = plt.subplots(figsize=(8.75, 5.5))
-    ax.imshow(img, extent=(0, course.width, 0, course.depth))
+    ax.imshow(img, extent=course.tex_bounds())
     ax.set_xlim(0, course.width)
     ax.set_ylim(0, course.depth)
     ax.set_aspect("equal")
@@ -266,6 +282,7 @@ if __name__ == "__main__":
     ap.add_argument("--mode", default="shadow")
     ap.add_argument("--video", action="store_true")
     ap.add_argument("--no-calibration", action="store_true", help="drive with trim 0 / turn_scale 1")
+    ap.add_argument("--driver", choices=["camera", "ir"], default="camera")
     a = ap.parse_args()
     print(json.dumps(run(a.cars, a.seconds, a.seed, a.out, a.policy, a.mode, a.video,
-                         calibrated=not a.no_calibration), indent=1))
+                         calibrated=not a.no_calibration, driver=a.driver), indent=1))

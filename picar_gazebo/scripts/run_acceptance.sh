@@ -11,7 +11,7 @@ set -o pipefail
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 CARS="${CARS:-3}"; MINUTES="${MINUTES:-10}"; SEEDS="${SEEDS:-1 2 3}"; GUI="${GUI:-true}"
 CONTROLLERS="${CONTROLLERS:-rule}"          # rule (oldest_first) and/or dqn, e.g. CONTROLLERS="rule dqn"
-POLICY="${POLICY:-runs/picar_v7_direct_guard20/seed43/best_policy.npz}"
+POLICY="${POLICY:-runs/picar_v9_photo_rt/seed42/best_policy.npz}"
 BEAM_START="${BEAM_START:-60}"; BEAM_STOP="${BEAM_STOP:-80}"; BEAM_SECONDS="${BEAM_SECONDS:-130}"
 WS="${PICAR_WS:-$HOME/picar_ws}"
 

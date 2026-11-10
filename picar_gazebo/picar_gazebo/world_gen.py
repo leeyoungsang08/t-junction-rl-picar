@@ -1,8 +1,8 @@
 """Generate the Gazebo Fortress world for the PiCar course from picar_sim/config/course.yaml.
 
 Outputs (in --out):
-  course_texture.png   top-view floor: white, black lane tapes, thin approach markers, thick stop lines
-                       (no tape inside the junction boxes: cars cross them with JunctionManeuver)
+  course_texture.png   top-view floor as on the real course: three lines per road (edge, divider, edge),
+                       stop lines across the approaching lane only, no lines inside the junction boxes
   picar_course.sdf     world with the floor and N PiCar models (diff drive + downward line camera + pose publisher)
   maneuvers.yaml       crossing plan for every (junction, arm_in, arm_out)
   course_meta.yaml     cars (start edge, route), exit beams, stop lines, sensor geometry, car size
@@ -17,48 +17,37 @@ import xml.etree.ElementTree as ET
 import numpy as np
 import yaml
 
-from picar_gazebo.core import (APPROACH_TAPE_M, APPROACHES, CROSS_TAPE_LEN, LINE_TAPE_M, STOP_TAPE_M, Course,
-                               sensor_columns)
+from picar_gazebo.core import APPROACHES, LINE_TAPE_M, STOP_TAPE_M, Course, sensor_columns
+from picar_lab.car_agent.lane_camera import CAMERA
 
 CAR = {"length": 0.24, "width": 0.17, "wheel_radius": 0.033, "wheel_sep": 0.17, "mass": 0.8,
        "sensor_offset": 0.125, "cam_height": 0.03, "cam_hfov": 1.85, "cam_w": 32, "cam_h": 8,
-       "sensor_y": [0.0225, 0.0075, -0.0075, -0.0225]}
+       "sensor_y": [0.0225, 0.0075, -0.0075, -0.0225], "front_cam": dict(CAMERA)}
 COLORS = ["0.85 0.2 0.2 1", "0.2 0.45 0.85 1", "0.2 0.7 0.3 1", "0.9 0.65 0.1 1", "0.6 0.3 0.8 1", "0.1 0.7 0.7 1"]
 
 
 def draw_texture(course, path, ppm=400):
+    """Top view of the real course: white floor, black lane lines (outer edge, divider, inner edge of every road),
+    stop lines across the approaching lane only (divider to edge), nothing inside the junction boxes."""
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
     from matplotlib.patches import Polygon
-    W, H = course.width, course.depth
+    x0, x1, y0, y1 = course.tex_bounds()
+    W, H = x1 - x0, y1 - y0
     fig = plt.figure(figsize=(W * ppm / 100, H * ppm / 100), dpi=100)
     ax = fig.add_axes([0, 0, 1, 1])
-    ax.set_xlim(0, W)
-    ax.set_ylim(0, H)
+    ax.set_xlim(x0, x1)
+    ax.set_ylim(y0, y1)
     ax.axis("off")
     ax.set_facecolor("white")
     m2pt = ppm * 72 / 100
-    for pts in course.lanes.values():
-        seg, segs = [], []
-        for p in pts:                                    # break the tape inside junction boxes
-            if course.in_box(p, margin=-1e-6):
-                if len(seg) > 1:
-                    segs.append(seg)
-                seg = []
-            else:
-                seg.append(p)
-        if len(seg) > 1:
-            segs.append(seg)
-        for s in segs:
-            s = np.array(s)
-            ax.plot(s[:, 0], s[:, 1], color="black", lw=LINE_TAPE_M * m2pt, solid_capstyle="butt")
+    for s in course.road_lines():
+        ax.plot(s[:, 0], s[:, 1], color="black", lw=LINE_TAPE_M * m2pt, solid_capstyle="butt")
     for jn in ("J", "J2"):
         for a in APPROACHES:
             far, near, u = course.stopline(jn, a)
-            ax.add_patch(_tape(near, u, STOP_TAPE_M, CROSS_TAPE_LEN, Polygon))
-            mark, u = course.approach_marker(jn, a)
-            ax.add_patch(_tape(mark - u * APPROACH_TAPE_M / 2, u, APPROACH_TAPE_M, CROSS_TAPE_LEN, Polygon))
+            ax.add_patch(_tape(near, u, STOP_TAPE_M, course.lw + LINE_TAPE_M, Polygon))
     fig.savefig(path, dpi=100, facecolor="white")
     plt.close(fig)
     return int(round(W * ppm)), int(round(H * ppm))
@@ -78,7 +67,7 @@ def make_routes(n_cars, seed, course, length=24):
     tapes = []
     for jn in ("J", "J2"):
         for a in APPROACHES:
-            tapes += [course.stopline(jn, a)[0], course.approach_marker(jn, a)[0]]
+            tapes += [course.stopline(jn, a)[0]]
     rng.shuffle(candidates)
     used = set()
     for e, f in candidates:
@@ -114,8 +103,9 @@ def make_routes(n_cars, seed, course, length=24):
             b = rng.choice([x for x in APPROACHES if x not in banned])
             cur = f"{b}_out" if kind == "in" else f"{b}_in"
             route.append(cur)
+        s_appr, _ = course.approach_point(e)
         cars.append({"name": f"car{k}", "start_edge": e, "x": float(p[0]), "y": float(p[1]), "yaw": float(yaw),
-                     "route": route})
+                     "route": route, "approach_in_m": round(max(0.0, s_appr - course.arc_of(e, p)), 3)})
     return cars
 
 
@@ -165,6 +155,21 @@ def car_model(world, car, color):
     clip = _sub(camera, "clip")
     _sub(clip, "near", 0.005)
     _sub(clip, "far", 1.0)
+    fc = c["front_cam"]                                 # front lane camera (lane_camera.CAMERA)
+    cam = _sub(ch, "sensor", name="front_cam", type="camera")
+    _sub(cam, "pose", f"{fc['x']} 0 {fc['z'] - 0.045} 0 {math.radians(fc['pitch_deg']):.5f} 0")
+    _sub(cam, "always_on", 1)
+    _sub(cam, "update_rate", 20)
+    _sub(cam, "topic", f"/model/{name}/front_cam")
+    camera = _sub(cam, "camera")
+    _sub(camera, "horizontal_fov", round(math.radians(fc["hfov_deg"]), 5))
+    img = _sub(camera, "image")
+    _sub(img, "width", fc["w"])
+    _sub(img, "height", fc["h"])
+    _sub(img, "format", "R8G8B8")
+    clip = _sub(camera, "clip")
+    _sub(clip, "near", 0.01)
+    _sub(clip, "far", 3.0)
     r = c["wheel_radius"]
     for side, y in (("left", c["wheel_sep"] / 2), ("right", -c["wheel_sep"] / 2)):
         w = _sub(m, "link", name=f"{side}_wheel")
@@ -238,10 +243,11 @@ def build_world(course, cars, texture_path):
     _sub(pl, "normal", "0 0 1")
     _sub(pl, "size", "20 20")
     vis = _sub(link, "visual", name="course_visual")
-    _sub(vis, "pose", f"{course.width / 2} {course.depth / 2} 0.0005 0 0 0")
+    x0, x1, y0, y1 = course.tex_bounds()
+    _sub(vis, "pose", f"{(x0 + x1) / 2} {(y0 + y1) / 2} 0.0005 0 0 0")
     pl = _sub(_sub(vis, "geometry"), "plane")
     _sub(pl, "normal", "0 0 1")
-    _sub(pl, "size", f"{course.width} {course.depth}")
+    _sub(pl, "size", f"{x1 - x0} {y1 - y0}")
     mat = _sub(vis, "material")
     for k in ("ambient", "diffuse"):
         _sub(mat, k, "1 1 1 1")
@@ -267,8 +273,11 @@ def generate(out, cars=3, seed=1, cfg=None):
     stop_min = 0.04
     plans = {f"{jn}:{a}:{b}": course.maneuver(jn, a, b, CAR["sensor_offset"], stop_min)
              for jn in ("J", "J2") for a in APPROACHES for b in APPROACHES if a != b}
+    approach_after = {e: course.approach_after_exit(e) for e in course.lanes}
     (out / "maneuvers.yaml").write_text(yaml.safe_dump({"sensor_offset_m": CAR["sensor_offset"],
-                                                        "stop_line_min_m": stop_min, "maneuvers": plans},
+                                                        "stop_line_min_m": stop_min, "maneuvers": plans,
+                                                        "approach_after_exit_m": approach_after,
+                                                        "lane_width_m": float(course.lw)},
                                                        sort_keys=False), encoding="utf-8")
     beams, stops = [], []
     for jn in ("J", "J2"):
@@ -279,7 +288,9 @@ def generate(out, cars=3, seed=1, cfg=None):
             stops.append({"junction": jn, "arm": a, "far": [float(v) for v in far], "normal": [float(v) for v in u2]})
     cols = sensor_columns(CAR["cam_w"], CAR["cam_hfov"], CAR["cam_height"], CAR["sensor_y"])
     meta = {"cars": car_list, "beams": beams, "stoplines": stops, "car": CAR, "sensor_columns": cols,
-            "texture_px": list(px), "course": {"width": course.width, "depth": course.depth, "lane_width": course.lw}}
+            "lane_tolerance_m": course.lane_tolerance(CAR["width"]),
+            "texture_px": list(px), "texture_bounds": [float(v) for v in course.tex_bounds()],
+            "course": {"width": course.width, "depth": course.depth, "lane_width": course.lw}}
     (out / "course_meta.yaml").write_text(yaml.safe_dump(meta, sort_keys=False), encoding="utf-8")
     return out
 

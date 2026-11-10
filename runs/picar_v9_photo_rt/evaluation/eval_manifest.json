@@ -1,0 +1,19 @@
+{
+ "runs": [
+  "runs/picar_v9_photo_rt"
+ ],
+ "policies": [
+  "dqn_seed42",
+  "dqn_seed43",
+  "dqn_seed44"
+ ],
+ "control_mode": "direct",
+ "split": "test",
+ "seeds_per": 10,
+ "max_wait_guard_s": null,
+ "conditions": [
+  "nominal",
+  "noisy"
+ ],
+ "episodes": 360
+}

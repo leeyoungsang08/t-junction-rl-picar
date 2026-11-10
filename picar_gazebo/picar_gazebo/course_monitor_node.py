@@ -4,7 +4,7 @@
   UDP exit_event a real beam sensor node would send (no car id), plus beam heartbeats for both junctions.
   Optional beam_fault_start/stop (s) silences the J heartbeat to test the central supervisor.
 * Measurements (written to <out_dir>/metrics.json every 5 s and on exit):
-  collisions (footprint overlap onsets), lane departures (> lane_tolerance_m from any lane line outside boxes),
+  collisions (footprint overlap onsets), lane departures (> lane_tolerance_m from the lane centre outside boxes),
   stop errors at stop lines (front bumper vs. stop-line far edge, + = stopped before the line), distance driven.
 """
 import json
@@ -33,7 +33,7 @@ class CourseMonitor(Node):
         self.out = Path(p("out_dir", "."))
         self.addr = (p("central_host", "127.0.0.1"), int(p("central_port", 5007)))
         self.fault = (float(p("beam_fault_start", -1.0)), float(p("beam_fault_stop", -1.0)))
-        self.lane_tol = float(p("lane_tolerance_m", 0.08))
+        self.lane_tol = float(p("lane_tolerance_m", 0.045))   # world_gen: car body covers a whole lane line
         self.course = Course()
         car = self.meta["car"]
         self.L, self.W = car["length"], car["width"]

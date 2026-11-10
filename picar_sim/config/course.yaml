@@ -1,13 +1,15 @@
 # PiCar Real-to-Sim course + vehicle + controller parameters (SI units: m, s, m/s).
 # Every value tagged ASSUMED must be replaced with a field measurement (picar_sim/calibrate.py).
 course:
-  width_m: 3.5            # ASSUMED (user draft 3.5 x 2.2 m) - measure first
-  depth_m: 2.2            # ASSUMED
-  lane_width_m: 0.35      # ASSUMED effective lane width, one lane per direction
-  corner_radius_m: 0.40   # ASSUMED road-centreline radius of the 4 outer corners
-  connector_x_m: 1.75     # ASSUMED centre connector joins the two long sides at mid-span
-  stopline_offset_m: 0.12 # ASSUMED distance stop line -> conflict box edge (>= stop-error p95 + IR-to-bumper)
-  approach_zone_m: 1.20   # ASSUMED APPROACH marker distance upstream of the stop line
+  # ESTIMATED 2026-11-10 from the course photo (perspective rectified, scale from PiCar 0.24 x 0.17 m, about +-5%).
+  # docs/PICAR_COURSE_ESTIMATE_KO.md has the method. Replace with tape-measure values when available.
+  width_m: 3.46           # ESTIMATED outer boundary line, long side (old assumption 3.5)
+  depth_m: 2.30           # ESTIMATED outer boundary line, short side (old assumption 2.2)
+  lane_width_m: 0.21      # ESTIMATED lane line centre-to-centre (old assumption 0.35); car 0.17 m -> ~2 cm each side
+  corner_radius_m: 0.35   # ESTIMATED road-centreline (divider line) radius of the 4 outer corners
+  connector_x_m: 1.73     # ESTIMATED centre connector joins the two long sides at mid-span (photo: 0.50 of the span)
+  stopline_offset_m: 0.17 # ESTIMATED stop line -> conflict box edge (photo: 0.16 ring arms, 0.19 connector arms)
+  approach_zone_m: 1.20   # APPROACH request distance before the stop line (no tape on the real course: odometry)
   arrive_window_m: 0.15   # car counts as ARRIVE (stop-line IR) when stopped within this distance of the line
   exit_line_m: 0.05       # rear bumper must pass this far beyond the conflict box (exit sensor)
   controlled_junction: J  # bottom T (W/E arms = outer loop, N arm = connector). Top T "J2" = fixed priority rule
@@ -36,6 +38,7 @@ signal:                   # IntersectionSupervisor timing (same object runs on t
   link_timeout_s: 0.5     # UDP heartbeat loss -> no new GO
   control_mode: direct    # direct (choose W/E/N; better in experiment 2) or cycle (KEEP/SWITCH, W->E->N)
   max_wait_guard_s: 20    # >0: a request older than this forces its approach next (0 = off). 20 s from the 4th experiment
+  unprotected_right: true # right turn from a red approach after stopping at the line, granted by the central PC (picar_sim/right_turn.py)
 reward:
   wait_weight: 1.0
   starvation_s: 20

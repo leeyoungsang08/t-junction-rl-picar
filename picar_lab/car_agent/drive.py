@@ -121,16 +121,19 @@ class JunctionManeuver:
         self.odo.command(v, now)
         return v, w
 
-    def update(self, values, now):
-        """Returns (v, w). Sets .done when the line is found after the box, .failed when the search gives up."""
+    def update(self, values, now, seen=None):
+        """Returns (v, w). Sets .done when the line is found after the box, .failed when the search gives up.
+        seen: lane re-acquired by another sensor (front camera); None = use the IR values."""
         dt = 0.0 if self.last_t is None else max(0.0, now - self.last_t)
         self.last_t = now
         self.odo.update(now)
         if self.s_ref is None:
             self.s_ref = self.odo.s
         p = self.plan
-        n_dark = sum(1 for v in values if v == self.dark)
-        self.seen_frames = self.seen_frames + 1 if 0 < n_dark < 3 else 0
+        if seen is None:
+            n_dark = sum(1 for v in values if v == self.dark)
+            seen = 0 < n_dark < 3
+        self.seen_frames = self.seen_frames + 1 if seen else 0
         line_seen = self.seen_frames >= self.confirm        # debounced; >= 3 dark is a cross tape
         if self.phase == "d1":
             if p["turn"] == "straight":

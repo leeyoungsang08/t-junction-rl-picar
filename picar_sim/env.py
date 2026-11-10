@@ -21,6 +21,7 @@ import sumolib
 from picar_sim.baselines import queue_rule
 from picar_sim.map_builder import APPROACHES, PKG, build, load_config, segment_capacity
 from picar_sim.observation import CarLedger, Encoder, SegmentTracker
+from picar_sim.right_turn import RESERVATION_S, arm_of, conflicts, may_enter
 from picar_sim.supervisor import IntersectionSupervisor
 
 BIAS = {   # arm weights when choosing the next road at each T
@@ -149,10 +150,15 @@ class PicarEnv:
         self.t = 0.0
         self.truth = {}               # car -> (junction, state, arm)
         self.in_arm = {}              # car -> approach it entered its current junction from
+        self.in_move = {}             # car -> (arm_in, arm_out) of its current/last junction crossing
         self.retry = set()            # cars whose last status packet was lost / IR missed
         self.event_queue = deque()    # (deliver_t, event)
         self.tls_queue = deque()      # (apply_t, {jn: state})
         self.applied = {jn: "r" * len(self.links[jn]) for jn in JUNCTIONS}
+        self.next_of = {}             # car -> next edge, from delivered events (what the central PC knows)
+        self.right_res = {jn: {} for jn in JUNCTIONS}   # car -> (move, t) right-turn reservations
+        self.right_turns = 0
+        self.conflict_examples = []
         self.requests, self.delays = {}, {a: [] for a in APPROACHES}
         self.n_requests = {a: 0 for a in APPROACHES}
         self.crossings = self.crossings_j2 = 0
@@ -197,7 +203,8 @@ class PicarEnv:
         k = self.k
         moving = False
         waiting, front_wait = 0, {a: 0.0 for a in APPROACHES}
-        in_arms = {"J": set(), "J2": set()}
+        in_moves = {"J": [], "J2": []}
+        in_cars = {"J": [], "J2": []}
         for car in k.vehicle.getIDList():
             road, pos, spd = k.vehicle.getRoadID(car), k.vehicle.getLanePosition(car), k.vehicle.getSpeed(car)
             moving |= spd > 0.01
@@ -213,6 +220,7 @@ class PicarEnv:
                 if state == "IN":
                     arm = parm if ps in ("APPROACH", "ARRIVE") else self.in_arm.get(car)
                     self.in_arm[car] = arm
+                    self.in_move[car] = (arm, arm_of(route[-1]))   # movement fixed at entry
                     self._entered(car, jn, arm, route[-1])
                 elif state in ("APPROACH", "ARRIVE"):
                     self._queue_event({"car": car, "junction": jn, "state": state, "lane": arm, "next": route[-1]})
@@ -228,12 +236,17 @@ class PicarEnv:
                         cause = self._wait_cause(arm, route[-1])
                         parts[cause] = parts.get(cause, 0.0) + self.dt
             if state == "IN":
-                in_arms[jn].add(self.in_arm.get(car))
+                in_moves[jn].append(self.in_move.get(car, (None, None)))
+                in_cars[jn].append(car)
             self.truth[car] = (jn, state, arm)
-        for jn in in_arms:
-            in_arms[jn].discard(None)
-            if len(in_arms[jn]) > 1:
+        for jn, moves in in_moves.items():
+            moves = [m for m in moves if None not in m]
+            if any(conflicts(jn, a, b) for i, a in enumerate(moves) for b in moves[i + 1:]):
                 self.conflict_steps += 1
+                if len(self.conflict_examples) < 20:
+                    self.conflict_examples.append({"t": self.t, "junction": jn, "cars": {
+                        c: (self.k.vehicle.getRoadID(c), round(self.k.vehicle.getLanePosition(c), 2), self.in_move.get(c))
+                        for c in in_cars[jn]}})
         self.still_since = self.t if moving else self.still_since
         return waiting, front_wait
 
@@ -251,7 +264,8 @@ class PicarEnv:
 
     def _entered(self, car, jn, arm, target):
         self._queue_event({"car": car, "junction": jn, "state": "IN", "lane": arm, "next": target}, force=True)
-        idx = [i for i, (a, _) in enumerate(self.links[jn]) if a == arm]
+        idx = [i for i, (a, t) in enumerate(self.links[jn]) if a == arm and t == target] or \
+            [i for i, (a, _) in enumerate(self.links[jn]) if a == arm]
         if idx and all(self.applied[jn][i] not in "Gy" for i in idx):
             self.stopline_violations += 1
         if jn == "J2":
@@ -292,6 +306,8 @@ class PicarEnv:
             e = {**e, "t": self.t}
             self.event_log.append(e)
             self.tracker.event(e)
+            if e.get("next"):
+                self.next_of[e["car"]] = e["next"]
             if e["junction"] in self.ledgers:
                 self.ledgers[e["junction"]].event(e["car"], e["state"], e["lane"], self.t)
         if not self._fault("occupancy"):
@@ -302,12 +318,37 @@ class PicarEnv:
 
     # ------------------------------------------------------------------ stepping
     def _tls(self, jn, permits, sup):
+        """Link states from what the central PC knows (event ledger), never from SUMO ground truth."""
         st = sup.status()
+        led, res = self.ledgers[jn], self.right_res[jn]
+        cars = led.cars
+        for car, (_, t0) in list(res.items()):             # reservation ends at IN or when unused
+            if cars.get(car, {}).get("state") not in ("APPROACH", "ARRIVE") or self.t - t0 > RESERVATION_S:
+                del res[car]
+        active = [(c["approach"], arm_of(self.next_of.get(car))) for car, c in cars.items() if c["state"] == "IN"]
+        active += [m for m, _ in res.values()]
+        green = APPROACHES[st.phase]
+        queues = {a: sorted(((c.get("request_t", c["t"]), car) for car, c in cars.items()
+                             if c["approach"] == a and c["state"] in ("APPROACH", "ARRIVE"))) for a in APPROACHES}
+        green_queue = [(green, arm_of(self.next_of.get(car))) for _, car in queues[green]]
+        enabled = bool(self.cfg["signal"].get("unprotected_right"))
         chars = []
         for arm, target in self.links[jn]:
-            if permits[arm] == "GO" and self.tracker.free(target) > 0:
+            move = (arm, arm_of(target))
+            ok = False
+            if arm == green:
+                ok = permits[arm] == "GO" and not any(conflicts(jn, move, m) for m in active)
+            elif enabled and queues[arm]:
+                head = queues[arm][0][1]
+                if self.next_of.get(head) == target and may_enter(jn, move, st, True, active, green_queue,
+                                                                   cars[head]["state"]):
+                    ok = True
+                    if head not in res:
+                        res[head] = (move, self.t)
+                        self.right_turns += 1
+            if ok and self.tracker.free(target) > 0:
                 chars.append("G")
-            elif arm == APPROACHES[st.phase] and (st.stage == "yellow" or st.fault or permits[arm] == "GO"):
+            elif arm == green and (st.stage == "yellow" or st.fault or permits[arm] == "GO"):
                 chars.append("y")       # stop if possible; a car already committed may finish crossing
             else:
                 chars.append("r")
@@ -405,7 +446,8 @@ class PicarEnv:
                 "throughput_per_min": self.crossings * 60 / max(self.t, 1e-9),
                 "switches": self.sup.switches, "forced_switches": self.sup.forced_switches,
                 "fault_events": self.sup.fault_events + self.sup2.fault_events,
-                "guard_switches": self.sup.guard_switches, "collisions": self.collisions,
+                "guard_switches": self.sup.guard_switches, "right_turns_unprotected": self.right_turns,
+                "collisions": self.collisions,
                 "conflict_steps": self.conflict_steps, "stopline_violations": self.stopline_violations,
                 "deadlock": self.deadlock, "sim_seconds": self.t,
                 "cmd_latency_s": self.cmd_latency, "obs_delay_s": self.obs_delay, **per}

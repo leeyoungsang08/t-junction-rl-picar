@@ -42,7 +42,8 @@ class CentralController:
         if self.policy:
             if self.policy.meta.get("schema") not in ("picar_v1", "picar_v2"):
                 raise ValueError("policy schema mismatch")
-            for k in ("control_mode", "min_green_s", "max_green_s", "yellow_s", "all_red_min_s", "max_wait_guard_s"):
+            for k in ("control_mode", "min_green_s", "max_green_s", "yellow_s", "all_red_min_s", "max_wait_guard_s",
+                      "unprotected_right"):
                 if self.policy.meta["signal"].get(k, 0) != sig.get(k, 0):
                     raise ValueError(f"supervisor setting {k} differs from the trained policy")
         self.mode = mode

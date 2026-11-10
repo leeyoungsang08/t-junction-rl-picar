@@ -1,4 +1,33 @@
-# PiCar Real-to-Sim 진행 상황 (2026-11-10 6차 갱신: Gazebo 검증 단계 추가)
+# PiCar Real-to-Sim 진행 상황 (2026-11-11 7차 갱신: 사진 기반 코스·카메라 주행·비보호 우회전·재학습)
+
+## 7차 갱신 요약
+
+| 항목 | 상태 |
+|---|---|
+| 코스 치수 | 사진 원근 보정 + PiCar 크기로 **추정**: 3.46 × 2.30 m, 차로 0.21 m(이전 가정 0.35), 정지선 → 교차로 0.17 m. 실측 전까지 사용 → [docs/PICAR_COURSE_ESTIMATE_KO.md](docs/PICAR_COURSE_ESTIMATE_KO.md) |
+| 선 배치 | 사진과 같게 바꿈: 도로마다 3줄(바깥 끝선·가운데선·안쪽 끝선), 정지선은 진입 차로만, 접근 테이프 없음(주행 거리로 APPROACH) |
+| 차량 주행 | 실차 방식으로 새로 작성: 전면 카메라 → 버드아이뷰 → 차선 검출 → 순수 추종, 하부 IR 정지선, 초음파 (`picar_lab/car_agent/{lane_camera,camera_brain,ros2_camera_drive_node}.py`) |
+| 비보호 우회전 | 정지선에 멈춘 우회전 차를, 다른 방향 차가 교차로에 없고 녹색 쪽에서 오는 차도 없을 때 서버가 허가 (`picar_sim/right_turn.py`). 효과는 작음(제자리 회전이라 좁은 차로에서 겹칠 여지가 거의 없음) |
+| 재학습 | `runs/picar_v9_photo_rt` (시드 42/43/44 × 1,500 에피소드, 새 치수 + 비보호 우회전). 이전 정책(v7)은 설정이 달라 서버가 거부함 |
+| 2D 점검(카메라 차량, 3대 × 600 s × 시드 3) | 충돌·FAULT·허가 없는 진입 0, 정지 오차 ≤ 2.7 cm. **차로 이탈 1~4회**(가장 급한 안쪽 우회전 모서리, 최대 4.8~6.0 cm, 시간의 0.03~0.23%) |
+| Gazebo 실행 | 사용자 PC에서 미확인 (`CONTROLLERS="rule dqn" bash picar_gazebo/scripts/run_acceptance.sh`) |
+
+재학습 평가 (test 시나리오 3 × 시드 30 × nominal/noisy, 조건마다 90회, `runs/picar_v9_photo_rt/eval30/`):
+
+| 제어기 | 지연 nominal [s] | 지연 noisy [s] | 최장 대기 nominal [s] | 통과 [대/분] |
+|---|---:|---:|---:|---:|
+| DQN seed42 (검증 최고, 기본 정책) | **2.38** | **2.63** | 14.7 | 9.84 |
+| DQN seed43 | 2.51 | 2.80 | 13.7 | 9.78 |
+| 오래된 요청 우선 | 2.45 | 2.69 | **11.0** | 9.81 |
+| 대기열 규칙 | 5.71 | 5.13 | 19.5 | 8.93 |
+| 고정식 5 s | 7.66 | 7.03 | 19.2 | 8.42 |
+
+판정: DQN은 평균 지연이 약 3% 짧지만 최장 대기가 3.5 s 길다. 이전과 마찬가지로 오래된 요청 우선과 비슷한 수준이다. 충돌·상충·정지선 위반·교착은 모두 0이다.
+새 치수에서는 연결로에 방향당 3대까지 들어가서 지연이 크게 줄었다(이전 가정 치수에서는 약 13 s). 아래 1~6차 수치는 이전 가정 치수 기준이다.
+
+---
+
+# (이전) 6차 갱신: Gazebo 검증 단계 추가
 
 브랜치 `picar-real2sim`. 기존 `src/`·`outputs/`·KEEP/SWITCH 모델은 건드리지 않았고, 새 작업은 모두 [`picar_sim/`](picar_sim/)에 있다.
 자세한 설계·파라미터·결과: [docs/PICAR_REAL2SIM_PLAN_KO.md](docs/PICAR_REAL2SIM_PLAN_KO.md) · Colab: [notebooks/08_picar_real2sim_colab.ipynb](notebooks/08_picar_real2sim_colab.ipynb)
@@ -60,7 +89,7 @@
 
 ## 다음 할 일
 
-0. **Gazebo**: 사용자 PC(Ubuntu 22.04)에서 `bash picar_gazebo/scripts/setup_ubuntu2204.sh` → `calibrate.launch.py` → `course.launch.py` → 4장 합격 기준 확인
+0. **Gazebo**: 사용자 PC에서 `git pull` → `CONTROLLERS="rule dqn" bash picar_gazebo/scripts/run_acceptance.sh` → 합격 기준과 규칙 대 DQN 확인 (7차: 카메라 차량·추정 치수)
 1. **실측**: 코스 가로·세로, 최소 회전반경(안쪽 차로 코너 반경 0.225 m가 가능한지), 정지선~충돌구간 거리, 저속 속도·정지오차·통과시간, UDP 왕복 지연 → `picar_sim/config/field_measurements.template.csv` 형식
 2. `python -m picar_sim.calibrate --csv field.csv` → 보정 맵에서 재학습·재평가
 3. 실측 보정 후 같은 비교(오래된 요청 우선 vs DQN, 둘 다 강제 규칙 T=20) 재실행. 실차 첫 단계는 오래된 요청 우선으로 운영하고 DQN은 shadow로 판단만 기록 → 실측 범위 랜덤화

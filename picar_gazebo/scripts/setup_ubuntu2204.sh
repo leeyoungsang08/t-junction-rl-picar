@@ -33,7 +33,7 @@ sudo apt-get upgrade -y
 
 echo "== 3/6 ROS 2 Humble + ros_gz (Gazebo Fortress) + tools"
 sudo apt-get install -y ros-humble-desktop ros-humble-ros-gz ros-dev-tools python3-colcon-common-extensions \
-  python3-numpy python3-yaml python3-matplotlib python3-pil python3-pytest ffmpeg
+  python3-numpy python3-scipy python3-yaml python3-matplotlib python3-pil python3-pytest ffmpeg
 
 # shellcheck disable=SC1091
 set +u; source /opt/ros/humble/setup.bash; set -u

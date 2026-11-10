@@ -1,8 +1,9 @@
 """Gazebo Fortress + ROS 2 Humble: PiCar course, N cars, central server, monitor.
+Cars drive like the real PiCar: front camera lane following + IR stop line + ultrasonic (ros2_camera_drive_node).
 
 ros2 launch picar_gazebo calibrate.launch.py      # once: writes ~/picar_gz_runs/car_calibration.yaml
 ros2 launch picar_gazebo course.launch.py cars:=3
-ros2 launch picar_gazebo course.launch.py cars:=4 policy:=$PICAR_REPO/runs/picar_v7_direct_guard20/seed43/best_policy.npz mode:=active
+ros2 launch picar_gazebo course.launch.py cars:=3 policy:=$PICAR_REPO/runs/picar_v9_photo_rt/seed42/best_policy.npz mode:=active
 ros2 launch picar_gazebo course.launch.py cars:=3 gui:=false beam_fault_start:=60 beam_fault_stop:=80
 """
 import os
@@ -46,6 +47,7 @@ def _setup(context):
         n = c["name"]
         bridge += [f"/model/{n}/cmd_vel@geometry_msgs/msg/Twist]ignition.msgs.Twist",
                    f"/model/{n}/line_cam@sensor_msgs/msg/Image[ignition.msgs.Image",
+                   f"/model/{n}/front_cam@sensor_msgs/msg/Image[ignition.msgs.Image",
                    f"/model/{n}/pose@geometry_msgs/msg/PoseStamped[ignition.msgs.Pose"]
     actions.append(Node(package="ros_gz_bridge", executable="parameter_bridge", arguments=bridge, output="screen"))
     central = ["python3", "-m", "picar_sim.central_server", "--host", "127.0.0.1", "--port", port,
@@ -55,7 +57,7 @@ def _setup(context):
     actions.append(ExecuteProcess(cmd=central, output="screen", additional_env=env))
     actions.append(Node(package="picar_gazebo", executable="course_monitor", output="screen", additional_env=env,
                         parameters=[{"meta_file": str(out / "course_meta.yaml"), "out_dir": str(out),
-                                     "central_port": int(port),
+                                     "central_port": int(port), "lane_tolerance_m": float(meta["lane_tolerance_m"]),
                                      "beam_fault_start": float(cfg["beam_fault_start"]),
                                      "beam_fault_stop": float(cfg["beam_fault_stop"])}]))
     cars = []
@@ -68,12 +70,16 @@ def _setup(context):
                          parameters=[{"latency_s": float(cfg["motor_latency_s"]), "track_m": meta["car"]["wheel_sep"],
                                       "gain_right": float(cfg["gain_right"])}],
                          remappings=[("gz_cmd_vel", f"/model/{n}/cmd_vel")]))
+        fc = meta["car"]["front_cam"]
         cars.append(ExecuteProcess(output="screen", additional_env=env, cmd=[
-            "python3", "-m", "picar_lab.car_agent.ros2_drive_node", "--ros-args", "-r", f"__ns:=/{n}",
-            "-r", f"__node:={n}_drive", "-p", f"car:={n}", "-p", f"route:={','.join(c['route'])}",
+            "python3", "-m", "picar_lab.car_agent.ros2_camera_drive_node", "--ros-args", "-r", f"__ns:=/{n}",
+            "-r", f"__node:={n}_drive", "-r", f"image:=/model/{n}/front_cam",
+            "-p", f"car:={n}", "-p", f"route:={','.join(c['route'])}",
             "-p", "start_index:=0", "-p", f"maneuvers_file:={out / 'maneuvers.yaml'}",
+            "-p", f"approach_in_m:={float(c.get('approach_in_m', -1.0))}",
             "-p", "central_host:=127.0.0.1", "-p", f"central_port:={port}", "-p", f"speed_mps:={cfg['speed_mps']}",
-            "-p", f"stop_line_min_m:={yaml.safe_load((out / 'maneuvers.yaml').read_text())['stop_line_min_m']}"]
+            "-p", f"camera_x:={float(fc['x'])}", "-p", f"camera_z:={float(fc['z'])}",
+            "-p", f"camera_pitch_deg:={float(fc['pitch_deg'])}", "-p", f"camera_hfov_deg:={float(fc['hfov_deg'])}"]
             + (["-p", f"calibration_file:={calib}"] if calib else [])))
     actions.append(TimerAction(period=6.0, actions=cars))           # let Gazebo and the bridge come up first
     print(f"[picar_gazebo] run directory: {out}")

@@ -1,7 +1,7 @@
 """Central PC server for the real PiCar course: both T junctions, protocol v2 (picar_lab/car_agent/protocol.py).
 
     python -m picar_sim.central_server --host 0.0.0.0 --port 5007 \\
-        [--policy runs/picar_v7_direct_guard20/seed43/best_policy.npz --mode shadow|active]
+        [--policy runs/picar_v9_photo_rt/seed42/best_policy.npz --mode shadow|active]
 
 J  : CentralController with oldest_first (default) or the DQN (active) / DQN logged only (shadow)
 J2 : CentralController with the fixed queue rule (as in SUMO)
@@ -24,6 +24,7 @@ from picar_lab.car_agent.protocol import VERSION, decode, encode, valid_beam, va
 from picar_sim.map_builder import PKG, load_config, segment_capacity
 from picar_sim.observation import SegmentTracker
 from picar_sim.real_bridge import CentralController
+from picar_sim.right_turn import arm_of, may_enter
 from picar_sim.supervisor import APPROACHES
 
 import yaml
@@ -59,7 +60,8 @@ class CentralServer:
         self.grant_id = 0
         self.anomalies = []
         self.log = open(log_path, "a", encoding="utf-8") if log_path else None
-        self.stats = {"permits": 0, "permit_acks": 0, "exit_events": 0, "dup_status": 0, "rejected": 0}
+        self.stats = {"permits": 0, "right_turn_permits": 0, "permit_acks": 0, "exit_events": 0, "dup_status": 0,
+                      "rejected": 0}
 
     # ------------------------------------------------------------------ inbound
     def _event(self, e):
@@ -103,7 +105,7 @@ class CentralServer:
             if r is None:
                 self.anomalies.append({"t": now, "car": car, "kind": "entered_without_reservation"})
             self.inside[m["junction"]].append(car)
-            info.update(req=None)
+            info.update(req=None, move=(m["lane"], arm_of(m["next"])))   # movement fixed at entry
             self._event({"t": now, "car": car, "junction": m["junction"], "state": "IN", "lane": m["lane"],
                          "next": m["next"]})
         info["state"] = st
@@ -156,32 +158,48 @@ class CentralServer:
         for jn, c in self.ctrl.items():
             permits, entry = c.tick(now, self.dt, extra_occupancy=self._reserved_count(jn))
             entries[jn] = entry
-            if permits and all(v == "STOP" for v in permits.values()):
-                continue
+            st = c.sup.status()
+            if st.stage != "green" or st.fault is not None:
+                continue                                     # every approach STOP
             led = c.ledger.cars
-            queue = [car for car, info in self.cars.items()
-                     if info.get("junction") == jn and info.get("state") in ("APPROACH", "ARRIVE")
-                     and info.get("req") is not None and permits.get(info.get("lane")) == "GO"]
-            # cars cannot overtake on one lane: serve in arrival order and never skip a blocked front car
-            queue.sort(key=lambda car: led.get(car, {}).get("request_t", float("inf")))
-            for car in queue:
-                info = self.cars[car]
-                r = self.reserved.get(car)
-                if r is None:
-                    if self._free(info["next"]) <= 0:
-                        break
-                    self.grant_id += 1
-                    r = self.reserved[car] = {"junction": jn, "next": info["next"], "grant": self.grant_id,
-                                              "req": info["req"], "t": now}
-                    self.stats["permits"] += 1
-                elif r["req"] != info["req"]:
-                    self.grant_id += 1                       # renewal for a newer request = new grant id
-                    r.update(req=info["req"], t=now, grant=self.grant_id)
-                else:
-                    continue                                 # already answered this request
-                self.sock.sendto(encode({"v": VERSION, "type": "permit", "session": self.session, "car": car,
-                                         "boot": info["boot"], "req": info["req"], "grant": r["grant"],
-                                         "junction": jn, "ttl_ms": int(self.ttl * 1000)}), info["addr"])
+            green = APPROACHES[st.phase]
+            active = [self.cars[x].get("move", (None, None)) for x in self.inside[jn]]
+            active += [r["move"] for r in self.reserved.values() if r["junction"] == jn]
+            lanes = {}
+            for car, info in self.cars.items():
+                if info.get("junction") == jn and info.get("state") in ("APPROACH", "ARRIVE") and info.get("req") is not None:
+                    lanes.setdefault(info.get("lane"), []).append(car)
+            for q in lanes.values():   # cars cannot overtake on one lane: arrival order, never skip a blocked front car
+                q.sort(key=lambda car: led.get(car, {}).get("request_t", float("inf")))
+            green_queue = [(green, arm_of(self.cars[x].get("next"))) for x in lanes.get(green, [])]
+            enabled = bool(self.cfg["signal"].get("unprotected_right"))
+            for lane, queue in lanes.items():
+                for car in queue:
+                    info = self.cars[car]
+                    move = (lane, arm_of(info.get("next")))
+                    r = self.reserved.get(car)
+                    if r is None:
+                        state = led.get(car, {}).get("state", info.get("state"))
+                        if not may_enter(jn, move, st, enabled, active, green_queue, state) or self._free(info["next"]) <= 0:
+                            break
+                        self.grant_id += 1
+                        r = self.reserved[car] = {"junction": jn, "next": info["next"], "grant": self.grant_id,
+                                                  "req": info["req"], "t": now, "move": move}
+                        active.append(move)
+                        self.stats["permits"] += 1
+                        self.stats["right_turn_permits"] += lane != green
+                    elif r["req"] != info["req"]:
+                        self.grant_id += 1                       # renewal for a newer request = new grant id
+                        r.update(req=info["req"], t=now, grant=self.grant_id)
+                    else:
+                        if lane != green:
+                            break
+                        continue                                 # already answered this request
+                    self.sock.sendto(encode({"v": VERSION, "type": "permit", "session": self.session, "car": car,
+                                             "boot": info["boot"], "req": info["req"], "grant": r["grant"],
+                                             "junction": jn, "ttl_ms": int(self.ttl * 1000)}), info["addr"])
+                    if lane != green:
+                        break                                    # unprotected right turn: head car only
         if self.log:
             self.log.write(json.dumps({"t": round(now, 3), "J": entries["J"], "J2": entries["J2"],
                                        "reserved": self.reserved}, default=float) + "\n")
