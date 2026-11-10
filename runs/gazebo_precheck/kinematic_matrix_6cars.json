@@ -1,0 +1,82 @@
+[
+ [
+  "rule oldest_first",
+  {
+   "cross": 213,
+   "faults": 0,
+   "coll": 0,
+   "dep": 0,
+   "ill": 0,
+   "calib": {
+    "trim_per_m": 0.1794,
+    "turn_scale": 0.985,
+    "latency_s": 0.044,
+    "accel_mps2": 1.031
+   }
+  }
+ ],
+ [
+  "DQN v7 active",
+  {
+   "cross": 202,
+   "faults": 0,
+   "coll": 0,
+   "dep": 0,
+   "ill": 0,
+   "calib": {
+    "trim_per_m": 0.1794,
+    "turn_scale": 0.985,
+    "latency_s": 0.044,
+    "accel_mps2": 1.031
+   }
+  }
+ ],
+ [
+  "no calibration",
+  {
+   "cross": 25,
+   "faults": 7,
+   "coll": 0,
+   "dep": 12,
+   "ill": 0,
+   "calib": {
+    "trim_per_m": 0.0,
+    "turn_scale": 1.0,
+    "accel_mps2": 1000000000.0,
+    "latency_s": 0.0
+   }
+  }
+ ],
+ [
+  "IR noise 2% flips",
+  {
+   "cross": 142,
+   "faults": 1,
+   "coll": 0,
+   "dep": 2,
+   "ill": 0,
+   "calib": {
+    "trim_per_m": 0.1794,
+    "turn_scale": 0.985,
+    "latency_s": 0.044,
+    "accel_mps2": 1.031
+   }
+  }
+ ],
+ [
+  "harder motor (gain_r .92, latency .08, decel .7)",
+  {
+   "cross": 205,
+   "faults": 0,
+   "coll": 1,
+   "dep": 0,
+   "ill": 0,
+   "calib": {
+    "trim_per_m": 0.4947,
+    "turn_scale": 0.96,
+    "latency_s": 0.072,
+    "accel_mps2": 0.76
+   }
+  }
+ ]
+]

@@ -13,7 +13,6 @@ import subprocess
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
-import sumolib  # noqa: F401  (ensures SUMO python tools are importable)
 import yaml
 
 PKG = Path(__file__).resolve().parent
@@ -50,6 +49,7 @@ def _length(pts):
 
 
 def build(cfg=None, out_dir=None):
+    import sumolib
     cfg = cfg or load_config()
     c, v = cfg["course"], cfg["vehicle"]
     out = Path(out_dir or PKG / "maps")

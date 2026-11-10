@@ -82,9 +82,21 @@ def test_requests_are_refreshed_and_reliable_messages_retransmitted():
 
 def test_marker_detector_thin_vs_thick():
     md = MarkerDetector(dt=0.1, approach_max_m=0.03, stop_min_m=0.04)
-    assert [md.update([1, 1, 1, 1], 0.25), md.update([0, 1, 1, 0], 0.25)] == [None, "approach"]
+    # a band ends after two clean frames (one clean frame inside a band is tolerated as noise)
+    seq = [[1, 1, 1, 1], [0, 1, 1, 0], [0, 1, 1, 0]]
+    assert [md.update(v, 0.25) for v in seq] == [None, None, "approach"]
     out = [md.update([1, 1, 1, 1], 0.25) for _ in range(3)]
     assert out == [None, "stopline", None]
+
+
+def test_marker_detector_tolerates_ir_noise():
+    md = MarkerDetector(dt=0.05, approach_max_m=0.03, stop_min_m=0.04)
+    # 5 cm stop tape at 0.25 m/s = 4 frames; one channel drops out and one frame is lost entirely
+    frames = [[1, 1, 0, 1], [0, 0, 1, 0], [1, 1, 1, 1], [1, 1, 1, 1]]
+    assert "stopline" in [md.update(v, 0.25) for v in frames]
+    # the lane line alone (2 sensors) is never a cross tape
+    md2 = MarkerDetector(dt=0.05)
+    assert all(md2.update([0, 1, 1, 0], 0.25) is None for _ in range(20))
 
 
 def test_exit_beam_reports_rear_leaving_and_heartbeat():

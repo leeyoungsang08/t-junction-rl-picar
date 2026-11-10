@@ -1,4 +1,4 @@
-# PiCar Real-to-Sim 진행 상황 (2026-11-10 5차 갱신: 실차 없이 할 수 있는 작업 완료)
+# PiCar Real-to-Sim 진행 상황 (2026-11-10 6차 갱신: Gazebo 검증 단계 추가)
 
 브랜치 `picar-real2sim`. 기존 `src/`·`outputs/`·KEEP/SWITCH 모델은 건드리지 않았고, 새 작업은 모두 [`picar_sim/`](picar_sim/)에 있다.
 자세한 설계·파라미터·결과: [docs/PICAR_REAL2SIM_PLAN_KO.md](docs/PICAR_REAL2SIM_PLAN_KO.md) · Colab: [notebooks/08_picar_real2sim_colab.ipynb](notebooks/08_picar_real2sim_colab.ipynb)
@@ -25,6 +25,9 @@
 | 기본 설정 | 직접 현시 선택, 최대 대기 강제 규칙 20 s, 6대 포함 검증 (`course.yaml`) |
 | PyTorch 백엔드 | **CPU에서 실행 확인** (`check_torch_backend.py`: 학습·재개·내보낸 정책 Q값 오차 1e-6). 같은 조건 500에피소드에서 numpy와 학습 결과 동등(검증 15.08 vs 14.92). GPU는 이 서버에 없어 미확인 |
 | 실측 범위 랜덤화 학습 | 미실행 (실측값이 생긴 뒤 진행) |
+| **Gazebo 검증 패키지** (`picar_gazebo/`, Ubuntu 22.04 + ROS 2 Humble + Gazebo Fortress) | 코드·설치 스크립트·런치 완료. 차량 코드(`brain.py`/`drive.py`)는 실차와 공유. **Gazebo 실행은 사용자 PC에서 확인 필요** → [docs/PICAR_GAZEBO_KO.md](docs/PICAR_GAZEBO_KO.md) |
+| 2D 주행 사전 점검 (`kinematic_check.py`) | 6대 × 180 s × 5시드: 보정 시 충돌·FAULT·이탈·허가 없는 진입 0 (규칙·DQN 모두). 보정 없으면 FAULT 7, 이탈 12 |
+| 차량 보정 (직진 편향·정지 거리·회전 비율) | Gazebo 자동 측정 노드 + 실차 측정용 시험 노드·계산 도구 완료 |
 
 ## 결과 요약 (SUMO, 가정 파라미터, test 30시드, 최대 대기 강제 규칙 T=20 s)
 
@@ -50,8 +53,14 @@
 2. 연결로가 방향마다 1대만 수용 → 6대에서 제어기와 무관하게 교착 10–30% → "다음 구간에 자리가 있을 때만 GO" 추가 후 교착 0.
 3. J2를 SUMO 우선순위 교차로로 두면 SUMO 내부 교착 발생. PiCar는 스스로 양보하지 못하므로 실물 J2도 중앙 GO/STOP 필요.
 
+## Gazebo 단계에서 정한 실물 사양 (사전 점검 결과)
+- 차선 테이프 **25 mm 이상** (18 mm는 센서 간격 15 mm와 거의 같아 지그재그), 정지선 50 mm, APPROACH 15 mm
+- 차량마다 보정 파일 1개(`car_calibration.yaml`): 교차로 안 회전은 테이프 없이 개루프라 보정 없이는 차선을 놓친다
+- 앞차 정지 0.20 m, 0.40 m부터 감속 (곡선에서 초음파가 앞차를 늦게 봄)
+
 ## 다음 할 일
 
+0. **Gazebo**: 사용자 PC(Ubuntu 22.04)에서 `bash picar_gazebo/scripts/setup_ubuntu2204.sh` → `calibrate.launch.py` → `course.launch.py` → 4장 합격 기준 확인
 1. **실측**: 코스 가로·세로, 최소 회전반경(안쪽 차로 코너 반경 0.225 m가 가능한지), 정지선~충돌구간 거리, 저속 속도·정지오차·통과시간, UDP 왕복 지연 → `picar_sim/config/field_measurements.template.csv` 형식
 2. `python -m picar_sim.calibrate --csv field.csv` → 보정 맵에서 재학습·재평가
 3. 실측 보정 후 같은 비교(오래된 요청 우선 vs DQN, 둘 다 강제 규칙 T=20) 재실행. 실차 첫 단계는 오래된 요청 우선으로 운영하고 DQN은 shadow로 판단만 기록 → 실측 범위 랜덤화

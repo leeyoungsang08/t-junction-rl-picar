@@ -181,23 +181,37 @@ class CarAgent:
 class MarkerDetector:
     """Classify perpendicular tape marks from the 4-channel line sensor (1 = dark tape under the sensor).
 
-    A frame with all channels dark is a crossing tape. Its length in frames at the commanded speed tells
-    thin (APPROACH marker) from thick (stop line). Thresholds are in metres and must be measured.
+    A frame with at least 3 of 4 channels dark is a crossing tape (the lane line can cover at most 2
+    sensors). One clean frame inside a band is tolerated as sensor noise, and a band needs min_full
+    frames with all 4 dark (one flipped sensor on the lane line must not make a marker). The band length at the given
+    speed tells thin (APPROACH marker) from thick (stop line). Thresholds are in metres and must be measured.
     """
 
-    def __init__(self, dt=0.1, approach_max_m=0.03, stop_min_m=0.04):
+    def __init__(self, dt=0.1, approach_max_m=0.03, stop_min_m=0.04, min_dark=3, gap_frames=1, min_full=2):
         self.dt, self.approach_max_m, self.stop_min_m = dt, approach_max_m, stop_min_m
+        self.min_dark, self.gap_frames, self.min_full = min_dark, gap_frames, min_full
         self.run = 0
+        self.full = 0                       # frames with all 4 dark (a flipped lane-line sensor gives 3)
         self.dist = 0.0
+        self.gap, self.gap_dist = 0, 0.0
 
     def update(self, values, speed_mps):
         """values: 4 ints. Returns "stopline" as soon as a dark band is thicker than stop_min_m,
         "approach" when a thin band (<= approach_max_m) ends, otherwise None."""
-        if all(v == 1 for v in values):
-            prev = self.dist
+        step = max(speed_mps, 0.0) * self.dt
+        n = sum(1 for v in values if v == 1)
+        if n >= self.min_dark:
+            was_stop = self.dist >= self.stop_min_m and self.full >= self.min_full
             self.run += 1
-            self.dist += max(speed_mps, 0.0) * self.dt
-            return "stopline" if prev < self.stop_min_m <= self.dist else None
-        kind = "approach" if self.run and self.dist <= self.approach_max_m else None
-        self.run, self.dist = 0, 0.0
+            self.full += n == len(values)
+            self.dist += step + self.gap_dist
+            self.gap, self.gap_dist = 0, 0.0
+            is_stop = self.dist >= self.stop_min_m and self.full >= self.min_full
+            return "stopline" if is_stop and not was_stop else None
+        if self.run and self.gap < self.gap_frames:      # one missing frame: maybe noise, wait
+            self.gap += 1
+            self.gap_dist += step
+            return None
+        kind = "approach" if self.run and self.full and self.dist <= self.approach_max_m else None
+        self.run, self.full, self.dist, self.gap, self.gap_dist = 0, 0, 0.0, 0, 0.0
         return kind
