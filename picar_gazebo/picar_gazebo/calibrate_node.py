@@ -8,6 +8,7 @@ import math
 import time
 
 import rclpy
+from rclpy.executors import ExternalShutdownException
 from geometry_msgs.msg import PoseStamped, Twist
 from rclpy.node import Node
 
@@ -89,11 +90,13 @@ def main(args=None):
     node = Calibrate()
     try:
         rclpy.spin(node)
-    except (KeyboardInterrupt, SystemExit):
-        pass
+    except (KeyboardInterrupt, ExternalShutdownException, SystemExit):
+        pass                                  # launch sends SIGINT at the end of a run: normal shutdown
     finally:
-        node.pub.publish(Twist())
-        rclpy.shutdown()
+        if rclpy.ok():
+            node.pub.publish(Twist())
+        if rclpy.ok():
+            rclpy.shutdown()
 
 
 if __name__ == "__main__":

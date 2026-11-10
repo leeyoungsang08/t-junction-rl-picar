@@ -6,6 +6,7 @@ left/right gain mismatch, speed scale (battery). Defaults are mild guesses; repl
 from collections import deque
 
 import rclpy
+from rclpy.executors import ExternalShutdownException
 from geometry_msgs.msg import Twist
 from rclpy.node import Node
 
@@ -44,8 +45,15 @@ class MotorModel(Node):
 
 def main(args=None):
     rclpy.init(args=args)
-    rclpy.spin(MotorModel())
-    rclpy.shutdown()
+    node = MotorModel()
+    try:
+        rclpy.spin(node)
+    except (KeyboardInterrupt, ExternalShutdownException, SystemExit):
+        pass                                  # launch sends SIGINT at the end of a run: normal shutdown
+    finally:
+        pass
+        if rclpy.ok():
+            rclpy.shutdown()
 
 
 if __name__ == "__main__":

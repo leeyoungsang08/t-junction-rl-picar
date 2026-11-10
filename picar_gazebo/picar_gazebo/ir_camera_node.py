@@ -7,6 +7,7 @@ import random
 
 import numpy as np
 import rclpy
+from rclpy.executors import ExternalShutdownException
 from rclpy.node import Node
 from sensor_msgs.msg import Image
 from std_msgs.msg import Int32MultiArray
@@ -39,8 +40,15 @@ class IrCamera(Node):
 
 def main(args=None):
     rclpy.init(args=args)
-    rclpy.spin(IrCamera())
-    rclpy.shutdown()
+    node = IrCamera()
+    try:
+        rclpy.spin(node)
+    except (KeyboardInterrupt, ExternalShutdownException, SystemExit):
+        pass                                  # launch sends SIGINT at the end of a run: normal shutdown
+    finally:
+        pass
+        if rclpy.ok():
+            rclpy.shutdown()
 
 
 if __name__ == "__main__":

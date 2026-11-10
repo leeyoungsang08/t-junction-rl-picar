@@ -16,6 +16,7 @@ import socket
 import time
 
 import rclpy
+from rclpy.executors import ExternalShutdownException
 import yaml
 from geometry_msgs.msg import Twist
 from rclpy.node import Node
@@ -97,11 +98,13 @@ def main(args=None):
     node = DriveNode()
     try:
         rclpy.spin(node)
-    except KeyboardInterrupt:
-        pass
+    except (KeyboardInterrupt, ExternalShutdownException, SystemExit):
+        pass                                  # launch sends SIGINT at the end of a run: normal shutdown
     finally:
-        node.pub.publish(Twist())
-        rclpy.shutdown()
+        if rclpy.ok():
+            node.pub.publish(Twist())
+        if rclpy.ok():
+            rclpy.shutdown()
 
 
 if __name__ == "__main__":

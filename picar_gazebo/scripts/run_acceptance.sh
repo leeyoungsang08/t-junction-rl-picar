@@ -5,10 +5,13 @@
 #   bash picar_gazebo/scripts/run_acceptance.sh                 # 3 cars, 10 min, seeds 1 2 3 (~40 min + setup)
 #   MINUTES=2 SEEDS="1" bash picar_gazebo/scripts/run_acceptance.sh     # quick smoke run
 #   GUI=false ...                                               # no Gazebo window (needs EGL headless rendering)
+#   CONTROLLERS="rule dqn" bash ...                             # same seeds with oldest_first and the trained DQN (active)
 # Results: ~/picar_gz_runs/acceptance_<time>/{seed1,seed2,seed3,beam}/ + summary.md
 set -o pipefail
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 CARS="${CARS:-3}"; MINUTES="${MINUTES:-10}"; SEEDS="${SEEDS:-1 2 3}"; GUI="${GUI:-true}"
+CONTROLLERS="${CONTROLLERS:-rule}"          # rule (oldest_first) and/or dqn, e.g. CONTROLLERS="rule dqn"
+POLICY="${POLICY:-runs/picar_v7_direct_guard20/seed43/best_policy.npz}"
 BEAM_START="${BEAM_START:-60}"; BEAM_STOP="${BEAM_STOP:-80}"; BEAM_SECONDS="${BEAM_SECONDS:-130}"
 WS="${PICAR_WS:-$HOME/picar_ws}"
 
@@ -22,8 +25,8 @@ export PICAR_REPO="$REPO"
 
 OUT="$HOME/picar_gz_runs/acceptance_$(date +%Y%m%d_%H%M%S)"
 mkdir -p "$OUT"
-printf '{"cars": %s, "minutes": %s, "seeds": "%s", "gui": "%s", "beam_fault_start": %s, "beam_fault_stop": %s, "commit": "%s"}\n' \
-  "$CARS" "$MINUTES" "$SEEDS" "$GUI" "$BEAM_START" "$BEAM_STOP" "$(git -C "$REPO" rev-parse --short HEAD 2>/dev/null)" > "$OUT/config.json"
+printf '{"cars": %s, "minutes": %s, "seeds": "%s", "controllers": "%s", "policy": "%s", "gui": "%s", "beam_fault_start": %s, "beam_fault_stop": %s, "commit": "%s"}\n' \
+  "$CARS" "$MINUTES" "$SEEDS" "$CONTROLLERS" "$POLICY" "$GUI" "$BEAM_START" "$BEAM_STOP" "$(git -C "$REPO" rev-parse --short HEAD 2>/dev/null)" > "$OUT/config.json"
 echo "== results: $OUT"
 
 cleanup() {
@@ -66,9 +69,19 @@ run_course() {   # name seconds extra-args...
     "$dir/metrics.json" 2>/dev/null || echo "   (no metrics.json)"
 }
 
-echo "== 2) course.launch.py: $CARS cars x $MINUTES min, seeds: $SEEDS"
+echo "== 2) course.launch.py: $CARS cars x $MINUTES min, seeds: $SEEDS, controllers: $CONTROLLERS"
+case "$POLICY" in /*) ;; *) POLICY="$REPO/$POLICY" ;; esac
 for s in $SEEDS; do
-  run_course "seed$s" $(( MINUTES * 60 + 20 )) seed:="$s" port:=$(( 5100 + s ))
+  for c in $CONTROLLERS; do
+    case "$c" in
+      rule) extra=() ;;
+      dqn)  [ -f "$POLICY" ] || { echo "policy not found: $POLICY" >&2; exit 4; }
+            extra=(policy:="$POLICY" mode:=active) ;;
+      *)    echo "unknown controller $c (rule|dqn)" >&2; exit 4 ;;
+    esac
+    name="seed$s"; [ "$CONTROLLERS" = "rule" ] || name="seed${s}_$c"
+    run_course "$name" $(( MINUTES * 60 + 20 )) seed:="$s" port:=$(( 5100 + s )) "${extra[@]}"
+  done
 done
 echo "== 3) beam fault ${BEAM_START}-${BEAM_STOP}s"
 run_course beam "$BEAM_SECONDS" seed:=1 port:=5199 beam_fault_start:="$BEAM_START" beam_fault_stop:="$BEAM_STOP"

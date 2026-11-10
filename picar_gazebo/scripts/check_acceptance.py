@@ -27,7 +27,9 @@ ANSI = re.compile(r"\x1b\[[0-9;]*m")
 def read_log(path):
     if not path.exists():
         return None
-    text = ANSI.sub("", path.read_text(errors="replace"))
+    full = ANSI.sub("", path.read_text(errors="replace"))
+    cut = min([i for i in (full.find("user interrupted"), full.find("signal_handler(SIGINT")) if i >= 0] or [len(full)])
+    text = full[:cut]                          # deaths/tracebacks after the end-of-run SIGINT are shutdown noise
     enters = re.findall(r"enter (J2?) \w+->\w+ legal=(True|False)", text)
     return {"crossings": len(enters),
             "illegal": sum(1 for _, legal in enters if legal == "False"),
@@ -35,7 +37,20 @@ def read_log(path):
             "fault_lines": sorted(set(re.findall(r"\]: (FAULT[^\n]*)", text)))[:5],
             "dead": len(re.findall(r"process has died", text)),
             "tracebacks": len(re.findall(r"Traceback \(most recent call last\)", text)),
-            "calib_missing": "missing: run calibrate.launch.py first" in text}
+            "calib_missing": "missing: run calibrate.launch.py first" in text,
+            "delays": junction_delays(text)}
+
+
+def junction_delays(text):
+    """Per junction: APPROACH request -> entry [s] for every crossing (brain events in the drive-node log)."""
+    last, out = {}, {"J": [], "J2": []}
+    for t, car, kind, jn in re.findall(r"\[(\d+\.\d+)\] \[([\w.]+)\]: (approach|enter) (J2?)\b", text):
+        car = car.split(".")[-1]
+        if kind == "approach":
+            last[(car, jn)] = float(t)
+        elif (car, jn) in last:
+            out[jn].append(float(t) - last.pop((car, jn)))
+    return out
 
 
 def deadlock(path):
@@ -145,8 +160,15 @@ def judge(run, kind, minutes, beam_window):
             add("빔 결함이 실제로 감지됨", b["fault_seen_in_window"], b["fault_spans_s"])
             add("빔 결함 중 신규 진입 허가 0", b["grants_during_fault"] == 0,
                 f"{b['grants_during_fault']} {b['examples'] or ''}")
+    perf = None
+    if log and m:
+        d = log["delays"]["J"]
+        mins = max(m.get("elapsed_s", 0) - 6, 1) / 60
+        perf = {"J_crossings": len(d), "J_per_min": round(len(d) / mins, 2),
+                "J_delay_mean_s": round(sum(d) / len(d), 2) if d else None, "J_delay_max_s": round(max(d), 1) if d else None,
+                "all_crossings": log["crossings"]}
     return {"run": run.name, "kind": kind, "ok": all(c["ok"] for c in checks), "checks": checks,
-            "metrics": m, "deadlock": dl}
+            "metrics": m, "deadlock": dl, "perf": perf}
 
 
 def main():
@@ -163,6 +185,21 @@ def main():
     for r in runs:
         lines += [f"## {r['run']} — {'합격' if r['ok'] else '불합격'}", "", "| 항목 | 결과 | 값 |", "|---|---|---|"]
         lines += [f"| {c['check']} | {'OK' if c['ok'] else 'FAIL'} | {c['value']} |" for c in r["checks"]]
+        lines.append("")
+    groups = {}
+    for r in runs:
+        if r["kind"] == "seed" and r["perf"]:
+            groups.setdefault(r["run"].split("_", 1)[1] if "_" in r["run"] else "rule", []).append(r)
+    if len(groups) > 1 or any(len(v) > 0 for v in groups.values()):
+        lines += ["## 교차로 J 성능 (APPROACH 요청 → 진입)", "",
+                  "| 제어 | run 수 | 통과 [대/분] | 평균 지연 [s] | 최장 지연 [s] | 안전 항목 |", "|---|---:|---:|---:|---:|---|"]
+        for g, rs in sorted(groups.items()):
+            ds = [r["perf"] for r in rs]
+            n = sum(p["J_crossings"] for p in ds)
+            mean = sum((p["J_delay_mean_s"] or 0) * p["J_crossings"] for p in ds) / n if n else None
+            lines.append(f"| {g} | {len(rs)} | {sum(p['J_per_min'] for p in ds) / len(ds):.2f} | "
+                         f"{'-' if mean is None else f'{mean:.2f}'} | {max((p['J_delay_max_s'] or 0) for p in ds):.1f} | "
+                         f"{'모두 OK' if all(r['ok'] for r in rs) else 'FAIL 있음'} |")
         lines.append("")
     overall = bool(runs) and all(r["ok"] for r in runs)
     lines.append(f"**종합: {'합격' if overall else '불합격'}** ({sum(r['ok'] for r in runs)}/{len(runs)} run 통과)")
