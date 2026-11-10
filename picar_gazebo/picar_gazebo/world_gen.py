@@ -202,7 +202,9 @@ def car_model(world, car, color):
         _sub(dd, k, v)
     pp = _sub(m, "plugin", filename="ignition-gazebo-pose-publisher-system",
               name="ignition::gazebo::systems::PosePublisher")
-    for k, v in (("publish_link_pose", "false"), ("publish_model_pose", "true"), ("publish_nested_model_pose", "false"),
+    # Fortress (ign-gazebo6) publishes the top-level model pose only if publish_model_pose AND
+    # publish_nested_model_pose are both true; the car has no nested models, so nothing else is added.
+    for k, v in (("publish_link_pose", "false"), ("publish_model_pose", "true"), ("publish_nested_model_pose", "true"),
                  ("use_pose_vector_msg", "false"), ("update_frequency", 30)):
         _sub(pp, k, v)
 

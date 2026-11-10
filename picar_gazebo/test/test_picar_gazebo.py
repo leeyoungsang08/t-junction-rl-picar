@@ -151,3 +151,19 @@ def test_cyclic_routes_have_no_u_turn(course):
             for a, b in zip(r, r[1:] + r[:1]):          # include the wrap from the last segment to the first
                 assert a.split("_")[0] != b.split("_")[0], (seed, c["name"], a, b)
                 assert a.split("_")[1] != b.split("_")[1], (seed, c["name"], a, b)
+
+
+def test_pose_publisher_emits_model_pose(tmp_path):
+    """Fortress publishes the top-level model pose only with publish_model_pose AND publish_nested_model_pose."""
+    import xml.etree.ElementTree as ET
+    from picar_gazebo.world_gen import generate
+    generate(tmp_path, 2, 1)
+    root = ET.parse(tmp_path / "picar_course.sdf").getroot()
+    cars = [m for m in root.iter("model") if m.get("name", "").startswith("car")]
+    assert len(cars) == 2
+    for m in cars:
+        pp = [p for p in m.findall("plugin") if "PosePublisher" in p.get("name", "")]
+        assert len(pp) == 1
+        assert pp[0].findtext("publish_model_pose") == "true"
+        assert pp[0].findtext("publish_nested_model_pose") == "true"
+        assert m.find("model") is None                     # no nested models would be published by accident
