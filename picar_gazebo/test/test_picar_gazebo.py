@@ -141,3 +141,13 @@ def test_kinematic_precheck_multi_car(tmp_path):
     m = run(cars=3, seconds=60, seed=1, out=tmp_path)
     assert m["collisions"] == 0 and m["faults"] == 0 and m["illegal_crossings"] == 0
     assert m["crossings"] >= 6
+
+
+def test_cyclic_routes_have_no_u_turn(course):
+    from picar_gazebo.world_gen import make_routes
+    for seed in range(1, 21):
+        for c in make_routes(3, seed, course):
+            r = c["route"]
+            for a, b in zip(r, r[1:] + r[:1]):          # include the wrap from the last segment to the first
+                assert a.split("_")[0] != b.split("_")[0], (seed, c["name"], a, b)
+                assert a.split("_")[1] != b.split("_")[1], (seed, c["name"], a, b)

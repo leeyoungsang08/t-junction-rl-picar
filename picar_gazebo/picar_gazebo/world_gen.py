@@ -106,9 +106,12 @@ def make_routes(n_cars, seed, course, length=24):
     cars = []
     for k, (e, p, yaw) in enumerate(starts):
         route, cur = [e], e
-        for _ in range(length - 1):
+        for i in range(length - 1):
             arm, kind = cur.split("_")
-            b = rng.choice([x for x in APPROACHES if x != arm])
+            banned = {arm}
+            if i == length - 2:                        # route is cyclic: no U-turn from the last segment back to the first
+                banned.add(e.split("_")[0])
+            b = rng.choice([x for x in APPROACHES if x not in banned])
             cur = f"{b}_out" if kind == "in" else f"{b}_in"
             route.append(cur)
         cars.append({"name": f"car{k}", "start_edge": e, "x": float(p[0]), "y": float(p[1]), "yaw": float(yaw),

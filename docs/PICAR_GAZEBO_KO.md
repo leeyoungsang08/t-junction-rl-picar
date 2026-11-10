@@ -73,6 +73,16 @@ ros2 launch picar_gazebo course.launch.py cars:=3 motor_latency_s:=0.08 gain_rig
 | 빔 결함 중 신규 진입 | 0 |
 | 교착 (모든 차가 30 s 이상 정지) | 0 |
 
+한 번에 확인 (보정 → 시드 1·2·3 × 10분 → 빔 결함 60~80 s → 판정, 약 40분):
+
+```bash
+bash picar_gazebo/scripts/run_acceptance.sh          # ROS가 없으면 setup_ubuntu2204.sh부터 실행
+# → ~/picar_gz_runs/acceptance_<시각>/summary.md (항목별 OK/FAIL), 종료 코드 0 = 합격
+```
+
+교착은 `pose_logger.py`가 남긴 `poses.csv`에서(모든 차가 1초에 1 cm 미만 이동한 상태가 30 s 이상),
+빔 결함 중 신규 진입은 `central.jsonl`에서(J 감독기가 fault인 동안 새로 나간 J 허가 수) 판정한다.
+
 통과하면 실차로 넘어간다. 실패하면 아래 2D 사전 점검에서 같은 조건을 재현해 고친다.
 
 ## 5. 2D 사전 점검 (ROS 없이, 이 저장소에서 바로)
