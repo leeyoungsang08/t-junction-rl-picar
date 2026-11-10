@@ -29,4 +29,18 @@ def queue_rule(snap, status, mask, mode, starvation_s=20.0, margin=2):
     return int(switch)
 
 
-CONTROLLERS = {"fixed_time": fixed_time, "queue_rule": queue_rule}
+def oldest_first(snap, status, mask, mode, margin=2.0):
+    """Serve the approach holding the oldest waiting request (FIFO across approaches)."""
+    if mask.sum() == 1:
+        return int(np.flatnonzero(mask)[0])
+    age = np.asarray(snap["oldest_request"], float)
+    p = status.phase
+    if mode == "direct":
+        score = np.where(mask, age, -np.inf)
+        best = int(np.argmax(score))
+        return p if mask[p] and age[p] > 0 and age[p] >= score[best] - margin else best
+    others = [(p + 1) % 3, (p + 2) % 3]
+    return int(age[p] == 0 and age[others].max() > 0 or age[others].max() > age[p] + margin)
+
+
+CONTROLLERS = {"fixed_time": fixed_time, "queue_rule": queue_rule, "oldest_first": oldest_first}

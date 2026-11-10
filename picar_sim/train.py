@@ -65,9 +65,12 @@ def validate(env, cfg, act, seeds_per=2):
 
 
 def train(seed, episodes, out, resume=False, backend="auto", control_mode=None, randomize=False,
-          time_budget_min=None, agent_overrides=None, reward_overrides=None):
+          time_budget_min=None, agent_overrides=None, reward_overrides=None, signal_overrides=None, obs_schema=None):
     cfg = load_config()
     cfg["reward"].update(reward_overrides or {})
+    cfg["signal"].update(signal_overrides or {})
+    if obs_schema:
+        cfg["observation"] = {"schema": obs_schema}
     if control_mode:
         cfg["signal"]["control_mode"] = control_mode
     acfg = {**AGENT_DEFAULTS, **(agent_overrides or {})}
@@ -90,7 +93,8 @@ def train(seed, episodes, out, resume=False, backend="auto", control_mode=None, 
         rng.bit_generator.state = s["rng"]
         ep0, steps, best, history = s["episode"], s["steps"], s["best"], s["history"]
         print(f"resumed seed {seed} at episode {ep0}", flush=True)
-    meta = {"schema": "picar_v1", "features": __import__("picar_sim.observation", fromlist=["FEATURES"]).FEATURES,
+    from picar_sim.observation import SCHEMAS
+    meta = {"schema": env.encoder.schema, "features": SCHEMAS[env.encoder.schema],
             "control_mode": cfg["signal"]["control_mode"], "signal": cfg["signal"], "seed": seed,
             "n_actions": env.n_actions, "randomize": randomize, "agent": acfg, "reward": cfg["reward"],
             "backend": str(agent.device)}
@@ -175,8 +179,11 @@ if __name__ == "__main__":
     p.add_argument("--starvation-weight", type=float, help="reward: long-wait penalty weight (default config 0.5)")
     p.add_argument("--switch-weight", type=float, help="reward: cost per phase switch (default config 0.1)")
     p.add_argument("--val-seeds-per", type=int, default=2, help="validation episodes per scenario")
+    p.add_argument("--max-wait-guard", type=float, help="supervisor: force service after this request age (s)")
+    p.add_argument("--obs-schema", choices=["picar_v1", "picar_v2"], help="picar_v2 adds request age per approach")
     a = p.parse_args()
     rew = {k: v for k, v in (("starvation_s", a.starvation_s), ("starvation_weight", a.starvation_weight),
                              ("switch_weight", a.switch_weight)) if v is not None}
     train(a.seed, a.episodes, a.out, a.resume, a.backend, a.control_mode, a.randomize, a.time_budget_min,
-          {"validation_seeds_per": a.val_seeds_per}, rew)
+          {"validation_seeds_per": a.val_seeds_per}, rew,
+          {"max_wait_guard_s": a.max_wait_guard} if a.max_wait_guard is not None else None, a.obs_schema)

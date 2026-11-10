@@ -1,0 +1,18 @@
+{
+ "runs": [
+  "runs/picar_v5_direct_val6"
+ ],
+ "policies": [
+  "dqn_seed42",
+  "dqn_seed43",
+  "dqn_seed44"
+ ],
+ "control_mode": "direct",
+ "split": "validation",
+ "seeds_per": 10,
+ "max_wait_guard_s": 20.0,
+ "conditions": [
+  "nominal"
+ ],
+ "episodes": 300
+}

@@ -1,0 +1,6 @@
+condition,controller,guard_switches,mean_delay_s,p95_delay_s,completion_rate,max_wait_s,max_wait_W_s,max_wait_E_s,max_wait_N_s,throughput_per_min,switches,collisions,conflict_steps,stopline_violations,deadlock,fault_events
+nominal,dqn_seed42,4.25,10.879,27.653,0.945,34.502,28.155,29.917,13.34,6.333,34.633,0.0,0.0,0.0,0.0,0.0
+nominal,dqn_seed43,4.317,10.484,27.411,0.948,35.113,30.617,28.008,11.215,6.503,37.9,0.0,0.0,0.0,0.0,0.0
+nominal,dqn_seed44,4.433,10.543,28.144,0.946,36.42,30.68,30.397,10.542,6.583,36.933,0.0,0.0,0.0,0.0,0.0
+nominal,fixed_time,6.817,15.696,33.291,0.934,40.885,34.497,36.443,14.513,5.47,38.717,0.0,0.0,0.0,0.0,0.0
+nominal,queue_rule,2.25,12.058,27.548,0.937,33.493,29.01,28.055,16.868,5.94,24.65,0.0,0.0,0.0,0.0,0.0

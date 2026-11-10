@@ -1,0 +1,10 @@
+                      guard_switches  mean_delay_s  p95_delay_s  completion_rate  max_wait_s  max_wait_W_s  max_wait_E_s  max_wait_N_s  throughput_per_min  switches  collisions  conflict_steps  stopline_violations  deadlock  fault_events
+condition controller                                                                                                                                                                                                                         
+nominal   dqn_seed42           4.250        10.879       27.653            0.945      34.502        28.155        29.917        13.340               6.333    34.633         0.0             0.0                  0.0       0.0           0.0
+          dqn_seed43           4.317        10.484       27.411            0.948      35.113        30.617        28.008        11.215               6.503    37.900         0.0             0.0                  0.0       0.0           0.0
+          dqn_seed44           4.433        10.543       28.144            0.946      36.420        30.680        30.397        10.542               6.583    36.933         0.0             0.0                  0.0       0.0           0.0
+          fixed_time           6.817        15.696       33.291            0.934      40.885        34.497        36.443        14.513               5.470    38.717         0.0             0.0                  0.0       0.0           0.0
+          queue_rule           2.250        12.058       27.548            0.937      33.493        29.010        28.055        16.868               5.940    24.650         0.0             0.0                  0.0       0.0           0.0
+             mean    std     min     max
+condition                               
+nominal    10.635  0.213  10.484  10.879

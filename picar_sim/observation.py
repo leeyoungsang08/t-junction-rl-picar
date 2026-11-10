@@ -18,6 +18,8 @@ FEATURES = ([f"arrived_{a}" for a in APPROACHES] + [f"wait_{a}" for a in APPROAC
             + [f"approach_n_{a}" for a in APPROACHES] + [f"recent_{a}" for a in APPROACHES]
             + ["occupancy"] + [f"phase_{a}" for a in APPROACHES] + [f"stage_{s}" for s in STAGES]
             + ["green_elapsed", "clear_elapsed", "fault"] + [f"exit_free_{a}" for a in APPROACHES])
+FEATURES_V2 = FEATURES + [f"oldest_request_{a}" for a in APPROACHES]   # picar_v2 = v1 + request age
+SCHEMAS = {"picar_v1": FEATURES, "picar_v2": FEATURES_V2}
 RECENT_WINDOW_S = 20.0
 
 
@@ -38,6 +40,8 @@ class CarLedger:
         if state == "APPROACH":
             self.recent[approach].append(t)
         entry = {"state": state, "approach": approach, "t": t}
+        if state in ("APPROACH", "ARRIVE"):                  # request age: first APPROACH of this visit
+            entry["request_t"] = self.cars[car].get("request_t", t) if prev in ("APPROACH", "ARRIVE") else t
         if state == "ARRIVE":
             entry["arrive_t"] = t
         elif prev == "ARRIVE" and state == "APPROACH":     # IR flicker: keep ARRIVE time
@@ -57,16 +61,17 @@ class CarLedger:
             q = self.recent[a]
             while q and q[0] < t - RECENT_WINDOW_S:
                 q.popleft()
-        arrived, wait, n, recent = [], [], [], []
+        arrived, wait, n, recent, oldest = [], [], [], [], []
         for a in APPROACHES:
             here = [c for c in self.cars.values() if c["approach"] == a and c["state"] in ("APPROACH", "ARRIVE")]
             arr = [c["arrive_t"] for c in here if c["state"] == "ARRIVE"]
             arrived.append(1.0 if arr else 0.0)
             wait.append(t - min(arr) if arr else 0.0)
             n.append(float(len(here)))
+            oldest.append(t - min(c["request_t"] for c in here) if here else 0.0)
             recent.append(float(len(self.recent[a])))
         age = float("inf") if self.occupancy_updated is None else t - self.occupancy_updated
-        return {"arrived": arrived, "wait": wait, "approach_n": n, "recent": recent,
+        return {"arrived": arrived, "wait": wait, "approach_n": n, "recent": recent, "oldest_request": oldest,
                 "occupancy": float(self.occupancy()), "occupancy_age": age}
 
 
@@ -99,10 +104,11 @@ class SegmentTracker:
 class Encoder:
     max_green_s: float
     clear_timeout_s: float
+    schema: str = "picar_v1"
 
     @property
     def size(self):
-        return len(FEATURES)
+        return len(SCHEMAS[self.schema])
 
     def encode(self, snap, status, exit_free):
         s = lambda x, k: np.asarray(x, float) / (np.asarray(x, float) + k)   # smooth, unbounded inputs
@@ -115,4 +121,6 @@ class Encoder:
             [min(status.green_elapsed / self.max_green_s, 1.0), min(status.clear_elapsed / self.clear_timeout_s, 1.0),
              1.0 if status.fault else 0.0],
             s(np.maximum(np.asarray(exit_free, float), 0.0), 2.0)])
+        if self.schema == "picar_v2":
+            v = np.concatenate([v, s(snap["oldest_request"], 10.0)])
         return v.astype(np.float32)

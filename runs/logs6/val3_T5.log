@@ -1,0 +1,11 @@
+                        guard_switches  mean_delay_s  p95_delay_s  completion_rate  max_wait_s  max_wait_W_s  max_wait_E_s  max_wait_N_s  throughput_per_min  switches  collisions  conflict_steps  stopline_violations  deadlock  fault_events
+condition controller                                                                                                                                                                                                                           
+nominal   dqn_seed42            23.683         9.158       23.523            0.954      32.150        24.582        25.928        12.458               6.533    38.950         0.0             0.0                  0.0       0.0           0.0
+          dqn_seed43            20.983         8.600       23.604            0.948      31.593        24.437        24.622        10.283               6.647    39.867         0.0             0.0                  0.0       0.0           0.0
+          dqn_seed44            21.233         8.896       24.110            0.952      31.702        26.105        25.208        12.305               6.723    40.250         0.0             0.0                  0.0       0.0           0.0
+          fixed_time            27.150        10.044       24.924            0.946      32.500        25.328        25.725        12.153               6.287    44.200         0.0             0.0                  0.0       0.0           0.0
+          oldest_first          18.367         8.488       23.015            0.953      30.895        23.395        26.287        12.138               6.583    37.850         0.0             0.0                  0.0       0.0           0.0
+          queue_rule            26.483         9.193       22.763            0.952      30.403        24.305        25.580        12.215               6.470    31.967         0.0             0.0                  0.0       0.0           0.0
+            mean    std  min    max
+condition                          
+nominal    8.885  0.279  8.6  9.158

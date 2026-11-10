@@ -1,0 +1,27 @@
+{
+ "runs": [
+  "runs/picar_v5_direct_val6",
+  "runs/picar_v7_direct_guard20",
+  "runs/picar_v8_direct_reqage"
+ ],
+ "policies": [
+  "dqn_picar_v5_direct_val6_seed42",
+  "dqn_picar_v5_direct_val6_seed43",
+  "dqn_picar_v5_direct_val6_seed44",
+  "dqn_picar_v7_direct_guard20_seed42",
+  "dqn_picar_v7_direct_guard20_seed43",
+  "dqn_picar_v7_direct_guard20_seed44",
+  "dqn_picar_v8_direct_reqage_seed42",
+  "dqn_picar_v8_direct_reqage_seed43",
+  "dqn_picar_v8_direct_reqage_seed44"
+ ],
+ "control_mode": "direct",
+ "split": "test",
+ "seeds_per": 30,
+ "max_wait_guard_s": 0.0,
+ "conditions": [
+  "nominal",
+  "noisy"
+ ],
+ "episodes": 2160
+}

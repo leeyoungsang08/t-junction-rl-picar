@@ -35,6 +35,7 @@ signal:                   # IntersectionSupervisor timing (same object runs on t
   occupancy_stale_s: 1.0  # occupancy older than this -> no new GO
   link_timeout_s: 0.5     # UDP heartbeat loss -> no new GO
   control_mode: cycle     # cycle (KEEP/SWITCH, W->E->N) or direct (choose W/E/N)
+  max_wait_guard_s: 20    # >0: a request older than this forces its approach next (0 = off). 20 s from the 4th experiment
 reward:
   wait_weight: 1.0
   starvation_s: 20

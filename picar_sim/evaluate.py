@@ -13,14 +13,16 @@ from scipy import stats
 from picar_sim.dqn import Policy
 from picar_sim.env import PicarEnv
 from picar_sim.map_builder import load_config
+from picar_sim.observation import Encoder
 from picar_sim.train import controller_act, run_episode, scenario_list
 
-KEY = ["mean_delay_s", "p95_delay_s", "completion_rate", "max_wait_s", "max_wait_W_s", "max_wait_E_s",
+KEY = ["guard_switches", "mean_delay_s", "p95_delay_s", "completion_rate", "max_wait_s", "max_wait_W_s", "max_wait_E_s",
        "max_wait_N_s", "throughput_per_min", "switches", "collisions", "conflict_steps", "stopline_violations",
        "deadlock", "fault_events"]
 
 
-def evaluate(runs, out, seeds_per=10, conditions=("nominal", "noisy"), split="test", policy_name="best_policy.npz"):
+def evaluate(runs, out, seeds_per=10, conditions=("nominal", "noisy"), split="test", policy_name="best_policy.npz",
+             max_wait_guard=None):
     cfg = load_config()
     out = Path(out)
     out.mkdir(parents=True, exist_ok=True)
@@ -33,10 +35,14 @@ def evaluate(runs, out, seeds_per=10, conditions=("nominal", "noisy"), split="te
     rows = []
     base = cfg["seeds"][split][0]
     for cond in conditions:
-        env = PicarEnv(load_config(), randomize=(cond == "noisy"), control_mode=mode)
-        acts = {"fixed_time": controller_act(env, "fixed_time"), "queue_rule": controller_act(env, "queue_rule")}
-        for name, pol in policies.items():
-            acts[name] = (lambda pol: lambda o, m: pol.act(o, m))(pol)
+        ecfg = load_config()
+        if max_wait_guard is not None:
+            ecfg["signal"]["max_wait_guard_s"] = max_wait_guard
+        env = PicarEnv(ecfg, randomize=(cond == "noisy"), control_mode=mode)
+        acts = {name: controller_act(env, name) for name in ("fixed_time", "queue_rule", "oldest_first")}
+        for name, pol in policies.items():     # each policy gets the observation schema it was trained on
+            enc = Encoder(ecfg["signal"]["max_green_s"], ecfg["signal"]["clear_timeout_s"], pol.meta.get("schema", "picar_v1"))
+            acts[name] = (lambda pol, enc: lambda o, m: pol.act(env._obs(enc), m))(pol, enc)
         for j, (cars, bias) in enumerate(scenario_list(cfg, split)):
             for s in range(seeds_per):
                 seed = base + 100 * j + s
@@ -65,6 +71,7 @@ def evaluate(runs, out, seeds_per=10, conditions=("nominal", "noisy"), split="te
     seed_spread.to_csv(out / "dqn_training_seed_spread.csv")
     (out / "eval_manifest.json").write_text(json.dumps({"runs": [str(r) for r in runs], "policies": list(policies),
                                                          "control_mode": mode, "split": split, "seeds_per": seeds_per,
+                                                         "max_wait_guard_s": max_wait_guard,
                                                          "conditions": list(conditions), "episodes": len(df)}, indent=1))
     plot(df, out / "comparison.png")
     return overall, seed_spread
@@ -101,7 +108,8 @@ if __name__ == "__main__":
     p.add_argument("--seeds-per", type=int, default=10)
     p.add_argument("--conditions", nargs="+", default=["nominal", "noisy"])
     p.add_argument("--split", default="test", choices=["validation", "test"])
+    p.add_argument("--max-wait-guard", type=float, help="supervisor max-wait guard for ALL controllers (s, 0=off)")
     a = p.parse_args()
-    overall, spread = evaluate(a.runs, a.out, a.seeds_per, a.conditions, a.split)
+    overall, spread = evaluate(a.runs, a.out, a.seeds_per, a.conditions, a.split, max_wait_guard=a.max_wait_guard)
     print(overall.to_string())
     print(spread.to_string())

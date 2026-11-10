@@ -127,3 +127,19 @@ def test_box_blocking_guard_prevents_connector_gridlock():
     runs = [run_episode(env, 1500 + s, 6, "connector_heavy", act, horizon=200) for s in range(4)]
     assert not any(m["deadlock"] for m in runs)
     assert all(m["collisions"] == m["conflict_steps"] == m["stopline_violations"] == 0 for m in runs)
+
+
+def test_max_wait_guard_forces_starving_approach(cfg):
+    c = {**cfg["signal"], "control_mode": "direct", "max_wait_guard_s": 30}
+    sup = IntersectionSupervisor(c)
+    for _ in range(int(c["min_green_s"] / 0.1) + 2):
+        sup.tick(0.1, 0, 0, 0)
+    sup.observe_waits([0.0, 10.0, 31.0])          # N starving
+    assert sup.mask().tolist() == [False, False, True]
+    sup.request(2)
+    assert sup.guard_switches == 1
+    sup2 = IntersectionSupervisor({**c, "max_wait_guard_s": 0})
+    for _ in range(int(c["min_green_s"] / 0.1) + 2):
+        sup2.tick(0.1, 0, 0, 0)
+    sup2.observe_waits([0.0, 10.0, 31.0])
+    assert sup2.mask().all()                      # guard off: policy free

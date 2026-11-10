@@ -5,6 +5,9 @@ The RL policy only *requests* a phase; the supervisor enforces timing, occupancy
 
 Stages: green -> yellow (STOP new entries) -> clear (wait all_red_min AND occupancy == 0) -> next green.
 FAULT: occupancy unknown/stale, clear timeout or link loss -> every approach STOP until healthy and empty.
+MAX-WAIT GUARD (optional, signal.max_wait_guard_s > 0): once the current green has met its minimum,
+an approach whose oldest request (first APPROACH report of a car still waiting there) is >= the limit
+must be served next; the policy's choice is restricted to that switch. Uses only car status reports.
 """
 from dataclasses import dataclass, field
 
@@ -40,24 +43,42 @@ class IntersectionSupervisor:
         self.stage = "green"
         self.green_elapsed = self.clear_elapsed = 0.0
         self.fault = None
-        self.switches = self.forced_switches = self.fault_events = 0
+        self.switches = self.forced_switches = self.fault_events = self.guard_switches = 0
+        self.waits = None
+        self.guard_target = None
 
     @property
     def n_actions(self):
         return 2 if self.mode == "cycle" else self.n
 
     # ---- action interface (policy side) ---------------------------------------------------
+    def observe_waits(self, waits):
+        """Oldest request age per approach (s), from car APPROACH reports. Call before mask()/request()."""
+        self.waits = list(waits)
+
+    def _starving(self):
+        limit = self.cfg.get("max_wait_guard_s") or 0
+        if limit <= 0 or self.waits is None:
+            return None
+        cand = [(w, i) for i, w in enumerate(self.waits[:self.n]) if i != self.phase and w >= limit]
+        return max(cand)[1] if cand else None
+
     def mask(self):
         locked = self.stage != "green" or self.fault is not None or self.green_elapsed < self.cfg["min_green_s"]
+        self.guard_target = None if locked else self._starving()
         if self.mode == "cycle":
             if locked:
                 return np.array([True, False])
+            if self.guard_target is not None:
+                return np.array([False, True])
             if self.green_elapsed >= self.cfg["max_green_s"]:
                 return np.array([False, True])
             return np.array([True, True])
         m = np.zeros(self.n, dtype=bool)
         if locked:
             m[self.phase] = True
+        elif self.guard_target is not None:
+            m[self.guard_target] = True
         elif self.green_elapsed >= self.cfg["max_green_s"]:
             m[:] = True
             m[self.phase] = False
@@ -72,6 +93,8 @@ class IntersectionSupervisor:
         target = (self.phase + 1) % self.n if (self.mode == "cycle" and action == 1) else (
             action if self.mode == "direct" else self.phase)
         if target != self.phase:
+            if self.guard_target is not None:
+                self.guard_switches += 1
             self._start_switch(target)
 
     def _start_switch(self, target):

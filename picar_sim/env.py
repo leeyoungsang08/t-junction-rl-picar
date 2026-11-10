@@ -56,7 +56,8 @@ class PicarEnv:
         sc = self.cfg["signal"]
         self.sup = IntersectionSupervisor(sc)                                   # RL-controlled J
         self.sup2 = IntersectionSupervisor({**sc, "control_mode": "cycle"})    # fixed-rule J2
-        self.encoder = Encoder(sc["max_green_s"], sc["clear_timeout_s"])
+        self.encoder = Encoder(sc["max_green_s"], sc["clear_timeout_s"],
+                               self.cfg.get("observation", {}).get("schema", "picar_v1"))
         self.obs_size, self.n_actions = self.encoder.size, self.sup.n_actions
         self.k = None
         self.auto_route = True        # closed-loop recirculation (calibration scripts switch it off)
@@ -331,20 +332,24 @@ class PicarEnv:
     def exit_free(self):
         return [self.tracker.free(f"{a}_out") for a in APPROACHES]
 
-    def _obs(self):
-        return self.encoder.encode(self.ledger.snapshot(self.t), self.sup.status(), self.exit_free())
+    def _obs(self, encoder=None):
+        return (encoder or self.encoder).encode(self.ledger.snapshot(self.t), self.sup.status(), self.exit_free())
 
     def _info(self):
+        self.sup.observe_waits(self.ledger.snapshot(self.t)["oldest_request"])
         return {"mask": self.sup.mask(), "t": self.t}
 
     def step(self, action):
         if self.k is None:
             raise RuntimeError("reset() first")
         r_cfg = self.cfg["reward"]
+        self.sup.observe_waits(self.ledger.snapshot(self.t)["oldest_request"])
         mask_before = self.sup.mask().tolist()
         t_decision = self.t
         self.sup.request(action)
-        self.sup2.request(queue_rule(self.ledgers["J2"].snapshot(self.t), self.sup2.status(), self.sup2.mask(), "cycle"))
+        snap2 = self.ledgers["J2"].snapshot(self.t)
+        self.sup2.observe_waits(snap2["oldest_request"])
+        self.sup2.request(queue_rule(snap2, self.sup2.status(), self.sup2.mask(), "cycle"))
         switches0 = self.sup.switches
         reward = 0.0
         for _ in range(self.substeps):
@@ -399,7 +404,8 @@ class PicarEnv:
                 "max_wait_s": float(max(all_delays)) if all_delays else 0.0,
                 "throughput_per_min": self.crossings * 60 / max(self.t, 1e-9),
                 "switches": self.sup.switches, "forced_switches": self.sup.forced_switches,
-                "fault_events": self.sup.fault_events + self.sup2.fault_events, "collisions": self.collisions,
+                "fault_events": self.sup.fault_events + self.sup2.fault_events,
+                "guard_switches": self.sup.guard_switches, "collisions": self.collisions,
                 "conflict_steps": self.conflict_steps, "stopline_violations": self.stopline_violations,
                 "deadlock": self.deadlock, "sim_seconds": self.t,
                 "cmd_latency_s": self.cmd_latency, "obs_delay_s": self.obs_delay, **per}

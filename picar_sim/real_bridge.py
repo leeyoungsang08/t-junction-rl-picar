@@ -3,7 +3,7 @@
 Uses only numpy + the standard library, and the SAME ledger/encoder/supervisor classes as the SUMO env.
 Packets follow picar_lab/docs/CENTRAL_UDP_KO.md (lab_status with APPROACH/ARRIVE/IN/EXIT).
 
-  # shadow: policy only logs what it would do; queue_rule actually drives the supervisor
+  # shadow: policy only logs what it would do; oldest_first (+ max-wait guard) actually drives the supervisor
   python -m picar_sim.real_bridge serve --policy runs/.../best_policy.npz --mode shadow --host 0.0.0.0
   # offline replay of a recorded status log (JSONL with t, car, lane, state[, occupancy_ok, link_ok])
   python -m picar_sim.real_bridge replay --policy runs/.../best_policy.npz --log lab_run/events.jsonl
@@ -18,7 +18,7 @@ from pathlib import Path
 
 import numpy as np
 
-from picar_sim.baselines import queue_rule
+from picar_sim.baselines import oldest_first
 from picar_sim.dqn import Policy
 from picar_sim.map_builder import load_config
 from picar_sim.map_builder import segment_capacity
@@ -38,14 +38,15 @@ class CentralController:
         self.policy = Policy(policy_path) if policy_path else None
         sig = dict(self.cfg["signal"])
         if self.policy:
-            if self.policy.meta.get("schema") != "picar_v1":
+            if self.policy.meta.get("schema") not in ("picar_v1", "picar_v2"):
                 raise ValueError("policy schema mismatch")
-            for k in ("control_mode", "min_green_s", "max_green_s", "yellow_s", "all_red_min_s"):
-                if self.policy.meta["signal"][k] != sig[k]:
+            for k in ("control_mode", "min_green_s", "max_green_s", "yellow_s", "all_red_min_s", "max_wait_guard_s"):
+                if self.policy.meta["signal"].get(k, 0) != sig.get(k, 0):
                     raise ValueError(f"supervisor setting {k} differs from the trained policy")
         self.mode = mode
         self.sup = IntersectionSupervisor(sig)
-        self.enc = Encoder(sig["max_green_s"], sig["clear_timeout_s"])
+        self.enc = Encoder(sig["max_green_s"], sig["clear_timeout_s"],
+                           self.policy.meta.get("schema", "picar_v1") if self.policy else "picar_v1")
         self.ledger = CarLedger()
         if lane_lengths is None:
             import yaml
@@ -86,10 +87,11 @@ class CentralController:
         decision = None
         if self.last_decision is None or t - self.last_decision >= self.cfg["simulation"]["decision_s"] - 1e-9:
             self.last_decision = t
+            self.sup.observe_waits(snap["oldest_request"])
             status, mask = self.sup.status(), self.sup.mask()
             obs = self.enc.encode(snap, status, self.exit_free())
             rec = int(self.policy.act(obs, mask)) if self.policy else None
-            rule = int(queue_rule(snap, status, mask, self.sup.mode))
+            rule = int(oldest_first(snap, status, mask, self.sup.mode))   # best simple controller (4th experiment)
             action = rec if (self.mode == "active" and rec is not None) else rule
             self.sup.request(action)
             decision = {"t": t, "policy_action": rec, "rule_action": rule, "applied": action,
