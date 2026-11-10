@@ -29,11 +29,19 @@ printf '{"cars": %s, "minutes": %s, "seeds": "%s", "controllers": "%s", "policy"
   "$CARS" "$MINUTES" "$SEEDS" "$CONTROLLERS" "$POLICY" "$GUI" "$BEAM_START" "$BEAM_STOP" "$(git -C "$REPO" rev-parse --short HEAD 2>/dev/null)" > "$OUT/config.json"
 echo "== results: $OUT"
 
+# Background jobs of a non-interactive bash ignore SIGINT, so stop them with SIGTERM (ros2 launch shuts down
+# its children on SIGTERM too) and fall back to SIGKILL.
+stop_pid() {   # pid
+  kill -TERM "$1" 2>/dev/null
+  for _ in $(seq 1 20); do kill -0 "$1" 2>/dev/null || break; sleep 1; done
+  kill -KILL "$1" 2>/dev/null; wait "$1" 2>/dev/null
+}
 cleanup() {
-  pkill -INT -f "ros2 launch picar_gazebo" 2>/dev/null; sleep 3
+  pkill -TERM -f "ros2 launch picar_gazebo" 2>/dev/null; sleep 3
   pkill -f "ign gazebo" 2>/dev/null; pkill -f "picar_sim.central_server" 2>/dev/null
   pkill -f "ros2_drive_node" 2>/dev/null; pkill -f "pose_logger.py" 2>/dev/null
-  pkill -f "parameter_bridge" 2>/dev/null; sleep 2
+  pkill -f "parameter_bridge" 2>/dev/null; pkill -f "calibrate --ros-args|motor_model|ir_camera|course_monitor" 2>/dev/null
+  sleep 2; pkill -KILL -f "ign gazebo|ros2 launch picar_gazebo" 2>/dev/null; true
 }
 trap 'cleanup; exit 130' INT TERM
 cleanup
@@ -49,7 +57,7 @@ for _ in $(seq 1 180); do
   kill -0 $pid 2>/dev/null || break
   sleep 1
 done
-sleep 2; kill -INT $pid 2>/dev/null; wait $pid 2>/dev/null; cleanup
+sleep 2; stop_pid $pid; cleanup
 if [ "$(stat -c %Y "$CAL" 2>/dev/null || echo 0)" -le "$before" ]; then
   echo "calibration file was not written; see $OUT/calibrate.log" >&2; tail -30 "$OUT/calibrate.log" >&2; exit 3
 fi
@@ -63,7 +71,7 @@ run_course() {   # name seconds extra-args...
   local lp=$!
   timeout -s INT -k 30 "$secs" ros2 launch picar_gazebo course.launch.py cars:="$CARS" gui:="$GUI" out_dir:="$dir" "$@" \
     > "$dir/launch.log" 2>&1
-  kill -INT $lp 2>/dev/null; wait $lp 2>/dev/null
+  stop_pid $lp
   cleanup
   python3 -c "import json,sys; m=json.load(open(sys.argv[1])); print({k: m.get(k) for k in ('elapsed_s','collisions','lane_departures','stop_error_p95_abs_m')})" \
     "$dir/metrics.json" 2>/dev/null || echo "   (no metrics.json)"
