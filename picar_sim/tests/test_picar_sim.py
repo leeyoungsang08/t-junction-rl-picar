@@ -25,7 +25,7 @@ def test_map_builds_with_six_controlled_movements(cfg, tmp_path):
 
 
 def test_supervisor_never_grants_two_approaches_and_waits_for_empty_box(cfg):
-    sup = IntersectionSupervisor(cfg["signal"])
+    sup = IntersectionSupervisor({**cfg["signal"], "control_mode": "cycle"})
     occupancy = 1
     for step in range(600):
         if sup.mask()[1]:
@@ -49,7 +49,7 @@ def test_supervisor_faults_on_stale_occupancy_and_link_loss(cfg):
 
 
 def test_mask_respects_min_and_max_green(cfg):
-    sup = IntersectionSupervisor(cfg["signal"])
+    sup = IntersectionSupervisor({**cfg["signal"], "control_mode": "cycle"})
     assert sup.mask().tolist() == [True, False]
     for _ in range(int(cfg["signal"]["min_green_s"] / 0.1) + 1):
         sup.tick(0.1, 0, 0, 0)
@@ -104,7 +104,8 @@ def test_sim_event_log_replays_to_identical_decisions(cfg, tmp_path):
     env = PicarEnv(log_decisions=True)
     agent = NumpyAgent(env.obs_size, env.n_actions, {"hidden": [32, 32], "lr": 1e-3, "gamma": .9, "grad_clip": 10}, rng)
     path = tmp_path / "p.npz"
-    save_policy(path, agent.weights(), {"schema": "picar_v1", "signal": cfg["signal"], "control_mode": "cycle"})
+    save_policy(path, agent.weights(), {"schema": "picar_v1", "signal": cfg["signal"],
+                                        "control_mode": cfg["signal"]["control_mode"]})
     pol = Policy(path)
     obs, info = env.reset(seed=1500, cars=4, bias="uniform", horizon=60)
     start, done = env.t, False
@@ -143,3 +144,17 @@ def test_max_wait_guard_forces_starving_approach(cfg):
         sup2.tick(0.1, 0, 0, 0)
     sup2.observe_waits([0.0, 10.0, 31.0])
     assert sup2.mask().all()                      # guard off: policy free
+
+
+def test_software_in_the_loop_udp_end_to_end():
+    """SUMO cars run the Pi-side CarAgent and talk to CentralServer over real UDP sockets."""
+    from picar_sim.sil import SILRun
+    run = SILRun(seed=1702, cars=5, beam_fault=(40, 60))
+    try:
+        m = run.run(100)
+    finally:
+        run.close()
+    assert m["crossings"] >= 15
+    assert m["illegal_crossings"] == m["collisions"] == m["conflict_steps"] == 0
+    assert m["crossings_during_beam_fault_J"] == 0 and not m["deadlock"]
+    assert m["anomalies"] == 0

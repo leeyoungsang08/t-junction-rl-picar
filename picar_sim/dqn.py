@@ -166,7 +166,7 @@ if HAVE_TORCH:
             nn.utils.clip_grad_norm_(self.online.parameters(), c["grad_clip"])
             self.opt.step()
             self.t += 1
-            return float(loss)
+            return loss.item()
 
         def weights(self):
             lin = [l for l in self.online if isinstance(l, nn.Linear)]

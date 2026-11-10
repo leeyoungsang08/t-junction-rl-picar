@@ -18,7 +18,7 @@ from pathlib import Path
 
 import numpy as np
 
-from picar_sim.baselines import oldest_first
+from picar_sim.baselines import CONTROLLERS
 from picar_sim.dqn import Policy
 from picar_sim.map_builder import load_config
 from picar_sim.map_builder import segment_capacity
@@ -33,10 +33,12 @@ class CentralController:
     lane (arm, for APPROACH/ARRIVE/IN), next (edge the car will take, from its registered route),
     edge (REGISTER start edge / EXIT edge = which exit beam fired)}. J2 events keep segment counts right."""
 
-    def __init__(self, policy_path, mode="shadow", cfg=None, permit_ttl_s=0.5, lane_lengths=None):
+    def __init__(self, policy_path, mode="shadow", cfg=None, permit_ttl_s=0.5, lane_lengths=None,
+                 junction="J", rule="oldest_first", tracker=None, signal_overrides=None):
         self.cfg = cfg or load_config()
+        self.junction, self.rule = junction, CONTROLLERS[rule]
         self.policy = Policy(policy_path) if policy_path else None
-        sig = dict(self.cfg["signal"])
+        sig = {**self.cfg["signal"], **(signal_overrides or {})}
         if self.policy:
             if self.policy.meta.get("schema") not in ("picar_v1", "picar_v2"):
                 raise ValueError("policy schema mismatch")
@@ -52,7 +54,8 @@ class CentralController:
             import yaml
             from picar_sim.map_builder import PKG
             lane_lengths = yaml.safe_load((PKG / "maps/map_summary.yaml").read_text())["lanes"]
-        self.tracker = SegmentTracker(segment_capacity(lane_lengths, self.cfg["vehicle"], self.cfg["course"]))
+        self.own_tracker = tracker is None
+        self.tracker = tracker or SegmentTracker(segment_capacity(lane_lengths, self.cfg["vehicle"], self.cfg["course"]))
         self.next_edge = {}
         self.ttl = permit_ttl_s
         self.link_seen = None
@@ -60,10 +63,11 @@ class CentralController:
         self.log = []
 
     def on_event(self, e):
-        self.tracker.event(e)
+        if self.own_tracker:
+            self.tracker.event(e)
         if e.get("next"):
             self.next_edge[e["car"]] = e["next"]
-        if e.get("junction") == "J":
+        if e.get("junction") == self.junction:
             lane = e.get("lane")
             self.ledger.event(e["car"], e["state"], LANE_MAP[lane] if lane else None, e["t"])
         self.link_seen = e["t"]
@@ -82,7 +86,8 @@ class CentralController:
     def on_occupancy_heartbeat(self, t):
         self.ledger.heartbeat_occupancy(t)
 
-    def tick(self, t, dt):
+    def tick(self, t, dt, extra_occupancy=0):
+        """extra_occupancy: cars holding a PERMIT that have not yet reported IN (RESERVED) count as inside."""
         snap = self.ledger.snapshot(t)
         decision = None
         if self.last_decision is None or t - self.last_decision >= self.cfg["simulation"]["decision_s"] - 1e-9:
@@ -91,13 +96,13 @@ class CentralController:
             status, mask = self.sup.status(), self.sup.mask()
             obs = self.enc.encode(snap, status, self.exit_free())
             rec = int(self.policy.act(obs, mask)) if self.policy else None
-            rule = int(oldest_first(snap, status, mask, self.sup.mode))   # best simple controller (4th experiment)
+            rule = int(self.rule(snap, status, mask, self.sup.mode))   # J: oldest_first (best simple controller)
             action = rec if (self.mode == "active" and rec is not None) else rule
             self.sup.request(action)
             decision = {"t": t, "policy_action": rec, "rule_action": rule, "applied": action,
                         "mask": mask.tolist(), "snapshot": snap}
         link_age = float("inf") if self.link_seen is None else t - self.link_seen
-        permits = self.sup.tick(dt, snap["occupancy"], snap["occupancy_age"], link_age)
+        permits = self.sup.tick(dt, snap["occupancy"] + extra_occupancy, snap["occupancy_age"], link_age)
         st = self.sup.status()
         entry = {"t": round(t, 3), "phase": APPROACHES[st.phase], "stage": st.stage, "fault": st.fault,
                  "permits": permits, "decision": decision}

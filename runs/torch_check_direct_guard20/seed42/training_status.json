@@ -1,0 +1,7 @@
+{
+ "episodes_done": 500,
+ "planned": 500,
+ "best_val_score": 15.078024576756661,
+ "updates": 148001,
+ "backend": "cpu"
+}

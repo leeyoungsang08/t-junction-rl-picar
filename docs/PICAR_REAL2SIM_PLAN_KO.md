@@ -89,7 +89,8 @@ python -m picar_sim.train --seed 42 --episodes 1500 --out runs/my_run --resume  
 2. `python -m picar_sim.calibrate --csv field.csv` → 보정 설정 생성, 검증 회차로 통과시간 오차 ±10% 확인
 3. 보정한 맵에서 고정식·대기열 규칙 → 기본 DQN 재학습 → 한 요소만 바꾼 비교(직접 선택, 실측 범위 랜덤화)
 4. 실차 상태 로그를 `real_bridge replay`로 재생해 정책 판단 기록. 테스트에서 SUMO 기록 재생 시 행동이 100% 일치함을 확인함
-5. `real_bridge serve --mode shadow`: 실제 허가는 대기열 규칙이 내고, DQN은 판단만 기록
+   - 차량 쪽 코드와 중앙 서버 v2: [picar_lab/docs/CAR_AGENT_KO.md](../picar_lab/docs/CAR_AGENT_KO.md). SUMO 차량이 실제 차량 에이전트를 돌리고 실제 UDP로 중앙 서버와 통신하는 통합 시험(`picar_sim/sil.py`)을 통과함
+5. `python -m picar_sim.central_server --policy ... --mode shadow`: 실제 허가는 오래된 요청 우선 규칙이 내고, DQN은 판단만 기록
 6. 저속·소수 차량으로 `--mode active`. Pi 로컬 게이트(TTL 만료, 라인 유실, 장애물 시 정지)는 그대로 유지
 
 실차에 필요한 최소 센서: 차량 측 정지선 IR(ARRIVE)과 APPROACH 표식 인식(라인 센서로 표식 패턴 감지), 충돌구간 출구마다 **빔 차단형 출구 센서**(점유 해제 확인). 출구 센서 heartbeat가 끊기거나 UDP 링크가 끊기면 안전 제어기가 신규 진입을 막는다.
@@ -237,5 +238,5 @@ python -m picar_sim.train --seed 42 --episodes 1500 --out runs/my_run --resume  
 
 ### 6.7 진행하지 않은 것
 - 실측 범위 랜덤화 학습: 실측값이 없어 사전 규칙(“실측 범위부터”)에 따라 하지 않았다. noisy 평가는 가정 범위로 강건성만 확인한 것이다. `--randomize`로 바로 돌릴 수 있다.
-- PyTorch(GPU) 백엔드 실행: 이 작업 공간에서 설치하지 못했다. 코드 경로는 numpy와 같은 구조이며 Colab에서 처음 실행할 때 확인이 필요하다.
+- PyTorch 백엔드: 2026-11-10에 CPU에서 실행 확인(학습·재개·정책 내보내기 일치, numpy와 학습 결과 동등). GPU 실행은 미확인.
 - 실차 검증 전체.

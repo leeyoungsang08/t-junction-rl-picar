@@ -1,4 +1,4 @@
-# PiCar Real-to-Sim 진행 상황 (2026-11-10 4차 갱신)
+# PiCar Real-to-Sim 진행 상황 (2026-11-10 5차 갱신: 실차 없이 할 수 있는 작업 완료)
 
 브랜치 `picar-real2sim`. 기존 `src/`·`outputs/`·KEEP/SWITCH 모델은 건드리지 않았고, 새 작업은 모두 [`picar_sim/`](picar_sim/)에 있다.
 자세한 설계·파라미터·결과: [docs/PICAR_REAL2SIM_PLAN_KO.md](docs/PICAR_REAL2SIM_PLAN_KO.md) · Colab: [notebooks/08_picar_real2sim_colab.ipynb](notebooks/08_picar_real2sim_colab.ipynb)
@@ -16,10 +16,14 @@
 | 최장 대기 원인 분석 (`diagnose.py`) | 완료. 학습 범위 시드만 사용 |
 | 최대 대기 강제 서비스 규칙 (안전 제어기) | 완료. T=20 s를 기본값으로 채택 |
 | 오래된 요청 우선 기준선 (`oldest_first`) | 추가. 현재 최선 제어기, 실차 브리지 기본 제어로 지정 |
-| 테스트 | 9개 통과 (`python -m pytest -q picar_sim/tests`) |
+| 테스트 | 새 코드 19개 통과 (`pytest picar_sim/tests picar_lab/car_agent/tests`), 기존 `tests/` 26개 통과 |
 | 실차 중앙 PC 브리지 (UDP, shadow/active, 로그 재생) | 코드 완료. SUMO 기록 재생 시 행동 100% 일치. **실차 미검증** |
+| 차량 쪽 에이전트 (`picar_lab/car_agent/`: 상태 보고, 요청 갱신, PERMIT TTL 검증, 진입 게이트, 표식 인식, 출구 빔, ROS2 노드) | 코드 완료, 단위 테스트 8개 통과. ROS2 노드·GPIO 부분은 **Pi에서 미실행** |
+| 중앙 서버 v2 (`central_server.py`: 두 T자, 예약, 출구 빔 매칭, FIFO 허가) | 완료 |
+| 소프트웨어 통합 시험 (`sil.py`: SUMO 차량이 차량 에이전트를 돌리고 실제 UDP로 중앙 서버와 통신) | 통과. 허가 없는 통과·충돌·상충 점유·교착 0, 빔·무선 결함 시 신규 진입 0 |
 | 실측 → 보정 도구 (`calibrate.py`) | 코드 완료. 실측 데이터 없음 |
-| PyTorch(GPU) 백엔드 | 코드 있음, **미실행** (작업 공간에 설치 실패 → numpy로 학습) |
+| 기본 설정 | 직접 현시 선택, 최대 대기 강제 규칙 20 s, 6대 포함 검증 (`course.yaml`) |
+| PyTorch 백엔드 | **CPU에서 실행 확인** (`check_torch_backend.py`: 학습·재개·내보낸 정책 Q값 오차 1e-6). 같은 조건 500에피소드에서 numpy와 학습 결과 동등(검증 15.08 vs 14.92). GPU는 이 서버에 없어 미확인 |
 | 실측 범위 랜덤화 학습 | 미실행 (실측값이 생긴 뒤 진행) |
 
 ## 결과 요약 (SUMO, 가정 파라미터, test 30시드, 최대 대기 강제 규칙 T=20 s)
@@ -52,6 +56,13 @@
 2. `python -m picar_sim.calibrate --csv field.csv` → 보정 맵에서 재학습·재평가
 3. 실측 보정 후 같은 비교(오래된 요청 우선 vs DQN, 둘 다 강제 규칙 T=20) 재실행. 실차 첫 단계는 오래된 요청 우선으로 운영하고 DQN은 shadow로 판단만 기록 → 실측 범위 랜덤화
 4. 실차: `real_bridge replay` → `serve --mode shadow` → 저속 `--mode active`
+
+## 실차·실측 없이는 할 수 없는 것 (남은 일 전부)
+- 코스 사진·실측 치수로 맵 확정, 차량 속도·정지 오차·통과시간·통신 지연 측정 → `calibrate.py` → 재학습·재평가
+- 실측 범위 랜덤화 학습
+- Pi에서 ROS2 게이트 노드·출구 빔 노드 실행, 표식 테이프 폭·센서 핀 확정
+- 실차 단계 시험: 모터 전원 끄고 상태·허가만 → shadow → 저속 active
+- GPU에서 `check_torch_backend.py` 한 번 실행 (Colab 노트북 3-1 셀)
 
 ## 이 커밋에 없는 것
 - 학습 재개용 `checkpoint.pkl`(시드당 약 20 MB)은 용량 때문에 제외. 정책(`best_policy.npz`, `last_policy.npz`)과 로그·평가 결과는 포함.
