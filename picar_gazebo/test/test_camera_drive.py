@@ -66,7 +66,9 @@ def test_stop_line_is_not_taken_for_a_lane_line(scene):
     lanes = det.detect(render.render(*_pose(course, edge, s)))
     for side in ("right", "left"):
         if lanes[side]:
-            assert abs(lanes[side]["fit"][1]) < 0.5      # still a line along the lane, not across it
+            # still a line along the lane (a cross tape would be ~90 deg); the divider bends into the L-shaped
+            # stop-line corner, so allow up to ~45 deg at the near end (renderers differ slightly between machines)
+            assert abs(lanes[side]["fit"][1]) < 1.0
 
 
 def _status(phase, stage="green", fault=None):
