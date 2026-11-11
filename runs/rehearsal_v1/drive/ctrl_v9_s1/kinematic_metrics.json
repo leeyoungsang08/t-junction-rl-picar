@@ -1,0 +1,2187 @@
+{
+ "collisions": 0,
+ "lane_departures": 0,
+ "illegal_crossings": 0,
+ "crossings": 82,
+ "faults": 0,
+ "exit_events": 81,
+ "stop_errors_m": [
+  -0.0075,
+  -0.0042,
+  -0.0304,
+  -0.0129,
+  -0.0217,
+  0.0241,
+  -0.0208,
+  -0.0401,
+  -0.0111,
+  -0.0261,
+  -0.0047,
+  -0.0449,
+  -0.0206,
+  -0.0036,
+  0.0164,
+  -0.017,
+  -0.0135,
+  -0.0122,
+  -0.0305,
+  -0.0193,
+  -0.036,
+  -0.0154,
+  0.0125,
+  -0.0308,
+  -0.013,
+  -0.0279,
+  -0.0095,
+  -0.0391,
+  0.0159,
+  -0.0053,
+  -0.0245,
+  -0.0147,
+  -0.0103,
+  -0.0226,
+  -0.0074,
+  -0.0058,
+  0.018,
+  -0.0204,
+  -0.0104,
+  -0.0248,
+  -0.0291,
+  -0.0231,
+  -0.015,
+  -0.0195
+ ],
+ "max_all_stopped_s": 0.2,
+ "exit_log": [
+  {
+   "car": "car2",
+   "t": 6.0,
+   "move": "J:E->W",
+   "offset_mm": -6,
+   "heading_deg": -0.4
+  },
+  {
+   "car": "car4",
+   "t": 6.5,
+   "move": "J2:W->N",
+   "offset_mm": 8,
+   "heading_deg": -0.2
+  },
+  {
+   "car": "car3",
+   "t": 10.6,
+   "move": "J2:E->W",
+   "offset_mm": 6,
+   "heading_deg": 0.8
+  },
+  {
+   "car": "car0",
+   "t": 13.6,
+   "move": "J2:E->W",
+   "offset_mm": 18,
+   "heading_deg": 1.0
+  },
+  {
+   "car": "car1",
+   "t": 16.7,
+   "move": "J:W->N",
+   "offset_mm": 0,
+   "heading_deg": -1.8
+  },
+  {
+   "car": "car5",
+   "t": 19.8,
+   "move": "J2:W->N",
+   "offset_mm": 3,
+   "heading_deg": -2.7
+  },
+  {
+   "car": "car4",
+   "t": 22.6,
+   "move": "J:N->W",
+   "offset_mm": -5,
+   "heading_deg": 0.5
+  },
+  {
+   "car": "car2",
+   "t": 29.4,
+   "move": "J2:W->N",
+   "offset_mm": 0,
+   "heading_deg": -2.9
+  },
+  {
+   "car": "car5",
+   "t": 31.8,
+   "move": "J:N->E",
+   "offset_mm": 12,
+   "heading_deg": 2.5
+  },
+  {
+   "car": "car1",
+   "t": 35.5,
+   "move": "J2:N->E",
+   "offset_mm": 0,
+   "heading_deg": 0.7
+  },
+  {
+   "car": "car3",
+   "t": 36.4,
+   "move": "J:W->E",
+   "offset_mm": 24,
+   "heading_deg": 1.6
+  },
+  {
+   "car": "car0",
+   "t": 42.1,
+   "move": "J:W->N",
+   "offset_mm": -1,
+   "heading_deg": -2.4
+  },
+  {
+   "car": "car4",
+   "t": 44.5,
+   "move": "J2:W->E",
+   "offset_mm": -16,
+   "heading_deg": -1.1
+  },
+  {
+   "car": "car2",
+   "t": 49.5,
+   "move": "J:N->E",
+   "offset_mm": -20,
+   "heading_deg": -0.5
+  },
+  {
+   "car": "car5",
+   "t": 54.5,
+   "move": "J2:E->W",
+   "offset_mm": 25,
+   "heading_deg": 2.7
+  },
+  {
+   "car": "car1",
+   "t": 55.4,
+   "move": "J:E->W",
+   "offset_mm": -22,
+   "heading_deg": -2.0
+  },
+  {
+   "car": "car0",
+   "t": 60.1,
+   "move": "J2:N->E",
+   "offset_mm": -1,
+   "heading_deg": 1.8
+  },
+  {
+   "car": "car4",
+   "t": 66.6,
+   "move": "J:E->W",
+   "offset_mm": -20,
+   "heading_deg": -1.3
+  },
+  {
+   "car": "car3",
+   "t": 70.3,
+   "move": "J2:E->N",
+   "offset_mm": 3,
+   "heading_deg": -2.2
+  },
+  {
+   "car": "car2",
+   "t": 72.6,
+   "move": "J2:E->W",
+   "offset_mm": 18,
+   "heading_deg": 1.0
+  },
+  {
+   "car": "car5",
+   "t": 77.1,
+   "move": "J:W->E",
+   "offset_mm": 28,
+   "heading_deg": 2.7
+  },
+  {
+   "car": "car1",
+   "t": 80.0,
+   "move": "J2:W->E",
+   "offset_mm": -19,
+   "heading_deg": -2.0
+  },
+  {
+   "car": "car3",
+   "t": 83.2,
+   "move": "J:N->W",
+   "offset_mm": -6,
+   "heading_deg": 1.9
+  },
+  {
+   "car": "car0",
+   "t": 87.0,
+   "move": "J:E->W",
+   "offset_mm": -11,
+   "heading_deg": -0.7
+  },
+  {
+   "car": "car2",
+   "t": 94.8,
+   "move": "J:W->E",
+   "offset_mm": 17,
+   "heading_deg": 0.7
+  },
+  {
+   "car": "car4",
+   "t": 95.0,
+   "move": "J2:W->E",
+   "offset_mm": -15,
+   "heading_deg": -1.0
+  },
+  {
+   "car": "car1",
+   "t": 99.8,
+   "move": "J:E->W",
+   "offset_mm": -26,
+   "heading_deg": -2.4
+  },
+  {
+   "car": "car5",
+   "t": 103.8,
+   "move": "J2:E->N",
+   "offset_mm": 11,
+   "heading_deg": 3.0
+  },
+  {
+   "car": "car3",
+   "t": 109.5,
+   "move": "J2:W->N",
+   "offset_mm": -11,
+   "heading_deg": 2.8
+  },
+  {
+   "car": "car0",
+   "t": 113.6,
+   "move": "J2:W->E",
+   "offset_mm": -14,
+   "heading_deg": -1.2
+  },
+  {
+   "car": "car5",
+   "t": 115.3,
+   "move": "J:N->E",
+   "offset_mm": 19,
+   "heading_deg": 5.4
+  },
+  {
+   "car": "car1",
+   "t": 119.6,
+   "move": "J2:W->E",
+   "offset_mm": -19,
+   "heading_deg": -2.0
+  },
+  {
+   "car": "car4",
+   "t": 121.4,
+   "move": "J:E->N",
+   "offset_mm": 10,
+   "heading_deg": -0.6
+  },
+  {
+   "car": "car2",
+   "t": 124.5,
+   "move": "J2:E->W",
+   "offset_mm": 16,
+   "heading_deg": 0.8
+  },
+  {
+   "car": "car3",
+   "t": 129.1,
+   "move": "J:N->E",
+   "offset_mm": 34,
+   "heading_deg": 2.1
+  },
+  {
+   "car": "car4",
+   "t": 132.9,
+   "move": "J2:N->W",
+   "offset_mm": -16,
+   "heading_deg": -1.3
+  },
+  {
+   "car": "car0",
+   "t": 134.8,
+   "move": "J:E->N",
+   "offset_mm": -4,
+   "heading_deg": 1.7
+  },
+  {
+   "car": "car5",
+   "t": 143.6,
+   "move": "J2:E->N",
+   "offset_mm": 14,
+   "heading_deg": 9.0
+  },
+  {
+   "car": "car1",
+   "t": 145.9,
+   "move": "J:E->W",
+   "offset_mm": -25,
+   "heading_deg": -2.3
+  },
+  {
+   "car": "car0",
+   "t": 149.7,
+   "move": "J2:N->E",
+   "offset_mm": -8,
+   "heading_deg": 0.4
+  },
+  {
+   "car": "car2",
+   "t": 153.9,
+   "move": "J:W->N",
+   "offset_mm": 20,
+   "heading_deg": 4.0
+  },
+  {
+   "car": "car4",
+   "t": 155.8,
+   "move": "J:W->E",
+   "offset_mm": 33,
+   "heading_deg": 2.5
+  },
+  {
+   "car": "car3",
+   "t": 160.7,
+   "move": "J2:E->N",
+   "offset_mm": 23,
+   "heading_deg": 2.6
+  },
+  {
+   "car": "car5",
+   "t": 161.7,
+   "move": "J:N->W",
+   "offset_mm": 3,
+   "heading_deg": -0.6
+  },
+  {
+   "car": "car2",
+   "t": 166.4,
+   "move": "J2:N->E",
+   "offset_mm": 10,
+   "heading_deg": -0.1
+  },
+  {
+   "car": "car1",
+   "t": 171.8,
+   "move": "J2:W->N",
+   "offset_mm": 11,
+   "heading_deg": 1.7
+  },
+  {
+   "car": "car0",
+   "t": 172.2,
+   "move": "J:E->N",
+   "offset_mm": 3,
+   "heading_deg": 1.3
+  },
+  {
+   "car": "car3",
+   "t": 177.9,
+   "move": "J:N->W",
+   "offset_mm": -3,
+   "heading_deg": 2.6
+  },
+  {
+   "car": "car4",
+   "t": 181.8,
+   "move": "J2:E->N",
+   "offset_mm": 9,
+   "heading_deg": 3.7
+  },
+  {
+   "car": "car1",
+   "t": 184.8,
+   "move": "J:N->E",
+   "offset_mm": -1,
+   "heading_deg": 0.2
+  },
+  {
+   "car": "car0",
+   "t": 186.9,
+   "move": "J2:N->E",
+   "offset_mm": -8,
+   "heading_deg": 0.4
+  },
+  {
+   "car": "car2",
+   "t": 190.6,
+   "move": "J:E->N",
+   "offset_mm": -4,
+   "heading_deg": -3.3
+  },
+  {
+   "car": "car5",
+   "t": 191.3,
+   "move": "J2:W->E",
+   "offset_mm": -7,
+   "heading_deg": 0.5
+  },
+  {
+   "car": "car4",
+   "t": 198.3,
+   "move": "J:N->E",
+   "offset_mm": 7,
+   "heading_deg": 3.0
+  },
+  {
+   "car": "car3",
+   "t": 198.6,
+   "move": "J2:W->N",
+   "offset_mm": -6,
+   "heading_deg": -0.9
+  },
+  {
+   "car": "car0",
+   "t": 209.1,
+   "move": "J:E->N",
+   "offset_mm": 1,
+   "heading_deg": 0.6
+  },
+  {
+   "car": "car1",
+   "t": 210.8,
+   "move": "J2:E->N",
+   "offset_mm": -6,
+   "heading_deg": -6.8
+  },
+  {
+   "car": "car3",
+   "t": 215.1,
+   "move": "J:N->W",
+   "offset_mm": -2,
+   "heading_deg": 1.7
+  },
+  {
+   "car": "car2",
+   "t": 216.9,
+   "move": "J2:N->E",
+   "offset_mm": 6,
+   "heading_deg": 1.5
+  },
+  {
+   "car": "car0",
+   "t": 221.6,
+   "move": "J2:N->E",
+   "offset_mm": -13,
+   "heading_deg": 0.4
+  },
+  {
+   "car": "car1",
+   "t": 222.7,
+   "move": "J:N->E",
+   "offset_mm": 1,
+   "heading_deg": -2.7
+  },
+  {
+   "car": "car5",
+   "t": 228.7,
+   "move": "J:E->N",
+   "offset_mm": -13,
+   "heading_deg": -0.8
+  },
+  {
+   "car": "car4",
+   "t": 229.3,
+   "move": "J2:E->W",
+   "offset_mm": 31,
+   "heading_deg": 2.6
+  },
+  {
+   "car": "car5",
+   "t": 238.3,
+   "move": "J2:N->E",
+   "offset_mm": 27,
+   "heading_deg": 2.9
+  },
+  {
+   "car": "car2",
+   "t": 239.2,
+   "move": "J:E->N",
+   "offset_mm": -5,
+   "heading_deg": 0.7
+  },
+  {
+   "car": "car3",
+   "t": 244.2,
+   "move": "J2:W->N",
+   "offset_mm": -8,
+   "heading_deg": -3.1
+  },
+  {
+   "car": "car0",
+   "t": 244.8,
+   "move": "J:E->N",
+   "offset_mm": 0,
+   "heading_deg": -0.5
+  },
+  {
+   "car": "car1",
+   "t": 252.0,
+   "move": "J2:E->N",
+   "offset_mm": -7,
+   "heading_deg": -3.4
+  },
+  {
+   "car": "car3",
+   "t": 254.1,
+   "move": "J:N->W",
+   "offset_mm": 1,
+   "heading_deg": 1.4
+  },
+  {
+   "car": "car2",
+   "t": 257.9,
+   "move": "J2:N->E",
+   "offset_mm": 11,
+   "heading_deg": -1.1
+  },
+  {
+   "car": "car4",
+   "t": 261.8,
+   "move": "J:W->N",
+   "offset_mm": 4,
+   "heading_deg": 0.1
+  },
+  {
+   "car": "car0",
+   "t": 264.9,
+   "move": "J2:N->W",
+   "offset_mm": 15,
+   "heading_deg": 1.4
+  },
+  {
+   "car": "car1",
+   "t": 267.8,
+   "move": "J:N->W",
+   "offset_mm": -1,
+   "heading_deg": -0.3
+  },
+  {
+   "car": "car5",
+   "t": 271.7,
+   "move": "J:E->W",
+   "offset_mm": -6,
+   "heading_deg": 0.9
+  },
+  {
+   "car": "car3",
+   "t": 274.8,
+   "move": "J2:W->E",
+   "offset_mm": -10,
+   "heading_deg": -0.5
+  },
+  {
+   "car": "car2",
+   "t": 278.6,
+   "move": "J:E->N",
+   "offset_mm": -4,
+   "heading_deg": -3.1
+  },
+  {
+   "car": "car4",
+   "t": 285.8,
+   "move": "J2:N->W",
+   "offset_mm": 32,
+   "heading_deg": 5.2
+  },
+  {
+   "car": "car0",
+   "t": 287.0,
+   "move": "J:W->E",
+   "offset_mm": 15,
+   "heading_deg": 0.5
+  },
+  {
+   "car": "car2",
+   "t": 290.6,
+   "move": "J2:N->W",
+   "offset_mm": -5,
+   "heading_deg": 0.6
+  },
+  {
+   "car": "car1",
+   "t": 294.9,
+   "move": "J2:W->E",
+   "offset_mm": -17,
+   "heading_deg": -1.7
+  },
+  {
+   "car": "car3",
+   "t": 296.4,
+   "move": "J:E->N",
+   "offset_mm": -3,
+   "heading_deg": 0.7
+  },
+  {
+   "car": "car5",
+   "t": 299.6,
+   "move": "J2:W->N",
+   "offset_mm": 7,
+   "heading_deg": -7.3
+  }
+ ],
+ "field": [
+  {
+   "car": "car4",
+   "metric": "startup_delay_s",
+   "value": 0.0
+  },
+  {
+   "car": "car3",
+   "metric": "stop_error_m",
+   "value": -0.0075
+  },
+  {
+   "car": "car2",
+   "metric": "stop_error_m",
+   "value": -0.0042
+  },
+  {
+   "car": "car2",
+   "metric": "j_request_to_entry_s",
+   "value": 3.05
+  },
+  {
+   "car": "car2",
+   "metric": "startup_delay_s",
+   "value": 0.08
+  },
+  {
+   "car": "car2",
+   "metric": "crossing_time_s",
+   "value": 4.17,
+   "move": "J:E->W"
+  },
+  {
+   "car": "car4",
+   "metric": "crossing_time_s",
+   "value": 5.93,
+   "move": "J2:W->N"
+  },
+  {
+   "car": "car3",
+   "metric": "startup_delay_s",
+   "value": 0.08
+  },
+  {
+   "car": "car5",
+   "metric": "stop_error_m",
+   "value": -0.0304
+  },
+  {
+   "car": "car1",
+   "metric": "j_request_to_entry_s",
+   "value": 4.9
+  },
+  {
+   "car": "car1",
+   "metric": "startup_delay_s",
+   "value": 0.0
+  },
+  {
+   "car": "car0",
+   "metric": "startup_delay_s",
+   "value": 0.0
+  },
+  {
+   "car": "car3",
+   "metric": "crossing_time_s",
+   "value": 4.28,
+   "move": "J2:E->W"
+  },
+  {
+   "car": "car4",
+   "metric": "stop_error_m",
+   "value": -0.0129
+  },
+  {
+   "car": "car0",
+   "metric": "crossing_time_s",
+   "value": 4.41,
+   "move": "J2:E->W"
+  },
+  {
+   "car": "car5",
+   "metric": "startup_delay_s",
+   "value": 0.13
+  },
+  {
+   "car": "car1",
+   "metric": "crossing_time_s",
+   "value": 7.8,
+   "move": "J:W->N"
+  },
+  {
+   "car": "car4",
+   "metric": "j_request_to_entry_s",
+   "value": 11.0
+  },
+  {
+   "car": "car4",
+   "metric": "startup_delay_s",
+   "value": 0.09
+  },
+  {
+   "car": "car5",
+   "metric": "crossing_time_s",
+   "value": 5.75,
+   "move": "J2:W->N"
+  },
+  {
+   "car": "car1",
+   "metric": "stop_error_m",
+   "value": -0.0217
+  },
+  {
+   "car": "car4",
+   "metric": "crossing_time_s",
+   "value": 5.82,
+   "move": "J:N->W"
+  },
+  {
+   "car": "car5",
+   "metric": "j_request_to_entry_s",
+   "value": 4.7
+  },
+  {
+   "car": "car5",
+   "metric": "startup_delay_s",
+   "value": 0.0
+  },
+  {
+   "car": "car2",
+   "metric": "startup_delay_s",
+   "value": 0.0
+  },
+  {
+   "car": "car2",
+   "metric": "crossing_time_s",
+   "value": 5.35,
+   "move": "J2:W->N"
+  },
+  {
+   "car": "car1",
+   "metric": "startup_delay_s",
+   "value": 0.11
+  },
+  {
+   "car": "car3",
+   "metric": "stop_error_m",
+   "value": 0.0241
+  },
+  {
+   "car": "car5",
+   "metric": "crossing_time_s",
+   "value": 7.95,
+   "move": "J:N->E"
+  },
+  {
+   "car": "car3",
+   "metric": "j_request_to_entry_s",
+   "value": 9.05
+  },
+  {
+   "car": "car3",
+   "metric": "startup_delay_s",
+   "value": 0.08
+  },
+  {
+   "car": "car2",
+   "metric": "stop_error_m",
+   "value": -0.0208
+  },
+  {
+   "car": "car0",
+   "metric": "j_request_to_entry_s",
+   "value": 9.1
+  },
+  {
+   "car": "car0",
+   "metric": "startup_delay_s",
+   "value": 0.0
+  },
+  {
+   "car": "car1",
+   "metric": "crossing_time_s",
+   "value": 5.75,
+   "move": "J2:N->E"
+  },
+  {
+   "car": "car3",
+   "metric": "crossing_time_s",
+   "value": 4.5,
+   "move": "J:W->E"
+  },
+  {
+   "car": "car4",
+   "metric": "startup_delay_s",
+   "value": 0.0
+  },
+  {
+   "car": "car0",
+   "metric": "crossing_time_s",
+   "value": 7.38,
+   "move": "J:W->N"
+  },
+  {
+   "car": "car2",
+   "metric": "j_request_to_entry_s",
+   "value": 13.75
+  },
+  {
+   "car": "car2",
+   "metric": "startup_delay_s",
+   "value": 0.08
+  },
+  {
+   "car": "car4",
+   "metric": "crossing_time_s",
+   "value": 4.3,
+   "move": "J2:W->E"
+  },
+  {
+   "car": "car0",
+   "metric": "stop_error_m",
+   "value": -0.0401
+  },
+  {
+   "car": "car2",
+   "metric": "crossing_time_s",
+   "value": 7.38,
+   "move": "J:N->E"
+  },
+  {
+   "car": "car5",
+   "metric": "startup_delay_s",
+   "value": 0.0
+  },
+  {
+   "car": "car1",
+   "metric": "j_request_to_entry_s",
+   "value": 5.35
+  },
+  {
+   "car": "car1",
+   "metric": "startup_delay_s",
+   "value": 0.0
+  },
+  {
+   "car": "car5",
+   "metric": "crossing_time_s",
+   "value": 4.43,
+   "move": "J2:E->W"
+  },
+  {
+   "car": "car3",
+   "metric": "stop_error_m",
+   "value": -0.0111
+  },
+  {
+   "car": "car0",
+   "metric": "startup_delay_s",
+   "value": 0.14
+  },
+  {
+   "car": "car1",
+   "metric": "crossing_time_s",
+   "value": 4.31,
+   "move": "J:E->W"
+  },
+  {
+   "car": "car0",
+   "metric": "crossing_time_s",
+   "value": 5.4,
+   "move": "J2:N->E"
+  },
+  {
+   "car": "car4",
+   "metric": "j_request_to_entry_s",
+   "value": 6.1
+  },
+  {
+   "car": "car4",
+   "metric": "startup_delay_s",
+   "value": 0.0
+  },
+  {
+   "car": "car3",
+   "metric": "startup_delay_s",
+   "value": 0.08
+  },
+  {
+   "car": "car4",
+   "metric": "crossing_time_s",
+   "value": 4.31,
+   "move": "J:E->W"
+  },
+  {
+   "car": "car2",
+   "metric": "startup_delay_s",
+   "value": 0.0
+  },
+  {
+   "car": "car3",
+   "metric": "crossing_time_s",
+   "value": 7.41,
+   "move": "J2:E->N"
+  },
+  {
+   "car": "car1",
+   "metric": "stop_error_m",
+   "value": -0.0261
+  },
+  {
+   "car": "car2",
+   "metric": "crossing_time_s",
+   "value": 4.87,
+   "move": "J2:E->W"
+  },
+  {
+   "car": "car5",
+   "metric": "j_request_to_entry_s",
+   "value": 5.5
+  },
+  {
+   "car": "car5",
+   "metric": "startup_delay_s",
+   "value": 0.0
+  },
+  {
+   "car": "car3",
+   "metric": "stop_error_m",
+   "value": -0.0047
+  },
+  {
+   "car": "car1",
+   "metric": "startup_delay_s",
+   "value": 0.11
+  },
+  {
+   "car": "car5",
+   "metric": "crossing_time_s",
+   "value": 4.65,
+   "move": "J:W->E"
+  },
+  {
+   "car": "car3",
+   "metric": "j_request_to_entry_s",
+   "value": 7.9
+  },
+  {
+   "car": "car3",
+   "metric": "startup_delay_s",
+   "value": 0.08
+  },
+  {
+   "car": "car0",
+   "metric": "stop_error_m",
+   "value": -0.0449
+  },
+  {
+   "car": "car1",
+   "metric": "crossing_time_s",
+   "value": 4.27,
+   "move": "J2:W->E"
+  },
+  {
+   "car": "car3",
+   "metric": "crossing_time_s",
+   "value": 5.57,
+   "move": "J:N->W"
+  },
+  {
+   "car": "car0",
+   "metric": "j_request_to_entry_s",
+   "value": 12.1
+  },
+  {
+   "car": "car0",
+   "metric": "startup_delay_s",
+   "value": 0.14
+  },
+  {
+   "car": "car4",
+   "metric": "stop_error_m",
+   "value": -0.0206
+  },
+  {
+   "car": "car0",
+   "metric": "crossing_time_s",
+   "value": 4.2,
+   "move": "J:E->W"
+  },
+  {
+   "car": "car2",
+   "metric": "j_request_to_entry_s",
+   "value": 5.2
+  },
+  {
+   "car": "car2",
+   "metric": "startup_delay_s",
+   "value": 0.0
+  },
+  {
+   "car": "car4",
+   "metric": "startup_delay_s",
+   "value": 0.09
+  },
+  {
+   "car": "car2",
+   "metric": "crossing_time_s",
+   "value": 4.4,
+   "move": "J:W->E"
+  },
+  {
+   "car": "car4",
+   "metric": "crossing_time_s",
+   "value": 4.21,
+   "move": "J2:W->E"
+  },
+  {
+   "car": "car1",
+   "metric": "j_request_to_entry_s",
+   "value": 5.85
+  },
+  {
+   "car": "car1",
+   "metric": "startup_delay_s",
+   "value": 0.0
+  },
+  {
+   "car": "car5",
+   "metric": "startup_delay_s",
+   "value": 0.0
+  },
+  {
+   "car": "car3",
+   "metric": "stop_error_m",
+   "value": -0.0036
+  },
+  {
+   "car": "car1",
+   "metric": "crossing_time_s",
+   "value": 4.27,
+   "move": "J:E->W"
+  },
+  {
+   "car": "car5",
+   "metric": "crossing_time_s",
+   "value": 7.78,
+   "move": "J2:E->N"
+  },
+  {
+   "car": "car3",
+   "metric": "startup_delay_s",
+   "value": 0.08
+  },
+  {
+   "car": "car5",
+   "metric": "j_request_to_entry_s",
+   "value": 4.5
+  },
+  {
+   "car": "car5",
+   "metric": "startup_delay_s",
+   "value": 0.0
+  },
+  {
+   "car": "car0",
+   "metric": "stop_error_m",
+   "value": 0.0164
+  },
+  {
+   "car": "car3",
+   "metric": "crossing_time_s",
+   "value": 5.54,
+   "move": "J2:W->N"
+  },
+  {
+   "car": "car0",
+   "metric": "startup_delay_s",
+   "value": 0.14
+  },
+  {
+   "car": "car4",
+   "metric": "stop_error_m",
+   "value": -0.017
+  },
+  {
+   "car": "car2",
+   "metric": "stop_error_m",
+   "value": -0.0135
+  },
+  {
+   "car": "car0",
+   "metric": "crossing_time_s",
+   "value": 4.48,
+   "move": "J2:W->E"
+  },
+  {
+   "car": "car3",
+   "metric": "stop_error_m",
+   "value": -0.0122
+  },
+  {
+   "car": "car5",
+   "metric": "crossing_time_s",
+   "value": 7.98,
+   "move": "J:N->E"
+  },
+  {
+   "car": "car1",
+   "metric": "startup_delay_s",
+   "value": 0.0
+  },
+  {
+   "car": "car4",
+   "metric": "j_request_to_entry_s",
+   "value": 10.8
+  },
+  {
+   "car": "car4",
+   "metric": "startup_delay_s",
+   "value": 0.09
+  },
+  {
+   "car": "car1",
+   "metric": "crossing_time_s",
+   "value": 4.3,
+   "move": "J2:W->E"
+  },
+  {
+   "car": "car2",
+   "metric": "startup_delay_s",
+   "value": 0.08
+  },
+  {
+   "car": "car4",
+   "metric": "crossing_time_s",
+   "value": 5.75,
+   "move": "J:E->N"
+  },
+  {
+   "car": "car3",
+   "metric": "j_request_to_entry_s",
+   "value": 12.85
+  },
+  {
+   "car": "car3",
+   "metric": "startup_delay_s",
+   "value": 0.08
+  },
+  {
+   "car": "car2",
+   "metric": "crossing_time_s",
+   "value": 4.33,
+   "move": "J2:E->W"
+  },
+  {
+   "car": "car4",
+   "metric": "startup_delay_s",
+   "value": 0.0
+  },
+  {
+   "car": "car3",
+   "metric": "crossing_time_s",
+   "value": 7.54,
+   "move": "J:N->E"
+  },
+  {
+   "car": "car0",
+   "metric": "j_request_to_entry_s",
+   "value": 5.95
+  },
+  {
+   "car": "car0",
+   "metric": "startup_delay_s",
+   "value": 0.0
+  },
+  {
+   "car": "car4",
+   "metric": "crossing_time_s",
+   "value": 7.73,
+   "move": "J2:N->W"
+  },
+  {
+   "car": "car5",
+   "metric": "stop_error_m",
+   "value": -0.0305
+  },
+  {
+   "car": "car0",
+   "metric": "crossing_time_s",
+   "value": 5.38,
+   "move": "J:E->N"
+  },
+  {
+   "car": "car5",
+   "metric": "startup_delay_s",
+   "value": 0.13
+  },
+  {
+   "car": "car1",
+   "metric": "stop_error_m",
+   "value": -0.0193
+  },
+  {
+   "car": "car0",
+   "metric": "stop_error_m",
+   "value": -0.036
+  },
+  {
+   "car": "car1",
+   "metric": "j_request_to_entry_s",
+   "value": 11.25
+  },
+  {
+   "car": "car1",
+   "metric": "startup_delay_s",
+   "value": 0.11
+  },
+  {
+   "car": "car2",
+   "metric": "stop_error_m",
+   "value": -0.0154
+  },
+  {
+   "car": "car5",
+   "metric": "crossing_time_s",
+   "value": 8.32,
+   "move": "J2:E->N"
+  },
+  {
+   "car": "car0",
+   "metric": "startup_delay_s",
+   "value": 0.14
+  },
+  {
+   "car": "car1",
+   "metric": "crossing_time_s",
+   "value": 4.27,
+   "move": "J:E->W"
+  },
+  {
+   "car": "car2",
+   "metric": "j_request_to_entry_s",
+   "value": 9.4
+  },
+  {
+   "car": "car2",
+   "metric": "startup_delay_s",
+   "value": 0.08
+  },
+  {
+   "car": "car3",
+   "metric": "stop_error_m",
+   "value": 0.0125
+  },
+  {
+   "car": "car5",
+   "metric": "stop_error_m",
+   "value": -0.0308
+  },
+  {
+   "car": "car0",
+   "metric": "crossing_time_s",
+   "value": 5.36,
+   "move": "J2:N->E"
+  },
+  {
+   "car": "car4",
+   "metric": "j_request_to_entry_s",
+   "value": 5.45
+  },
+  {
+   "car": "car4",
+   "metric": "startup_delay_s",
+   "value": 0.0
+  },
+  {
+   "car": "car3",
+   "metric": "startup_delay_s",
+   "value": 0.08
+  },
+  {
+   "car": "car2",
+   "metric": "crossing_time_s",
+   "value": 7.44,
+   "move": "J:W->N"
+  },
+  {
+   "car": "car4",
+   "metric": "crossing_time_s",
+   "value": 4.82,
+   "move": "J:W->E"
+  },
+  {
+   "car": "car5",
+   "metric": "j_request_to_entry_s",
+   "value": 12.95
+  },
+  {
+   "car": "car5",
+   "metric": "startup_delay_s",
+   "value": 0.13
+  },
+  {
+   "car": "car2",
+   "metric": "stop_error_m",
+   "value": -0.013
+  },
+  {
+   "car": "car3",
+   "metric": "crossing_time_s",
+   "value": 7.7,
+   "move": "J2:E->N"
+  },
+  {
+   "car": "car2",
+   "metric": "startup_delay_s",
+   "value": 0.08
+  },
+  {
+   "car": "car5",
+   "metric": "crossing_time_s",
+   "value": 5.8,
+   "move": "J:N->W"
+  },
+  {
+   "car": "car1",
+   "metric": "stop_error_m",
+   "value": -0.0279
+  },
+  {
+   "car": "car3",
+   "metric": "stop_error_m",
+   "value": -0.0095
+  },
+  {
+   "car": "car2",
+   "metric": "crossing_time_s",
+   "value": 5.45,
+   "move": "J2:N->E"
+  },
+  {
+   "car": "car0",
+   "metric": "j_request_to_entry_s",
+   "value": 7.0
+  },
+  {
+   "car": "car0",
+   "metric": "startup_delay_s",
+   "value": 0.0
+  },
+  {
+   "car": "car1",
+   "metric": "startup_delay_s",
+   "value": 0.11
+  },
+  {
+   "car": "car0",
+   "metric": "crossing_time_s",
+   "value": 5.46,
+   "move": "J:E->N"
+  },
+  {
+   "car": "car1",
+   "metric": "crossing_time_s",
+   "value": 5.63,
+   "move": "J2:W->N"
+  },
+  {
+   "car": "car3",
+   "metric": "j_request_to_entry_s",
+   "value": 12.15
+  },
+  {
+   "car": "car3",
+   "metric": "startup_delay_s",
+   "value": 0.08
+  },
+  {
+   "car": "car4",
+   "metric": "startup_delay_s",
+   "value": 0.0
+  },
+  {
+   "car": "car1",
+   "metric": "j_request_to_entry_s",
+   "value": 5.55
+  },
+  {
+   "car": "car1",
+   "metric": "startup_delay_s",
+   "value": 0.0
+  },
+  {
+   "car": "car0",
+   "metric": "stop_error_m",
+   "value": -0.0391
+  },
+  {
+   "car": "car3",
+   "metric": "crossing_time_s",
+   "value": 5.64,
+   "move": "J:N->W"
+  },
+  {
+   "car": "car5",
+   "metric": "stop_error_m",
+   "value": 0.0159
+  },
+  {
+   "car": "car4",
+   "metric": "crossing_time_s",
+   "value": 7.84,
+   "move": "J2:E->N"
+  },
+  {
+   "car": "car0",
+   "metric": "startup_delay_s",
+   "value": 0.14
+  },
+  {
+   "car": "car2",
+   "metric": "stop_error_m",
+   "value": -0.0053
+  },
+  {
+   "car": "car1",
+   "metric": "crossing_time_s",
+   "value": 8.34,
+   "move": "J:N->E"
+  },
+  {
+   "car": "car2",
+   "metric": "j_request_to_entry_s",
+   "value": 8.2
+  },
+  {
+   "car": "car2",
+   "metric": "startup_delay_s",
+   "value": 0.08
+  },
+  {
+   "car": "car4",
+   "metric": "stop_error_m",
+   "value": -0.0245
+  },
+  {
+   "car": "car0",
+   "metric": "crossing_time_s",
+   "value": 5.36,
+   "move": "J2:N->E"
+  },
+  {
+   "car": "car5",
+   "metric": "startup_delay_s",
+   "value": 0.13
+  },
+  {
+   "car": "car2",
+   "metric": "crossing_time_s",
+   "value": 5.32,
+   "move": "J:E->N"
+  },
+  {
+   "car": "car4",
+   "metric": "j_request_to_entry_s",
+   "value": 9.7
+  },
+  {
+   "car": "car4",
+   "metric": "startup_delay_s",
+   "value": 0.09
+  },
+  {
+   "car": "car5",
+   "metric": "crossing_time_s",
+   "value": 4.47,
+   "move": "J2:W->E"
+  },
+  {
+   "car": "car3",
+   "metric": "startup_delay_s",
+   "value": 0.0
+  },
+  {
+   "car": "car2",
+   "metric": "stop_error_m",
+   "value": -0.0147
+  },
+  {
+   "car": "car4",
+   "metric": "crossing_time_s",
+   "value": 7.75,
+   "move": "J:N->E"
+  },
+  {
+   "car": "car3",
+   "metric": "crossing_time_s",
+   "value": 5.53,
+   "move": "J2:W->N"
+  },
+  {
+   "car": "car3",
+   "metric": "stop_error_m",
+   "value": -0.0103
+  },
+  {
+   "car": "car1",
+   "metric": "startup_delay_s",
+   "value": 0.0
+  },
+  {
+   "car": "car0",
+   "metric": "j_request_to_entry_s",
+   "value": 6.9
+  },
+  {
+   "car": "car0",
+   "metric": "startup_delay_s",
+   "value": 0.0
+  },
+  {
+   "car": "car0",
+   "metric": "crossing_time_s",
+   "value": 5.41,
+   "move": "J:E->N"
+  },
+  {
+   "car": "car3",
+   "metric": "j_request_to_entry_s",
+   "value": 11.35
+  },
+  {
+   "car": "car3",
+   "metric": "startup_delay_s",
+   "value": 0.08
+  },
+  {
+   "car": "car5",
+   "metric": "stop_error_m",
+   "value": -0.0226
+  },
+  {
+   "car": "car1",
+   "metric": "crossing_time_s",
+   "value": 7.77,
+   "move": "J2:E->N"
+  },
+  {
+   "car": "car2",
+   "metric": "startup_delay_s",
+   "value": 0.08
+  },
+  {
+   "car": "car3",
+   "metric": "crossing_time_s",
+   "value": 5.62,
+   "move": "J:N->W"
+  },
+  {
+   "car": "car1",
+   "metric": "j_request_to_entry_s",
+   "value": 5.1
+  },
+  {
+   "car": "car1",
+   "metric": "startup_delay_s",
+   "value": 0.0
+  },
+  {
+   "car": "car0",
+   "metric": "startup_delay_s",
+   "value": 0.0
+  },
+  {
+   "car": "car2",
+   "metric": "crossing_time_s",
+   "value": 5.46,
+   "move": "J2:N->E"
+  },
+  {
+   "car": "car4",
+   "metric": "stop_error_m",
+   "value": -0.0074
+  },
+  {
+   "car": "car0",
+   "metric": "crossing_time_s",
+   "value": 5.58,
+   "move": "J2:N->E"
+  },
+  {
+   "car": "car1",
+   "metric": "crossing_time_s",
+   "value": 7.79,
+   "move": "J:N->E"
+  },
+  {
+   "car": "car5",
+   "metric": "j_request_to_entry_s",
+   "value": 20.1
+  },
+  {
+   "car": "car5",
+   "metric": "startup_delay_s",
+   "value": 0.13
+  },
+  {
+   "car": "car4",
+   "metric": "startup_delay_s",
+   "value": 0.09
+  },
+  {
+   "car": "car5",
+   "metric": "crossing_time_s",
+   "value": 5.73,
+   "move": "J:E->N"
+  },
+  {
+   "car": "car4",
+   "metric": "crossing_time_s",
+   "value": 4.36,
+   "move": "J2:E->W"
+  },
+  {
+   "car": "car3",
+   "metric": "stop_error_m",
+   "value": -0.0058
+  },
+  {
+   "car": "car5",
+   "metric": "startup_delay_s",
+   "value": 0.0
+  },
+  {
+   "car": "car2",
+   "metric": "j_request_to_entry_s",
+   "value": 7.05
+  },
+  {
+   "car": "car2",
+   "metric": "startup_delay_s",
+   "value": 0.08
+  },
+  {
+   "car": "car5",
+   "metric": "crossing_time_s",
+   "value": 5.87,
+   "move": "J2:N->E"
+  },
+  {
+   "car": "car0",
+   "metric": "stop_error_m",
+   "value": 0.018
+  },
+  {
+   "car": "car3",
+   "metric": "startup_delay_s",
+   "value": 0.08
+  },
+  {
+   "car": "car2",
+   "metric": "crossing_time_s",
+   "value": 5.25,
+   "move": "J:E->N"
+  },
+  {
+   "car": "car0",
+   "metric": "j_request_to_entry_s",
+   "value": 7.85
+  },
+  {
+   "car": "car0",
+   "metric": "startup_delay_s",
+   "value": 0.14
+  },
+  {
+   "car": "car1",
+   "metric": "stop_error_m",
+   "value": -0.0204
+  },
+  {
+   "car": "car2",
+   "metric": "stop_error_m",
+   "value": -0.0104
+  },
+  {
+   "car": "car3",
+   "metric": "crossing_time_s",
+   "value": 5.51,
+   "move": "J2:W->N"
+  },
+  {
+   "car": "car1",
+   "metric": "startup_delay_s",
+   "value": 0.11
+  },
+  {
+   "car": "car0",
+   "metric": "crossing_time_s",
+   "value": 5.6,
+   "move": "J:E->N"
+  },
+  {
+   "car": "car3",
+   "metric": "j_request_to_entry_s",
+   "value": 4.75
+  },
+  {
+   "car": "car3",
+   "metric": "startup_delay_s",
+   "value": 0.0
+  },
+  {
+   "car": "car4",
+   "metric": "stop_error_m",
+   "value": -0.0248
+  },
+  {
+   "car": "car1",
+   "metric": "crossing_time_s",
+   "value": 7.72,
+   "move": "J2:E->N"
+  },
+  {
+   "car": "car2",
+   "metric": "startup_delay_s",
+   "value": 0.08
+  },
+  {
+   "car": "car3",
+   "metric": "crossing_time_s",
+   "value": 5.68,
+   "move": "J:N->W"
+  },
+  {
+   "car": "car4",
+   "metric": "j_request_to_entry_s",
+   "value": 12.0
+  },
+  {
+   "car": "car4",
+   "metric": "startup_delay_s",
+   "value": 0.09
+  },
+  {
+   "car": "car5",
+   "metric": "stop_error_m",
+   "value": -0.0291
+  },
+  {
+   "car": "car0",
+   "metric": "startup_delay_s",
+   "value": 0.0
+  },
+  {
+   "car": "car1",
+   "metric": "stop_error_m",
+   "value": -0.0231
+  },
+  {
+   "car": "car2",
+   "metric": "crossing_time_s",
+   "value": 5.37,
+   "move": "J2:N->E"
+  },
+  {
+   "car": "car4",
+   "metric": "crossing_time_s",
+   "value": 7.71,
+   "move": "J:W->N"
+  },
+  {
+   "car": "car1",
+   "metric": "j_request_to_entry_s",
+   "value": 10.65
+  },
+  {
+   "car": "car1",
+   "metric": "startup_delay_s",
+   "value": 0.11
+  },
+  {
+   "car": "car0",
+   "metric": "crossing_time_s",
+   "value": 7.97,
+   "move": "J2:N->W"
+  },
+  {
+   "car": "car4",
+   "metric": "stop_error_m",
+   "value": -0.015
+  },
+  {
+   "car": "car1",
+   "metric": "crossing_time_s",
+   "value": 5.73,
+   "move": "J:N->W"
+  },
+  {
+   "car": "car5",
+   "metric": "j_request_to_entry_s",
+   "value": 19.35
+  },
+  {
+   "car": "car5",
+   "metric": "startup_delay_s",
+   "value": 0.13
+  },
+  {
+   "car": "car3",
+   "metric": "startup_delay_s",
+   "value": 0.0
+  },
+  {
+   "car": "car5",
+   "metric": "crossing_time_s",
+   "value": 4.28,
+   "move": "J:E->W"
+  },
+  {
+   "car": "car2",
+   "metric": "j_request_to_entry_s",
+   "value": 5.55
+  },
+  {
+   "car": "car2",
+   "metric": "startup_delay_s",
+   "value": 0.0
+  },
+  {
+   "car": "car3",
+   "metric": "crossing_time_s",
+   "value": 4.3,
+   "move": "J2:W->E"
+  },
+  {
+   "car": "car4",
+   "metric": "startup_delay_s",
+   "value": 0.09
+  },
+  {
+   "car": "car2",
+   "metric": "crossing_time_s",
+   "value": 5.36,
+   "move": "J:E->N"
+  },
+  {
+   "car": "car2",
+   "metric": "startup_delay_s",
+   "value": 0.0
+  },
+  {
+   "car": "car0",
+   "metric": "j_request_to_entry_s",
+   "value": 5.25
+  },
+  {
+   "car": "car0",
+   "metric": "startup_delay_s",
+   "value": 0.0
+  },
+  {
+   "car": "car1",
+   "metric": "stop_error_m",
+   "value": -0.0195
+  },
+  {
+   "car": "car4",
+   "metric": "crossing_time_s",
+   "value": 8.15,
+   "move": "J2:N->W"
+  },
+  {
+   "car": "car0",
+   "metric": "crossing_time_s",
+   "value": 4.24,
+   "move": "J:W->E"
+  },
+  {
+   "car": "car3",
+   "metric": "j_request_to_entry_s",
+   "value": 6.3
+  },
+  {
+   "car": "car3",
+   "metric": "startup_delay_s",
+   "value": 0.0
+  },
+  {
+   "car": "car2",
+   "metric": "crossing_time_s",
+   "value": 8.2,
+   "move": "J2:N->W"
+  },
+  {
+   "car": "car1",
+   "metric": "startup_delay_s",
+   "value": 0.11
+  },
+  {
+   "car": "car5",
+   "metric": "startup_delay_s",
+   "value": 0.0
+  },
+  {
+   "car": "car1",
+   "metric": "crossing_time_s",
+   "value": 4.32,
+   "move": "J2:W->E"
+  },
+  {
+   "car": "car3",
+   "metric": "crossing_time_s",
+   "value": 5.57,
+   "move": "J:E->N"
+  },
+  {
+   "car": "car0",
+   "metric": "speed_mps",
+   "value": 0.2407
+  },
+  {
+   "car": "car1",
+   "metric": "speed_mps",
+   "value": 0.2414
+  },
+  {
+   "car": "car2",
+   "metric": "speed_mps",
+   "value": 0.2421
+  },
+  {
+   "car": "car3",
+   "metric": "speed_mps",
+   "value": 0.2451
+  },
+  {
+   "car": "car4",
+   "metric": "speed_mps",
+   "value": 0.239
+  },
+  {
+   "car": "car5",
+   "metric": "speed_mps",
+   "value": 0.2367
+  }
+ ],
+ "lateral_mm": {
+  "car1": {
+   "straight": [
+    2.8,
+    8.5,
+    27.4
+   ],
+   "curve": [
+    -0.0,
+    11.9,
+    27.4
+   ]
+  },
+  "car2": {
+   "straight": [
+    1.0,
+    7.6,
+    23.3
+   ],
+   "curve": [
+    0.3,
+    11.6,
+    23.9
+   ]
+  },
+  "car3": {
+   "straight": [
+    2.8,
+    6.4,
+    21.9
+   ],
+   "curve": [
+    0.2,
+    12.7,
+    24.6
+   ]
+  },
+  "car4": {
+   "straight": [
+    5.2,
+    9.2,
+    30.1
+   ],
+   "curve": [
+    1.6,
+    11.7,
+    30.0
+   ]
+  },
+  "car0": {
+   "straight": [
+    4.6,
+    5.8,
+    23.1
+   ],
+   "curve": [
+    1.9,
+    10.3,
+    23.3
+   ]
+  },
+  "car5": {
+   "straight": [
+    4.0,
+    7.6,
+    27.3
+   ],
+   "curve": [
+    0.9,
+    10.1,
+    26.8
+   ]
+  }
+ },
+ "throughput_per_min": 16.4,
+ "seconds": 300.0,
+ "cars": 6,
+ "calibration": [
+  {
+   "speed_scale": 1.001,
+   "trim_per_m": -0.0674,
+   "turn_scale": 0.9413,
+   "latency_s": 0.085,
+   "accel_mps2": 0.589,
+   "cam_pitch_deg": 34.9,
+   "cam_yaw_deg": -0.91,
+   "cam_y_m": 0.0023
+  },
+  {
+   "speed_scale": 0.9476,
+   "trim_per_m": 0.5889,
+   "turn_scale": 0.8124,
+   "latency_s": 0.073,
+   "accel_mps2": 0.848,
+   "cam_pitch_deg": 35.05,
+   "cam_yaw_deg": 1.21,
+   "cam_y_m": -0.0014
+  },
+  {
+   "speed_scale": 0.9614,
+   "trim_per_m": 0.2859,
+   "turn_scale": 0.9431,
+   "latency_s": 0.053,
+   "accel_mps2": 1.113,
+   "cam_pitch_deg": 34.56,
+   "cam_yaw_deg": -1.09,
+   "cam_y_m": -0.0011
+  },
+  {
+   "speed_scale": 1.0495,
+   "trim_per_m": 0.141,
+   "turn_scale": 0.8848,
+   "latency_s": 0.071,
+   "accel_mps2": 1.139,
+   "cam_pitch_deg": 34.68,
+   "cam_yaw_deg": -0.72,
+   "cam_y_m": 0.0067
+  },
+  {
+   "speed_scale": 0.9069,
+   "trim_per_m": -0.436,
+   "turn_scale": 0.7872,
+   "latency_s": 0.102,
+   "accel_mps2": 1.808,
+   "cam_pitch_deg": 35.86,
+   "cam_yaw_deg": -1.38,
+   "cam_y_m": 0.0031
+  },
+  {
+   "speed_scale": 0.9418,
+   "trim_per_m": -0.316,
+   "turn_scale": 0.8001,
+   "latency_s": 0.138,
+   "accel_mps2": 1.563,
+   "cam_pitch_deg": 35.32,
+   "cam_yaw_deg": -0.57,
+   "cam_y_m": 0.0026
+  }
+ ],
+ "server": {
+  "permits": 89,
+  "right_turn_permits": 5,
+  "permit_acks": 849,
+  "exit_events": 81,
+  "dup_status": 6,
+  "rejected": 0
+ },
+ "anomalies": [],
+ "stop_error_mean_m": -0.015,
+ "stop_error_max_abs_m": 0.0449,
+ "modes": {
+  "car0": "follow",
+  "car1": "follow",
+  "car2": "follow",
+  "car3": "follow",
+  "car4": "follow",
+  "car5": "follow"
+ },
+ "events": {
+  "car0": [
+   "257.9 enter J2 N->W legal=True",
+   "264.9 left box onto W_in",
+   "278.8 approach J:W",
+   "284.1 stop line J:W",
+   "284.1 enter J W->E legal=True",
+   "287.0 left box onto E_out"
+  ],
+  "car1": [
+   "262.9 enter J N->W legal=True",
+   "267.8 left box onto W_out",
+   "279.1 approach J2:W",
+   "284.7 stop line J2:W",
+   "292.1 enter J2 W->E legal=True",
+   "294.9 left box onto E_in"
+  ],
+  "car2": [
+   "274.4 enter J E->N legal=True",
+   "278.6 left box onto N_out",
+   "278.9 approach J2:N",
+   "283.6 stop line J2:N",
+   "283.6 enter J2 N->W legal=True",
+   "290.6 left box onto W_in"
+  ],
+  "car3": [
+   "274.8 left box onto E_in",
+   "285.4 approach J:E",
+   "291.8 stop line J:E",
+   "291.8 enter J E->N legal=True",
+   "296.4 left box onto N_out",
+   "296.7 approach J2:N"
+  ],
+  "car4": [
+   "261.8 left box onto N_out",
+   "262.1 approach J2:N",
+   "266.8 stop line J2:N",
+   "279.1 enter J2 N->W legal=True",
+   "285.8 left box onto W_in",
+   "299.8 approach J:W"
+  ],
+  "car5": [
+   "271.7 left box onto W_out",
+   "284.4 approach J2:W",
+   "295.1 stop line J2:W",
+   "295.1 enter J2 W->N legal=True",
+   "299.6 left box onto N_in",
+   "299.9 approach J:N"
+  ]
+ }
+}

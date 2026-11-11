@@ -1,0 +1,447 @@
+{
+ "collisions": 0,
+ "lane_departures": 4,
+ "illegal_crossings": 0,
+ "crossings": 7,
+ "faults": 1,
+ "exit_events": 6,
+ "stop_errors_m": [
+  -0.0157,
+  -0.0047,
+  -0.0214,
+  -0.0152,
+  -0.0143,
+  -0.0142
+ ],
+ "max_all_stopped_s": 262.4,
+ "exit_log": [
+  {
+   "car": "car4",
+   "t": 6.2,
+   "move": "J2:W->N",
+   "offset_mm": -25,
+   "heading_deg": 25.0
+  },
+  {
+   "car": "car2",
+   "t": 6.4,
+   "move": "J:E->W",
+   "offset_mm": -69,
+   "heading_deg": 3.3
+  },
+  {
+   "car": "car3",
+   "t": 11.2,
+   "move": "J2:E->W",
+   "offset_mm": -59,
+   "heading_deg": 1.8
+  },
+  {
+   "car": "car0",
+   "t": 13.7,
+   "move": "J2:E->W",
+   "offset_mm": 17,
+   "heading_deg": 0.8
+  },
+  {
+   "car": "car1",
+   "t": 18.2,
+   "move": "J:W->N",
+   "offset_mm": 159,
+   "heading_deg": 2.6
+  },
+  {
+   "car": "car5",
+   "t": 23.6,
+   "move": "J2:W->N",
+   "offset_mm": 44,
+   "heading_deg": 1.5
+  },
+  {
+   "car": "car2",
+   "t": 34.6,
+   "move": "J2:W->N",
+   "offset_mm": -46,
+   "heading_deg": -2.3
+  }
+ ],
+ "departure_log": [
+  {
+   "t": 8.0,
+   "car": "car4",
+   "pose": [
+    1.671,
+    1.663,
+    -1.542
+   ],
+   "dist": 0.046,
+   "mode": "follow",
+   "edge": "N_in",
+   "since_box": 0.35
+  },
+  {
+   "t": 11.8,
+   "car": "car3",
+   "pose": [
+    1.468,
+    2.241,
+    3.269
+   ],
+   "dist": 0.046,
+   "mode": "follow",
+   "edge": "W_in",
+   "since_box": 0.12
+  },
+  {
+   "t": 17.8,
+   "car": "car1",
+   "pose": [
+    1.992,
+    0.255,
+    0.359
+   ],
+   "dist": 0.06,
+   "mode": "maneuver",
+   "edge": "N_out",
+   "since_box": null
+  },
+  {
+   "t": 35.5,
+   "car": "car2",
+   "pose": [
+    1.575,
+    1.821,
+    -1.52
+   ],
+   "dist": 0.05,
+   "mode": "follow",
+   "edge": "N_in",
+   "since_box": 0.11
+  }
+ ],
+ "fault_log": [
+  {
+   "t": 38.9,
+   "car": "car1",
+   "what": "FAULT lane lost",
+   "pose": [
+    2.047,
+    1.978,
+    3.205
+   ]
+  }
+ ],
+ "field": [
+  {
+   "car": "car4",
+   "metric": "startup_delay_s",
+   "value": 0.0
+  },
+  {
+   "car": "car3",
+   "metric": "stop_error_m",
+   "value": -0.0157
+  },
+  {
+   "car": "car2",
+   "metric": "stop_error_m",
+   "value": -0.0047
+  },
+  {
+   "car": "car2",
+   "metric": "startup_delay_s",
+   "value": 0.08
+  },
+  {
+   "car": "car2",
+   "metric": "crossing_time_s",
+   "value": 4.67,
+   "move": "J:E->W"
+  },
+  {
+   "car": "car4",
+   "metric": "crossing_time_s",
+   "value": 6.01,
+   "move": "J2:W->N"
+  },
+  {
+   "car": "car3",
+   "metric": "startup_delay_s",
+   "value": 0.08
+  },
+  {
+   "car": "car5",
+   "metric": "stop_error_m",
+   "value": -0.0214
+  },
+  {
+   "car": "car1",
+   "metric": "startup_delay_s",
+   "value": 0.0
+  },
+  {
+   "car": "car0",
+   "metric": "startup_delay_s",
+   "value": 0.0
+  },
+  {
+   "car": "car3",
+   "metric": "crossing_time_s",
+   "value": 4.37,
+   "move": "J2:E->W"
+  },
+  {
+   "car": "car4",
+   "metric": "stop_error_m",
+   "value": -0.0152
+  },
+  {
+   "car": "car0",
+   "metric": "crossing_time_s",
+   "value": 4.36,
+   "move": "J2:E->W"
+  },
+  {
+   "car": "car5",
+   "metric": "startup_delay_s",
+   "value": 0.13
+  },
+  {
+   "car": "car5",
+   "metric": "crossing_time_s",
+   "value": 8.76,
+   "move": "J2:W->N"
+  },
+  {
+   "car": "car2",
+   "metric": "stop_error_m",
+   "value": -0.0143
+  },
+  {
+   "car": "car3",
+   "metric": "stop_error_m",
+   "value": -0.0142
+  },
+  {
+   "car": "car2",
+   "metric": "startup_delay_s",
+   "value": 0.08
+  },
+  {
+   "car": "car2",
+   "metric": "crossing_time_s",
+   "value": 5.22,
+   "move": "J2:W->N"
+  },
+  {
+   "car": "car0",
+   "metric": "speed_mps",
+   "value": 0.2346
+  },
+  {
+   "car": "car1",
+   "metric": "speed_mps",
+   "value": 0.2262
+  },
+  {
+   "car": "car2",
+   "metric": "speed_mps",
+   "value": 0.2302
+  },
+  {
+   "car": "car3",
+   "metric": "speed_mps",
+   "value": 0.2516
+  },
+  {
+   "car": "car5",
+   "metric": "speed_mps",
+   "value": 0.2134
+  }
+ ],
+ "lateral_mm": {
+  "car1": {
+   "straight": [
+    125.2,
+    105.5,
+    214.9
+   ],
+   "curve": [
+    127.1,
+    112.1,
+    234.5
+   ]
+  },
+  "car2": {
+   "straight": [
+    -0.1,
+    14.1,
+    40.8
+   ],
+   "curve": [
+    -3.0,
+    13.3,
+    25.8
+   ]
+  },
+  "car3": {
+   "straight": [
+    -7.1,
+    7.6,
+    33.0
+   ],
+   "curve": [
+    -0.2,
+    8.4,
+    19.9
+   ]
+  },
+  "car4": {
+   "straight": [
+    18.8,
+    15.4,
+    46.1
+   ]
+  },
+  "car0": {
+   "straight": [
+    4.3,
+    4.8,
+    12.0
+   ],
+   "curve": [
+    6.6,
+    7.4,
+    19.7
+   ]
+  },
+  "car5": {
+   "straight": [
+    11.6,
+    10.7,
+    40.8
+   ],
+   "curve": [
+    5.0,
+    10.7,
+    25.6
+   ]
+  }
+ },
+ "throughput_per_min": 1.4,
+ "seconds": 300.0,
+ "cars": 6,
+ "calibration": [
+  {
+   "speed_scale": 1.001,
+   "trim_per_m": -0.0674,
+   "turn_scale": 0.9413,
+   "latency_s": 0.085,
+   "accel_mps2": 0.589
+  },
+  {
+   "speed_scale": 1.001,
+   "trim_per_m": -0.0674,
+   "turn_scale": 0.9413,
+   "latency_s": 0.085,
+   "accel_mps2": 0.589
+  },
+  {
+   "speed_scale": 1.001,
+   "trim_per_m": -0.0674,
+   "turn_scale": 0.9413,
+   "latency_s": 0.085,
+   "accel_mps2": 0.589
+  },
+  {
+   "speed_scale": 1.001,
+   "trim_per_m": -0.0674,
+   "turn_scale": 0.9413,
+   "latency_s": 0.085,
+   "accel_mps2": 0.589
+  },
+  {
+   "speed_scale": 1.001,
+   "trim_per_m": -0.0674,
+   "turn_scale": 0.9413,
+   "latency_s": 0.085,
+   "accel_mps2": 0.589
+  },
+  {
+   "speed_scale": 1.001,
+   "trim_per_m": -0.0674,
+   "turn_scale": 0.9413,
+   "latency_s": 0.085,
+   "accel_mps2": 0.589
+  }
+ ],
+ "server": {
+  "permits": 27,
+  "right_turn_permits": 1,
+  "permit_acks": 704,
+  "exit_events": 6,
+  "dup_status": 1,
+  "rejected": 0
+ },
+ "anomalies": [],
+ "stop_error_mean_m": -0.0143,
+ "stop_error_max_abs_m": 0.0214,
+ "modes": {
+  "car0": "follow",
+  "car1": "fault",
+  "car2": "follow",
+  "car3": "hold",
+  "car4": "hold",
+  "car5": "follow"
+ },
+ "events": {
+  "car0": [
+   "0.0 line lost",
+   "3.1 approach J2:E",
+   "10.8 stop line J2:E",
+   "10.8 enter J2 E->W legal=True",
+   "13.7 left box onto W_in",
+   "27.1 approach J:W"
+  ],
+  "car1": [
+   "10.7 stop line J:W",
+   "10.7 enter J W->N legal=True",
+   "18.2 left box onto N_out",
+   "18.6 approach J2:N",
+   "35.9 line lost",
+   "38.9 FAULT lane lost"
+  ],
+  "car2": [
+   "6.4 left box onto W_out",
+   "17.4 approach J2:W",
+   "25.9 stop line J2:W",
+   "30.8 enter J2 W->N legal=True",
+   "34.6 left box onto N_in",
+   "35.2 approach J:N"
+  ],
+  "car3": [
+   "0.0 line lost",
+   "1.1 stop line J2:E",
+   "7.9 enter J2 E->W legal=True",
+   "11.2 left box onto W_in",
+   "24.9 approach J:W",
+   "29.3 stop line J:W"
+  ],
+  "car4": [
+   "0.0 line lost",
+   "1.8 stop line J2:W",
+   "1.8 enter J2 W->N legal=True",
+   "6.2 left box onto N_in",
+   "6.5 approach J:N",
+   "12.2 stop line J:N"
+  ],
+  "car5": [
+   "0.0 line lost",
+   "3.5 approach J2:W",
+   "9.2 stop line J2:W",
+   "15.3 enter J2 W->N legal=True",
+   "23.6 left box onto N_in",
+   "24.2 approach J:N"
+  ]
+ }
+}

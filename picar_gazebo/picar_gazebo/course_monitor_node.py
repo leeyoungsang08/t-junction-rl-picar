@@ -5,7 +5,8 @@
   Optional beam_fault_start/stop (s) silences the J heartbeat to test the central supervisor.
 * Measurements (written to <out_dir>/metrics.json every 5 s and on exit):
   collisions (footprint overlap onsets), lane departures (> lane_tolerance_m from the lane centre outside boxes),
-  stop errors at stop lines (front bumper vs. stop-line far edge, + = stopped before the line), distance driven.
+  stop errors at stop lines (front bumper vs. stop-line far edge, + = stopped before the line; not counted while a
+  car is still at its spawn point or queued behind another car), distance driven.
 """
 import json
 import math
@@ -92,6 +93,11 @@ class CourseMonitor(Node):
         self.stopped_since.setdefault(car, t)
         if t - self.stopped_since[car] < 0.5 or car in self.stop_logged:
             return
+        if self.m["distance_m"][car] < 0.3:
+            return                    # still at its spawn point (may be placed just before a stop line)
+        others = [self.pose[o] for o in self.cars if o != car and o in self.pose]
+        if forward_range((x, y, yaw), others, self.L, self.W) < 0.35:
+            return                    # queued behind another car: not a stop at the line
         front = np.array([x + math.cos(yaw) * self.L / 2, y + math.sin(yaw) * self.L / 2])
         heading = np.array([math.cos(yaw), math.sin(yaw)])
         for s in self.meta["stoplines"]:

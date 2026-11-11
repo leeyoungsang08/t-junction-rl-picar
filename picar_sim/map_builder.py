@@ -13,14 +13,28 @@ import subprocess
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
+import os
+
 import yaml
 
 PKG = Path(__file__).resolve().parent
 APPROACHES = ("W", "E", "N")
 
 
+def config_path():
+    """course.yaml, or the file named by PICAR_COURSE_CONFIG (a calibrated copy; its SUMO net is kept apart)."""
+    return Path(os.environ.get("PICAR_COURSE_CONFIG") or PKG / "config/course.yaml").expanduser()
+
+
+def maps_dir():
+    if not os.environ.get("PICAR_COURSE_CONFIG"):
+        return PKG / "maps"
+    p = config_path()
+    return p.parent / (p.stem + "_maps")
+
+
 def load_config(path=None):
-    return yaml.safe_load(Path(path or PKG / "config/course.yaml").read_text(encoding="utf-8"))
+    return yaml.safe_load(Path(path or config_path()).read_text(encoding="utf-8"))
 
 
 def _arc(cx, cy, r, a0, a1, n=8):
@@ -52,7 +66,7 @@ def build(cfg=None, out_dir=None):
     import sumolib
     cfg = cfg or load_config()
     c, v = cfg["course"], cfg["vehicle"]
-    out = Path(out_dir or PKG / "maps")
+    out = Path(out_dir or maps_dir())
     out.mkdir(parents=True, exist_ok=True)
     J, J2, shapes = road_shapes(cfg)
     nodes = ET.Element("nodes")
@@ -72,11 +86,21 @@ def build(cfg=None, out_dir=None):
                                       "speed": speed, "width": str(c["lane_width_m"]), "shape": rev,
                                       "endOffset": str(c["stopline_offset_m"])})
     cons = ET.Element("connections")
+    # vehicle.turn_speed_mps {left, right, straight}: speed inside the box per movement, fitted by calibrate.py so
+    # that SUMO's crossing times match the cars (a PiCar stops and spins on the spot; SUMO would sweep through).
+    turn_speed = v.get("turn_speed_mps") or {}
+    from picar_lab.car_agent.drive import movement
     for a in APPROACHES:          # no U-turns at either T
         for b in APPROACHES:
             if a != b:
-                ET.SubElement(cons, "connection", {"from": f"{a}_in", "to": f"{b}_out"})
-                ET.SubElement(cons, "connection", {"from": f"{a}_out", "to": f"{b}_in"})
+                for jn, frm, to in (("J", f"{a}_in", f"{b}_out"), ("J2", f"{a}_out", f"{b}_in")):
+                    attrs = {"from": frm, "to": to}
+                    if turn_speed:
+                        attrs.update(fromLane="0", toLane="0")
+                    sp = turn_speed.get(movement(jn, a, b))
+                    if sp:
+                        attrs["speed"] = f"{float(sp):.4f}"
+                    ET.SubElement(cons, "connection", attrs)
     for root, ext in ((nodes, "nod"), (edges, "edg"), (cons, "con")):
         ET.indent(root)
         ET.ElementTree(root).write(out / f"picar_course.{ext}.xml", encoding="utf-8", xml_declaration=True)

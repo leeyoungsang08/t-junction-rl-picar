@@ -1,0 +1,11 @@
+{
+ "collisions": 1,
+ "lane_departures": 0,
+ "faults": 0,
+ "illegal": 0,
+ "deadlock_s": 0.2,
+ "stop_p95_m": 0.042,
+ "crossings": 77,
+ "throughput_per_min": 15.4,
+ "crossing_time_s": 6.19
+}

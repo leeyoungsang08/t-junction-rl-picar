@@ -3,7 +3,8 @@
 Junction maneuvers are open loop (no tape inside the box), so four numbers per car decide whether the car
 finds the lane line again after a turn. Measured once per car (and again after changing battery/tyres):
 
-  trim_per_m  : straight run with trim 0 -> yaw drift per metre (left/right motor mismatch)
+  speed_scale : straight run commanded for 1 m -> metres really driven (battery, motor strength)
+  trim_per_m  : same run with trim 0 -> yaw drift per metre (left/right motor mismatch)
   latency_s,  : roll-out after a stop command at two speeds -> command latency and braking decel
   accel_mps2
   turn_scale  : in-place spin commanded for 90 deg -> measured angle / 90
@@ -25,7 +26,7 @@ import yaml
 
 from picar_lab.car_agent.drive import calibrate_brake2, calibrate_trim, calibrate_turn_scale
 
-DEFAULT = {"trim_per_m": 0.0, "turn_scale": 1.0, "latency_s": 0.05, "accel_mps2": 1.0}
+DEFAULT = {"trim_per_m": 0.0, "turn_scale": 1.0, "latency_s": 0.05, "accel_mps2": 1.0, "speed_scale": 1.0}
 SLOW, FAST = 0.15, 0.25          # cruise speeds of the two brake tests (m/s)
 STRAIGHT_V, TURN_RATE_DPS = 0.20, 90.0
 
@@ -41,7 +42,12 @@ TESTS = {
 def from_measurements(straight_m, drift_deg, roll_slow_m, roll_fast_m, spin_deg, slow=SLOW, fast=FAST):
     spins = [abs(float(s)) for s in (spin_deg if isinstance(spin_deg, (list, tuple)) else [spin_deg])]
     lat, acc = calibrate_brake2(roll_slow_m, slow, roll_fast_m, fast)
-    return {"trim_per_m": round(calibrate_trim(math.radians(drift_deg), straight_m), 4),
+    lat, acc = min(max(lat, 0.0), 0.3), max(acc, 0.2)
+    t_run = TESTS["straight"][1]                       # commanded STRAIGHT_V for t_run s, then stop
+    # expected distance of a perfect car with this latency/acceleration: ramp up, cruise, ramp down
+    ideal = STRAIGHT_V * t_run                         # (accel loss and stop roll-out cancel for a symmetric ramp)
+    return {"speed_scale": round(min(1.3, max(0.6, straight_m / ideal)), 4),
+            "trim_per_m": round(calibrate_trim(math.radians(drift_deg), straight_m), 4),
             "turn_scale": round(calibrate_turn_scale(sum(spins) / len(spins), 90.0), 4),
             "latency_s": round(lat, 3), "accel_mps2": round(acc, 3),
             "measured": {"straight_m": straight_m, "drift_deg": drift_deg, "roll_slow_m": roll_slow_m,
@@ -54,6 +60,15 @@ def load(path):
         return dict(DEFAULT)
     data = yaml.safe_load(Path(path).expanduser().read_text()) or {}
     return {k: float(data.get(k, v)) for k, v in DEFAULT.items()}
+
+
+def load_camera(path, cam=None):
+    """Camera dict for CameraBrain(camera=...) with the mount from camera_calib.py, when the file has it."""
+    from picar_lab.car_agent.camera_calib import camera_from_calibration
+    data = {}
+    if path and Path(path).expanduser().exists():
+        data = yaml.safe_load(Path(path).expanduser().read_text()) or {}
+    return camera_from_calibration(data, cam) if "cam_yaw_deg" in data else dict(cam or {})
 
 
 def save(path, cal, source):

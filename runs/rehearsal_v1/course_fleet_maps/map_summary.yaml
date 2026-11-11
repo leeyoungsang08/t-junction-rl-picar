@@ -1,0 +1,25 @@
+net: picar_course.net.xml
+lanes:
+  W_in: 4.25
+  W_out: 3.58
+  E_in: 3.58
+  E_out: 4.25
+  N_in: 1.19
+  N_out: 1.19
+junction_internal_m:
+  W->E: 0.69
+  W->N: 0.76
+  E->W: 0.69
+  E->N: 0.42
+  N->W: 0.42
+  N->E: 0.76
+loop_centreline_m: 9.236
+inner_lane_corner_radius_m: 0.245
+outer_lane_corner_radius_m: 0.455
+segment_capacity_cars:
+  W_in: 12
+  W_out: 10
+  E_in: 10
+  E_out: 12
+  N_in: 3
+  N_out: 3

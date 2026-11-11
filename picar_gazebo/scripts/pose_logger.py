@@ -2,8 +2,10 @@
 """Log Gazebo ground-truth poses of every car to <run_dir>/poses.csv (for the deadlock check).
 
 python3 pose_logger.py <run_dir>      # waits for <run_dir>/course_meta.yaml written by course.launch.py
-Columns: wall_s (monotonic, same clock as course_monitor), sim_s (pose header stamp), car, x, y
+Columns: wall_s (monotonic, same clock as course_monitor), sim_s (pose header stamp), car, x, y, yaw_deg
+10 Hz per car (enough to see where turns start and how far they rotate).
 """
+import math
 import sys
 import time
 from pathlib import Path
@@ -15,10 +17,10 @@ from rclpy.node import Node
 
 
 class PoseLogger(Node):
-    def __init__(self, run_dir, cars, period=0.5):
+    def __init__(self, run_dir, cars, period=0.1):
         super().__init__("picar_pose_logger")
         self.f = open(run_dir / "poses.csv", "w", buffering=1)
-        self.f.write("wall_s,sim_s,car,x,y\n")
+        self.f.write("wall_s,sim_s,car,x,y,yaw_deg\n")
         self.last = {}
         self.period = period
         for c in cars:
@@ -30,8 +32,9 @@ class PoseLogger(Node):
             return
         self.last[car] = now
         sim = msg.header.stamp.sec + msg.header.stamp.nanosec * 1e-9
-        p = msg.pose.position
-        self.f.write(f"{now:.3f},{sim:.3f},{car},{p.x:.4f},{p.y:.4f}\n")
+        p, q = msg.pose.position, msg.pose.orientation
+        yaw = math.degrees(math.atan2(2 * (q.w * q.z + q.x * q.y), 1 - 2 * (q.y * q.y + q.z * q.z)))
+        self.f.write(f"{now:.3f},{sim:.3f},{car},{p.x:.4f},{p.y:.4f},{yaw:.1f}\n")
 
 
 def main():

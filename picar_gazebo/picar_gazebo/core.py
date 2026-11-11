@@ -212,6 +212,12 @@ class Course:
         s_appr, s_exit = self.approach_point(edge)
         return round(s_appr - s_exit, 3)
 
+    def stop_after_exit(self, edge):
+        """Distance along the lane from the upstream exit beam to this lane's stop line."""
+        arm, kind = edge.split("_")
+        down, up = ("J", "J2") if kind == "in" else ("J2", "J")
+        return round(float(self.arc_of(edge, self.stopline(down, arm)[1]) - self.arc_of(edge, self.exit_line(up, arm)[0])), 3)
+
     def lane_tolerance(self, car_width):
         """Lane departure: car centre so far off the lane centre that the body covers a whole lane line."""
         return round((self.lw - car_width) / 2 + LINE_TAPE_M, 4)
@@ -232,6 +238,32 @@ class Course:
         ap = np.asarray(point, float) - self._seg_a
         t = np.clip((ap * self._seg_ab).sum(1) / self._seg_ll, 0, 1)
         return float(np.sqrt(((ap - t[:, None] * self._seg_ab) ** 2).sum(1)).min())
+
+
+def lane_signed(course, point, yaw):
+    """(signed offset, on_straight, heading error deg) to the lane centreline the car is driving on: + = left of the lane centre.
+    The lane is the nearest one whose direction agrees with the car's heading."""
+    if not hasattr(course, "_sg"):
+        A = np.vstack([p[:-1] for p in course.lanes.values()])
+        D = np.vstack([np.diff(p, axis=0) for p in course.lanes.values()])
+        L = np.linalg.norm(D, axis=1)
+        U = D / np.maximum(L, 1e-9)[:, None]
+        straight = []
+        for p in course.lanes.values():
+            d = np.diff(p, axis=0)
+            a = np.unwrap(np.arctan2(d[:, 1], d[:, 0]))
+            k = 40                                                     # 0.2 m either side
+            straight += [abs(a[min(len(a) - 1, i + k)] - a[max(0, i - k)]) < 0.02 for i in range(len(a))]
+        course._sg = (A, D, L, U, np.array(straight))
+    A, D, L, U, straight = course._sg
+    h = np.array([math.cos(yaw), math.sin(yaw)])
+    ap = np.asarray(point, float) - A
+    t = np.clip((ap * D).sum(1) / np.maximum(L ** 2, 1e-12), 0, 1)
+    perp = ap - t[:, None] * D
+    dist = np.sqrt((perp ** 2).sum(1)) + np.where(U @ h > 0.5, 0.0, 10.0)
+    i = int(np.argmin(dist))
+    return float(U[i, 0] * perp[i, 1] - U[i, 1] * perp[i, 0]), bool(straight[i]), \
+        math.degrees(math.atan2(U[i, 0] * h[1] - U[i, 1] * h[0], float(U[i] @ h)))      # heading error, + = left
 
 
 def footprint(x, y, yaw, length, width):

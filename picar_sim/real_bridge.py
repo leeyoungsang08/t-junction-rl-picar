@@ -53,8 +53,8 @@ class CentralController:
         self.ledger = CarLedger()
         if lane_lengths is None:
             import yaml
-            from picar_sim.map_builder import PKG
-            lane_lengths = yaml.safe_load((PKG / "maps/map_summary.yaml").read_text())["lanes"]
+            from picar_sim.map_builder import maps_dir
+            lane_lengths = yaml.safe_load((maps_dir() / "map_summary.yaml").read_text())["lanes"]
         self.own_tracker = tracker is None
         self.tracker = tracker or SegmentTracker(segment_capacity(lane_lengths, self.cfg["vehicle"], self.cfg["course"]))
         self.next_edge = {}

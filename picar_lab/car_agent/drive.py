@@ -55,8 +55,10 @@ class Odometer:
     to stop now, so a maneuver can issue the stop early and come to rest on its target point.
     """
 
-    def __init__(self, latency_s=0.05, accel_mps2=1.0):
+    def __init__(self, latency_s=0.05, accel_mps2=1.0, speed_scale=1.0):
         self.latency, self.acc = latency_s, accel_mps2
+        self.scale = speed_scale      # metres really driven per commanded metre (calibration straight run);
+        #                               the brain commands cmd(v), so the odometer itself counts the wanted speed
         self.queue, self.target, self.v, self.s, self.t = [], 0.0, 0.0, 0.0, None
 
     def command(self, v, now):
@@ -80,6 +82,10 @@ class Odometer:
         pending = self.queue[-1][1] if self.queue else self.target
         v = max(self.v, 0.0)
         return v * self.latency + v * v / (2.0 * self.acc) if pending > 0 or v > 0 else 0.0
+
+    def cmd(self, v):
+        """Speed to command so that the car really drives v (weak battery / slow motors)."""
+        return v / self.scale
 
 
 class JunctionManeuver:
@@ -121,9 +127,15 @@ class JunctionManeuver:
         self.odo.command(v, now)
         return v, w
 
-    def update(self, values, now, seen=None):
+    ALIGN_DEG, ALIGN_M = 10.0, 0.08          # camera: the maneuver ends only this well lined up with the new lane
+    spin_min = 0.7                           # rad/s: slowest on-the-spot rotation that surely beats the deadband
+
+    def update(self, values, now, seen=None, lane=None):
         """Returns (v, w). Sets .done when the line is found after the box, .failed when the search gives up.
-        seen: lane re-acquired by another sensor (front camera); None = use the IR values."""
+        seen: lane re-acquired by another sensor (front camera); None = use the IR values.
+        lane: (offset_m, heading_deg) of the new lane from the front camera, None = not visible. With it the last
+        part is closed loop: drive/rotate towards the lane and finish only when lined up. (Open loop the car left
+        the box up to 25 deg skewed and then followed the wrong pair of lines.)"""
         dt = 0.0 if self.last_t is None else max(0.0, now - self.last_t)
         self.last_t = now
         self.odo.update(now)
@@ -133,8 +145,13 @@ class JunctionManeuver:
         if seen is None:
             n_dark = sum(1 for v in values if v == self.dark)
             seen = 0 < n_dark < 3
+        if lane is not None:
+            seen = abs(lane[1]) < self.ALIGN_DEG and abs(lane[0]) < self.ALIGN_M
         self.seen_frames = self.seen_frames + 1 if seen else 0
         line_seen = self.seen_frames >= self.confirm        # debounced; >= 3 dark is a cross tape
+        steer = None                                        # lane visible but not lined up yet: turn towards it
+        if lane is not None and abs(lane[0]) < 0.16 and abs(lane[1]) < 50.0:
+            steer = max(-0.9, min(0.9, 1.5 * math.radians(lane[1]) + 4.0 * lane[0]))
         if self.phase == "d1":
             if p["turn"] == "straight":
                 self.phase, self.s_d2 = "d2", self.s_ref        # straight: d2 counts from the stop line
@@ -157,11 +174,19 @@ class JunctionManeuver:
             if d >= p["d2_max"]:
                 self.phase, self.sweep, self.sweep_leg = "search", 0.0, 0
                 return self._out(0.0, 0.0, now)
+            if steer is not None and d >= p["d2_min"]:
+                return self._out(self.v * 0.6, steer, now)
             return self._out(self.v, self.trim * self.v, now)
         if self.phase == "search":
             if line_seen:
                 self.done = True
                 return self._out(0.0, 0.0, now)
+            if steer is not None:                            # rotate on the spot until lined up
+                # full spin rate or nothing: a gentle command (0.15 rad/s = 1 cm/s at the wheels) is below the
+                # motors' deadband and the car just stands there (rehearsal: stuck in the box for good)
+                if abs(lane[1]) >= self.ALIGN_DEG / 2 or abs(lane[0]) >= self.ALIGN_M:
+                    return self._out(0.0, math.copysign(self.spin_min, steer), now)
+                return self._out(self.v * 0.6, 0.0, now)     # lined up but the frame count is not there yet
             goal = (self.search_max, -self.search_max, 0.0)[self.sweep_leg]     # +max, -max, back to 0
             step = self.search_rate * dt / self.turn_scale
             if abs(goal - self.sweep) <= step:

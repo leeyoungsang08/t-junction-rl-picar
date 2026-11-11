@@ -1,0 +1,13 @@
+condition,scenario,controller,n,delay_diff_vs_queue_rule_s,ci95_low,ci95_high
+noisy,alternating_5cars,dqn_seed42,10,-1.642,-2.262,-1.023
+noisy,alternating_5cars,dqn_seed43,10,-2.116,-2.964,-1.267
+noisy,connector_heavy_6cars,dqn_seed42,10,-1.632,-2.429,-0.834
+noisy,connector_heavy_6cars,dqn_seed43,10,-1.256,-1.701,-0.81
+noisy,uniform_6cars,dqn_seed42,10,-1.911,-2.639,-1.184
+noisy,uniform_6cars,dqn_seed43,10,-1.712,-2.485,-0.939
+nominal,alternating_5cars,dqn_seed42,10,-1.689,-2.55,-0.828
+nominal,alternating_5cars,dqn_seed43,10,-2.8,-4.12,-1.479
+nominal,connector_heavy_6cars,dqn_seed42,10,-1.46,-2.905,-0.014
+nominal,connector_heavy_6cars,dqn_seed43,10,-2.019,-2.814,-1.223
+nominal,uniform_6cars,dqn_seed42,10,-3.159,-4.13,-2.188
+nominal,uniform_6cars,dqn_seed43,10,-2.539,-3.617,-1.461

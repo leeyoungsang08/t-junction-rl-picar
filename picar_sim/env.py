@@ -19,7 +19,7 @@ import numpy as np
 import sumolib
 
 from picar_sim.baselines import queue_rule
-from picar_sim.map_builder import APPROACHES, PKG, build, load_config, segment_capacity
+from picar_sim.map_builder import APPROACHES, PKG, build, load_config, maps_dir, segment_capacity
 from picar_sim.observation import CarLedger, Encoder, SegmentTracker
 from picar_sim.right_turn import RESERVATION_S, arm_of, conflicts, may_enter
 from picar_sim.supervisor import IntersectionSupervisor
@@ -45,7 +45,7 @@ class PicarEnv:
         self.cfg = cfg or load_config()
         if control_mode:
             self.cfg["signal"]["control_mode"] = control_mode
-        self.net = PKG / "maps/picar_course.net.xml"
+        self.net = maps_dir() / "picar_course.net.xml"
         if not self.net.exists():
             build(self.cfg)
         self.out_dir = Path(out_dir) if out_dir else None

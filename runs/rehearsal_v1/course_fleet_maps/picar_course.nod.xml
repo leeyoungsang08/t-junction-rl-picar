@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='utf-8'?>
+<nodes>
+  <node id="J" x="1.7300" y="0.2100" type="traffic_light" radius="0.05" />
+  <node id="J2" x="1.7300" y="2.0900" type="traffic_light" radius="0.05" />
+</nodes>

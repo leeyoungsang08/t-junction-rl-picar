@@ -2,10 +2,11 @@
 
 Runs the same open-loop tests as the real car (picar_lab/car_agent/calibration.py TESTS) through the motor
 model, reads /model/<car>/pose, and writes the file the drive nodes load (calibration_file parameter).
-Sequence: straight, spin, brake_slow, spin, brake_fast, spin (spins are averaged).
+Sequence: straight, spin, brake_slow, spin (clockwise), brake_fast, spin (spins are averaged; turn_rate_dps
+parameter = the drive nodes' turn rate).
+Timing uses the ROS clock (use_sim_time in the launch), the same clock the drive nodes use.
 """
 import math
-import time
 
 import rclpy
 from rclpy.executors import ExternalShutdownException
@@ -24,10 +25,11 @@ class Calibrate(Node):
         car = self.declare_parameter("car", "car0").value
         self.out = self.declare_parameter("out_file", "car_calibration.yaml").value
         self.settle = float(self.declare_parameter("settle_s", 1.5).value)
+        self.turn_rate = float(self.declare_parameter("turn_rate_dps", 90.0).value)   # same as the drive nodes
         self.pub = self.create_publisher(Twist, f"/{car}/cmd_vel", 10)
         self.create_subscription(PoseStamped, f"/model/{car}/pose", self.on_pose, 10)
         self.pose, self.yaw_unwrapped, self.last_yaw = None, 0.0, None
-        self.i, self.phase, self.t0, self.mark = 0, "wait", time.monotonic() + 3.0, None
+        self.i, self.phase, self.t0, self.mark = 0, "wait", None, None
         self.res = {"spin": []}
         self.create_timer(0.05, self.on_timer)
 
@@ -43,15 +45,20 @@ class Calibrate(Node):
         return self.pose
 
     def on_timer(self):
-        now = time.monotonic()
+        now = self.get_clock().now().nanoseconds * 1e-9
         cmd = Twist()
-        if self.pose is None:
+        if now <= 0.0:
+            return
+        if self.pose is None or self.t0 is None:
             self.t0 = now + 3.0
         elif self.phase == "wait" and now >= self.t0:
             self.phase, self.t0, self.mark = "drive", now, {"start": self.snap()}
         elif self.phase == "drive":
             name = self.SEQ[self.i]
             (v, w), dur = TESTS[name]
+            if name == "spin":                 # 90 deg at the drive nodes' turn rate; the 2nd spin is clockwise
+                cw = len(self.res["spin"]) == 1
+                v, w, dur = 0.0, math.radians(self.turn_rate) * (-1.0 if cw else 1.0), 90.0 / self.turn_rate
             if now - self.t0 < dur:
                 cmd.linear.x, cmd.angular.z = float(v), float(w)
             else:
@@ -73,7 +80,7 @@ class Calibrate(Node):
         elif name.startswith("brake"):
             self.res[f"roll_{name.split('_')[1]}_m"] = math.hypot(end[0] - stop[0], end[1] - stop[1])
         else:
-            self.res["spin"].append(math.degrees(end[2] - start[2]))
+            self.res["spin"].append(abs(math.degrees(end[2] - start[2])))
         self.get_logger().info(f"{name}: {self.res}")
 
     def finish(self):

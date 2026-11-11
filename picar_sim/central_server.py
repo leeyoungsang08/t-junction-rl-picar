@@ -21,7 +21,7 @@ import uuid
 from pathlib import Path
 
 from picar_lab.car_agent.protocol import VERSION, decode, encode, valid_beam, valid_car_status
-from picar_sim.map_builder import PKG, load_config, segment_capacity
+from picar_sim.map_builder import load_config, maps_dir, segment_capacity
 from picar_sim.observation import SegmentTracker
 from picar_sim.real_bridge import CentralController
 from picar_sim.right_turn import arm_of, may_enter
@@ -36,7 +36,7 @@ class CentralServer:
         self.cfg = cfg or load_config()
         if permit_ttl_s > self.cfg["signal"]["all_red_min_s"]:
             raise ValueError("permit TTL must not exceed all_red_min_s (a granted car must enter before switching)")
-        lanes = yaml.safe_load((PKG / "maps/map_summary.yaml").read_text())["lanes"]
+        lanes = yaml.safe_load((maps_dir() / "map_summary.yaml").read_text())["lanes"]
         self.tracker = SegmentTracker(segment_capacity(lanes, self.cfg["vehicle"], self.cfg["course"]))
         j_sig = None
         if policy:                                   # J runs in the action space the policy was trained for

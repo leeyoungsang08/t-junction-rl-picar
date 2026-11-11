@@ -1,0 +1,36 @@
+n_runs_calibration: 10
+n_runs_validation: 8
+range_speed_mps:
+- 0.23778
+- 0.24655
+range_accel_mps2:
+- 0.70555
+- 1.808
+range_decel_mps2:
+- 0.70555
+- 1.808
+range_startup_delay_s:
+- 0.0
+- 0.13
+range_command_latency_s:
+- 0.061099999999999995
+- 0.138
+box_speed_straight_mps: 0.4815
+box_speed_left_mps: 0.1251
+box_speed_right_mps: 0.1052
+crossing_straight:
+  real_mean_s: 4.33
+  sim_mean_s: 4.6
+  rel_error: 0.061
+  pass_10pct: true
+crossing_left:
+  real_mean_s: 7.9
+  sim_mean_s: 7.7
+  rel_error: 0.025
+  pass_10pct: true
+crossing_right:
+  real_mean_s: 5.54
+  sim_mean_s: 5.7
+  rel_error: 0.029
+  pass_10pct: true
+

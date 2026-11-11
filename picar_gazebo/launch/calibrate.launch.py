@@ -18,7 +18,7 @@ from launch_ros.actions import Node
 
 def _setup(context):
     cfg = {k: LaunchConfiguration(k).perform(context) for k in
-           ("gui", "out_file", "motor_latency_s", "gain_right", "seed")}
+           ("gui", "out_file", "motor_latency_s", "gain_right", "seed", "turn_rate_dps", "fleet", "car_index")}
     repo = Path(os.environ.get("PICAR_REPO", Path.home() / "t-junction-rl-picar")).expanduser()
     if not (repo / "picar_sim").exists():
         raise RuntimeError(f"PICAR_REPO={repo} does not contain picar_sim; export PICAR_REPO=<repo path>")
@@ -36,11 +36,19 @@ def _setup(context):
               f"/model/{n}/cmd_vel@geometry_msgs/msg/Twist]ignition.msgs.Twist",
               f"/model/{n}/pose@geometry_msgs/msg/PoseStamped[ignition.msgs.Pose"]
     out_file = cfg["out_file"] or str(Path.home() / "picar_gz_runs" / "car_calibration.yaml")
+    motor = {"latency_s": float(cfg["motor_latency_s"]), "gain_right": float(cfg["gain_right"])}
+    if cfg["fleet"]:                                       # the hidden drivetrain of car <car_index> of the fleet
+        from picar_gazebo.virtual_fleet import NOMINAL, load_fleet
+        t = {**NOMINAL, **load_fleet(Path(cfg["fleet"]).expanduser())[int(cfg["car_index"])]}
+        motor = {"gain_left": t["gain_l"], "gain_right": t["gain_r"], "seed": float(900 + int(cfg["car_index"])),
+                 **{k: float(t[k]) for k in ("latency_s", "deadband_mps", "speed_scale", "sag_per_min",
+                                             "spin_eff", "spin_sd", "spin_stick_prob", "ripple")}}
     later = [Node(package="picar_gazebo", executable="motor_model", namespace=n, additional_env=env,
-                  parameters=[{"latency_s": float(cfg["motor_latency_s"]), "gain_right": float(cfg["gain_right"])}],
+                  parameters=[motor],
                   remappings=[("gz_cmd_vel", f"/model/{n}/cmd_vel")]),
              Node(package="picar_gazebo", executable="calibrate", output="screen", additional_env=env,
-                  parameters=[{"car": n, "out_file": out_file}])]
+                  parameters=[{"car": n, "out_file": out_file, "use_sim_time": True,
+                               "turn_rate_dps": float(cfg["turn_rate_dps"])}])]
     print(f"[picar_gazebo] calibration -> {out_file}")
     return [ExecuteProcess(cmd=gz_cmd, output="screen", additional_env=env),
             Node(package="ros_gz_bridge", executable="parameter_bridge", arguments=bridge, output="screen"),
@@ -54,4 +62,7 @@ def generate_launch_description():
         DeclareLaunchArgument("motor_latency_s", default_value="0.05"),
         DeclareLaunchArgument("gain_right", default_value="0.97"),
         DeclareLaunchArgument("seed", default_value="1"),
+        DeclareLaunchArgument("turn_rate_dps", default_value="45.0"),
+        DeclareLaunchArgument("fleet", default_value="", description="fleet_truth.yaml (virtual real fleet)"),
+        DeclareLaunchArgument("car_index", default_value="0", description="which car of the fleet to measure"),
         OpaqueFunction(function=_setup)])

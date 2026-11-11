@@ -60,7 +60,7 @@ def deadlock(path):
     by_car = defaultdict(list)
     for line in path.read_text().splitlines()[1:]:
         try:
-            w, s, car, x, y = line.split(",")
+            w, s, car, x, y = line.split(",")[:5]
             by_car[car].append((float(w), float(s), float(x), float(y)))
         except ValueError:
             continue

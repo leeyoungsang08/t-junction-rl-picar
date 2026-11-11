@@ -5,6 +5,8 @@ ros2 launch picar_gazebo calibrate.launch.py      # once: writes ~/picar_gz_runs
 ros2 launch picar_gazebo course.launch.py cars:=3
 ros2 launch picar_gazebo course.launch.py cars:=3 policy:=$PICAR_REPO/runs/picar_v9_photo_rt/seed42/best_policy.npz mode:=active
 ros2 launch picar_gazebo course.launch.py cars:=3 gui:=false beam_fault_start:=60 beam_fault_stop:=80
+ros2 launch picar_gazebo course.launch.py cars:=6 fleet:=$PICAR_REPO/runs/rehearsal_v1/fleet_truth.yaml \
+    calibration_dir:=$HOME/picar_gz_runs/fleet_calib      # six different cars, one calibration file each
 """
 import os
 import time
@@ -19,7 +21,8 @@ from launch_ros.actions import Node
 def _setup(context):
     cfg = {k: LaunchConfiguration(k).perform(context) for k in
            ("cars", "seed", "policy", "mode", "gui", "out_dir", "beam_fault_start", "beam_fault_stop", "speed_mps",
-            "motor_latency_s", "gain_right", "ir_flip_prob", "port", "calibration")}
+            "motor_latency_s", "gain_right", "ir_flip_prob", "port", "calibration", "turn_rate_dps", "fleet",
+            "calibration_dir")}
     repo = Path(os.environ.get("PICAR_REPO", Path.home() / "t-junction-rl-picar")).expanduser()
     if not (repo / "picar_sim").exists():
         raise RuntimeError(f"PICAR_REPO={repo} does not contain picar_sim; export PICAR_REPO=<repo path>")
@@ -29,12 +32,18 @@ def _setup(context):
     from picar_gazebo.world_gen import generate
     import yaml
     out = Path(cfg["out_dir"] or Path.home() / "picar_gz_runs" / time.strftime("%Y%m%d_%H%M%S")).expanduser()
-    generate(out, int(cfg["cars"]), int(cfg["seed"]))
+    fleet = None
+    if cfg["fleet"]:                                       # per-car hidden hardware (virtual real fleet)
+        from picar_gazebo.virtual_fleet import NOMINAL, load_fleet
+        fleet = [{**NOMINAL, **t} for t in load_fleet(Path(cfg["fleet"]).expanduser())]
+        if len(fleet) < int(cfg["cars"]):
+            raise RuntimeError(f"fleet file has {len(fleet)} cars, cars:={cfg['cars']}")
+    generate(out, int(cfg["cars"]), int(cfg["seed"]), None, fleet)
     meta = yaml.safe_load((out / "course_meta.yaml").read_text())
     env = {**os.environ, "PYTHONPATH": f"{repo}{os.pathsep}{os.environ.get('PYTHONPATH', '')}", "PICAR_REPO": str(repo)}
     port = cfg["port"]
     calib = cfg["calibration"] or str(Path.home() / "picar_gz_runs" / "car_calibration.yaml")
-    if not Path(calib).expanduser().exists():
+    if not Path(calib).expanduser().exists() and not cfg["calibration_dir"]:
         print(f"[picar_gazebo] WARNING {calib} missing: run calibrate.launch.py first (turns will miss the line)")
         calib = ""
     actions = []
@@ -61,15 +70,32 @@ def _setup(context):
                                      "beam_fault_start": float(cfg["beam_fault_start"]),
                                      "beam_fault_stop": float(cfg["beam_fault_stop"])}]))
     cars = []
-    for c in meta["cars"]:
+    for i, c in enumerate(meta["cars"]):
         n = c["name"]
+        t = fleet[i] if fleet else None
+        motor = {"latency_s": float(cfg["motor_latency_s"]), "track_m": meta["car"]["wheel_sep"],
+                 "gain_right": float(cfg["gain_right"])}
+        sim_cam, car_calib = [], calib
+        if t:
+            motor = {"track_m": meta["car"]["wheel_sep"], "seed": float(int(cfg["seed"]) * 100 + i),
+                     "gain_left": t["gain_l"], "gain_right": t["gain_r"],
+                     **{k: float(t[k]) for k in ("latency_s", "deadband_mps", "speed_scale", "sag_per_min",
+                                                 "spin_eff", "spin_sd", "spin_stick_prob", "ripple")}}
+            for k, key in (("noise", "cam_noise"), ("gain", "cam_gain"), ("delay_s", "cam_delay_s"),
+                           ("drop_prob", "cam_drop_prob")):
+                sim_cam += ["-p", f"sim_cam_{k}:={float(t[key])}"]
+        if cfg["calibration_dir"]:                         # one calibration file per car, as on the real fleet
+            f = Path(cfg["calibration_dir"]).expanduser() / f"{n}.yaml"
+            if f.exists():
+                car_calib = str(f)
+            else:
+                print(f"[picar_gazebo] WARNING {f} missing: {n} uses {calib or 'no calibration'}")
         cars.append(Node(package="picar_gazebo", executable="ir_camera", namespace=n, additional_env=env,
-                         parameters=[{"sensor_columns": meta["sensor_columns"], "flip_prob": float(cfg["ir_flip_prob"])}],
+                         parameters=[{"sensor_columns": meta["sensor_columns"],
+                                      "flip_prob": float(t["ir_flip_prob"] if t else cfg["ir_flip_prob"])}],
                          remappings=[("image", f"/model/{n}/line_cam")]))
         cars.append(Node(package="picar_gazebo", executable="motor_model", namespace=n, additional_env=env,
-                         parameters=[{"latency_s": float(cfg["motor_latency_s"]), "track_m": meta["car"]["wheel_sep"],
-                                      "gain_right": float(cfg["gain_right"])}],
-                         remappings=[("gz_cmd_vel", f"/model/{n}/cmd_vel")]))
+                         parameters=[motor], remappings=[("gz_cmd_vel", f"/model/{n}/cmd_vel")]))
         fc = meta["car"]["front_cam"]
         cars.append(ExecuteProcess(output="screen", additional_env=env, cmd=[
             "python3", "-m", "picar_lab.car_agent.ros2_camera_drive_node", "--ros-args", "-r", f"__ns:=/{n}",
@@ -78,9 +104,10 @@ def _setup(context):
             "-p", "start_index:=0", "-p", f"maneuvers_file:={out / 'maneuvers.yaml'}",
             "-p", f"approach_in_m:={float(c.get('approach_in_m', -1.0))}",
             "-p", "central_host:=127.0.0.1", "-p", f"central_port:={port}", "-p", f"speed_mps:={cfg['speed_mps']}",
+            "-p", f"turn_rate_dps:={float(cfg['turn_rate_dps'])}",
             "-p", f"camera_x:={float(fc['x'])}", "-p", f"camera_z:={float(fc['z'])}",
             "-p", f"camera_pitch_deg:={float(fc['pitch_deg'])}", "-p", f"camera_hfov_deg:={float(fc['hfov_deg'])}"]
-            + (["-p", f"calibration_file:={calib}"] if calib else [])))
+            + sim_cam + (["-p", f"calibration_file:={car_calib}"] if car_calib else [])))
     actions.append(TimerAction(period=6.0, actions=cars))           # let Gazebo and the bridge come up first
     print(f"[picar_gazebo] run directory: {out}")
     return actions
@@ -100,5 +127,8 @@ def generate_launch_description():
             DeclareLaunchArgument("gain_right", default_value="0.97", description="right motor gain (mismatch)"),
             DeclareLaunchArgument("calibration", default_value="", description="car_calibration.yaml"),
             DeclareLaunchArgument("ir_flip_prob", default_value="0.0"),
-            DeclareLaunchArgument("port", default_value="5007")]
+            DeclareLaunchArgument("port", default_value="5007"),
+            DeclareLaunchArgument("fleet", default_value="", description="fleet_truth.yaml: per-car hidden hardware"),
+            DeclareLaunchArgument("calibration_dir", default_value="", description="directory with <car>.yaml files"),
+            DeclareLaunchArgument("turn_rate_dps", default_value="45.0", description="in-place turn rate at junctions (90: angle not repeatable in Gazebo)")]
     return LaunchDescription(args + [SetEnvironmentVariable("RCUTILS_COLORIZED_OUTPUT", "1"), OpaqueFunction(function=_setup)])

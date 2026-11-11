@@ -124,8 +124,11 @@ def _inertial(link, mass, ixx, iyy, izz):
         _sub(inertia, k, v)
 
 
-def car_model(world, car, color):
+def car_model(world, car, color, truth=None):
+    """truth: this car's hidden hardware (virtual_fleet); only the camera mount is built into the model here,
+    the motors go through motor_model_node."""
     c = CAR
+    t = truth or {}
     name = car["name"]
     m = _sub(world, "model", name=name)
     _sub(m, "pose", f"{car['x']:.4f} {car['y']:.4f} 0 0 0 {car['yaw']:.4f}")
@@ -157,7 +160,9 @@ def car_model(world, car, color):
     _sub(clip, "far", 1.0)
     fc = c["front_cam"]                                 # front lane camera (lane_camera.CAMERA)
     cam = _sub(ch, "sensor", name="front_cam", type="camera")
-    _sub(cam, "pose", f"{fc['x']} 0 {fc['z'] - 0.045} 0 {math.radians(fc['pitch_deg']):.5f} 0")
+    _sub(cam, "pose", f"{fc['x']} {t.get('cam_y_err_m', 0.0):.5f} {fc['z'] + t.get('cam_z_err_m', 0.0) - 0.045:.5f} 0 "
+                      f"{math.radians(fc['pitch_deg'] + t.get('cam_pitch_err_deg', 0.0)):.5f} "
+                      f"{math.radians(t.get('cam_yaw_err_deg', 0.0)):.5f}")
     _sub(cam, "always_on", 1)
     _sub(cam, "update_rate", 20)
     _sub(cam, "topic", f"/model/{name}/front_cam")
@@ -214,7 +219,7 @@ def car_model(world, car, color):
         _sub(pp, k, v)
 
 
-def build_world(course, cars, texture_path):
+def build_world(course, cars, texture_path, fleet=None):
     sdf = ET.Element("sdf", version="1.8")
     world = _sub(sdf, "world", name="picar_course")
     phys = _sub(world, "physics", name="1ms", type="ignored")
@@ -257,26 +262,31 @@ def build_world(course, cars, texture_path):
     _sub(metal, "roughness", 1.0)
     _sub(metal, "metalness", 0.0)
     for k, car in enumerate(cars):
-        car_model(world, car, COLORS[k % len(COLORS)])
+        car_model(world, car, COLORS[k % len(COLORS)], (fleet[k] if fleet and k < len(fleet) else None))
     ET.indent(sdf)
     return ET.tostring(sdf, encoding="unicode", xml_declaration=True)
 
 
-def generate(out, cars=3, seed=1, cfg=None):
+def generate(out, cars=3, seed=1, cfg=None, fleet=None):
+    """fleet: list of per-car hidden hardware (virtual_fleet.load_fleet); None = identical ideal cars."""
     out = Path(out).expanduser()
     out.mkdir(parents=True, exist_ok=True)
     course = Course(cfg)
     texture = out / "course_texture.png"
     px = draw_texture(course, texture)
     car_list = make_routes(cars, seed, course)
-    (out / "picar_course.sdf").write_text(build_world(course, car_list, texture), encoding="utf-8")
-    stop_min = 0.04
+    (out / "picar_course.sdf").write_text(build_world(course, car_list, texture, fleet), encoding="utf-8")
+    # sensor bar position past the near edge of the 3 cm stop tape when the line is detected. Gazebo, 3 cars
+    # (2026-11-11): cars come to rest with the bumper on the far edge after rolling ~0.019 m (calibration),
+    # so detection happens ~0.012 m past the near edge. 0.04 made every turn start ~3 cm early.
+    stop_min = 0.012
     plans = {f"{jn}:{a}:{b}": course.maneuver(jn, a, b, CAR["sensor_offset"], stop_min)
              for jn in ("J", "J2") for a in APPROACHES for b in APPROACHES if a != b}
     approach_after = {e: course.approach_after_exit(e) for e in course.lanes}
     (out / "maneuvers.yaml").write_text(yaml.safe_dump({"sensor_offset_m": CAR["sensor_offset"],
                                                         "stop_line_min_m": stop_min, "maneuvers": plans,
                                                         "approach_after_exit_m": approach_after,
+                                                        "stop_after_exit_m": {e: course.stop_after_exit(e) for e in course.lanes},
                                                         "lane_width_m": float(course.lw)},
                                                        sort_keys=False), encoding="utf-8")
     beams, stops = [], []

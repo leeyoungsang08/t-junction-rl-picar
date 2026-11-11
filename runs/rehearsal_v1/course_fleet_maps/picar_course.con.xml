@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<connections>
+  <connection from="W_in" to="E_out" fromLane="0" toLane="0" speed="0.4815" />
+  <connection from="W_out" to="E_in" fromLane="0" toLane="0" speed="0.4815" />
+  <connection from="W_in" to="N_out" fromLane="0" toLane="0" speed="0.1251" />
+  <connection from="W_out" to="N_in" fromLane="0" toLane="0" speed="0.1052" />
+  <connection from="E_in" to="W_out" fromLane="0" toLane="0" speed="0.4815" />
+  <connection from="E_out" to="W_in" fromLane="0" toLane="0" speed="0.4815" />
+  <connection from="E_in" to="N_out" fromLane="0" toLane="0" speed="0.1052" />
+  <connection from="E_out" to="N_in" fromLane="0" toLane="0" speed="0.1251" />
+  <connection from="N_in" to="W_out" fromLane="0" toLane="0" speed="0.1052" />
+  <connection from="N_out" to="W_in" fromLane="0" toLane="0" speed="0.1251" />
+  <connection from="N_in" to="E_out" fromLane="0" toLane="0" speed="0.1251" />
+  <connection from="N_out" to="E_in" fromLane="0" toLane="0" speed="0.1052" />
+</connections>
