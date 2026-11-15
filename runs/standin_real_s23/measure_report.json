@@ -1,0 +1,326 @@
+{
+ "car0": {
+  "calibration": {
+   "speed_scale": 0.9376,
+   "trim_per_m": 0.1035,
+   "turn_scale": 0.8799,
+   "latency_s": 0.08,
+   "accel_mps2": 0.718,
+   "turn_rate_dps": 45.0,
+   "cam_pitch_deg": 34.51,
+   "cam_yaw_deg": 3.33,
+   "cam_y_m": -0.0001
+  },
+  "motor_tests": {
+   "straight_m": [
+    0.945,
+    0.935,
+    0.933
+   ],
+   "drift_deg": [
+    -6.7,
+    -4.9,
+    -5.1
+   ],
+   "roll_slow_m": [
+    0.029,
+    0.026,
+    0.028
+   ],
+   "roll_fast_m": [
+    0.067,
+    0.061,
+    0.062
+   ],
+   "spin_deg": [
+    78.7,
+    81.2,
+    82.7,
+    80.8,
+    75.3,
+    76.4
+   ],
+   "spin_sd_deg": 2.66,
+   "cruise_mps": 0.234
+  },
+  "camera_test": {
+   "rms_mm": 0.8,
+   "photos": 3
+  },
+  "truth_camera": {
+   "cam_pitch_err_deg": -0.59877,
+   "cam_yaw_err_deg": 2.94074,
+   "cam_y_err_m": -0.00303
+  }
+ },
+ "car1": {
+  "calibration": {
+   "speed_scale": 0.9025,
+   "trim_per_m": 0.4596,
+   "turn_scale": 0.8903,
+   "latency_s": 0.099,
+   "accel_mps2": 1.514,
+   "turn_rate_dps": 45.0,
+   "cam_pitch_deg": 38.19,
+   "cam_yaw_deg": 3.41,
+   "cam_y_m": -0.0033
+  },
+  "motor_tests": {
+   "straight_m": [
+    0.901,
+    0.903,
+    0.903
+   ],
+   "drift_deg": [
+    -23.2,
+    -24.1,
+    -24.0
+   ],
+   "roll_slow_m": [
+    0.022,
+    0.022,
+    0.023
+   ],
+   "roll_fast_m": [
+    0.046,
+    0.047,
+    0.043
+   ],
+   "spin_deg": [
+    79.9,
+    76.5,
+    82.3,
+    80.4,
+    79.1,
+    82.6
+   ],
+   "spin_sd_deg": 2.05,
+   "cruise_mps": 0.226
+  },
+  "camera_test": {
+   "rms_mm": 0.9,
+   "photos": 3
+  },
+  "truth_camera": {
+   "cam_pitch_err_deg": 3.52353,
+   "cam_yaw_err_deg": 3.9,
+   "cam_y_err_m": -0.00632
+  }
+ },
+ "car2": {
+  "calibration": {
+   "speed_scale": 0.98,
+   "trim_per_m": -0.283,
+   "turn_scale": 0.844,
+   "latency_s": 0.043,
+   "accel_mps2": 0.965,
+   "turn_rate_dps": 45.0,
+   "cam_pitch_deg": 34.78,
+   "cam_yaw_deg": 0.12,
+   "cam_y_m": 0.0015
+  },
+  "motor_tests": {
+   "straight_m": [
+    0.98,
+    0.984,
+    0.977
+   ],
+   "drift_deg": [
+    16.1,
+    12.8,
+    18.8
+   ],
+   "roll_slow_m": [
+    0.018,
+    0.017,
+    0.019
+   ],
+   "roll_fast_m": [
+    0.043,
+    0.04,
+    0.046
+   ],
+   "spin_deg": [
+    75.1,
+    80.5,
+    75.3,
+    76.5,
+    76.4,
+    71.9
+   ],
+   "spin_sd_deg": 2.56,
+   "cruise_mps": 0.245
+  },
+  "camera_test": {
+   "rms_mm": 0.8,
+   "photos": 3
+  },
+  "truth_camera": {
+   "cam_pitch_err_deg": 0.2219,
+   "cam_yaw_err_deg": 1.11543,
+   "cam_y_err_m": -0.00044
+  }
+ },
+ "car3": {
+  "calibration": {
+   "speed_scale": 1.0208,
+   "trim_per_m": -0.131,
+   "turn_scale": 0.9575,
+   "latency_s": 0.111,
+   "accel_mps2": 1.34,
+   "turn_rate_dps": 45.0,
+   "cam_pitch_deg": 30.85,
+   "cam_yaw_deg": -0.4,
+   "cam_y_m": -0.0014
+  },
+  "motor_tests": {
+   "straight_m": [
+    1.022,
+    1.019,
+    1.021
+   ],
+   "drift_deg": [
+    5.6,
+    7.1,
+    10.3
+   ],
+   "roll_slow_m": [
+    0.022,
+    0.027,
+    0.025
+   ],
+   "roll_fast_m": [
+    0.051,
+    0.056,
+    0.046
+   ],
+   "spin_deg": [
+    85.0,
+    86.2,
+    88.8,
+    89.2,
+    84.5,
+    83.4
+   ],
+   "spin_sd_deg": 2.14,
+   "cruise_mps": 0.255
+  },
+  "camera_test": {
+   "rms_mm": 0.8,
+   "photos": 3
+  },
+  "truth_camera": {
+   "cam_pitch_err_deg": -3.38231,
+   "cam_yaw_err_deg": -0.44288,
+   "cam_y_err_m": -0.00264
+  }
+ },
+ "car4": {
+  "calibration": {
+   "speed_scale": 0.8603,
+   "trim_per_m": -0.4037,
+   "turn_scale": 0.7359,
+   "latency_s": 0.114,
+   "accel_mps2": 2.886,
+   "turn_rate_dps": 45.0,
+   "cam_pitch_deg": 37.15,
+   "cam_yaw_deg": -0.44,
+   "cam_y_m": 0.0027
+  },
+  "motor_tests": {
+   "straight_m": [
+    0.863,
+    0.864,
+    0.854
+   ],
+   "drift_deg": [
+    19.1,
+    20.8,
+    19.9
+   ],
+   "roll_slow_m": [
+    0.023,
+    0.019,
+    0.022
+   ],
+   "roll_fast_m": [
+    0.037,
+    0.04,
+    0.042
+   ],
+   "spin_deg": [
+    63.6,
+    68.3,
+    66.8,
+    63.8,
+    66.6,
+    68.2
+   ],
+   "spin_sd_deg": 1.9,
+   "cruise_mps": 0.215
+  },
+  "camera_test": {
+   "rms_mm": 0.7,
+   "photos": 3
+  },
+  "truth_camera": {
+   "cam_pitch_err_deg": 2.03839,
+   "cam_yaw_err_deg": -0.72309,
+   "cam_y_err_m": 0.00014
+  }
+ },
+ "car5": {
+  "calibration": {
+   "speed_scale": 1.0684,
+   "trim_per_m": 0.4653,
+   "turn_scale": 0.8827,
+   "latency_s": 0.154,
+   "accel_mps2": 0.687,
+   "turn_rate_dps": 45.0,
+   "cam_pitch_deg": 32.68,
+   "cam_yaw_deg": 1.11,
+   "cam_y_m": 0.0105
+  },
+  "motor_tests": {
+   "straight_m": [
+    1.07,
+    1.064,
+    1.072
+   ],
+   "drift_deg": [
+    -28.1,
+    -27.2,
+    -30.1
+   ],
+   "roll_slow_m": [
+    0.04,
+    0.039,
+    0.04
+   ],
+   "roll_fast_m": [
+    0.083,
+    0.086,
+    0.084
+   ],
+   "spin_deg": [
+    77.9,
+    79.9,
+    79.4,
+    80.1,
+    79.4,
+    79.9
+   ],
+   "spin_sd_deg": 0.74,
+   "cruise_mps": 0.267
+  },
+  "camera_test": {
+   "rms_mm": 0.7,
+   "photos": 3
+  },
+  "truth_camera": {
+   "cam_pitch_err_deg": -1.77365,
+   "cam_yaw_err_deg": 1.22463,
+   "cam_y_err_m": 0.00794
+  }
+ }
+}

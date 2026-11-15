@@ -1,0 +1,10 @@
+speed_scale: 1.0208
+trim_per_m: -0.131
+turn_scale: 0.9575
+latency_s: 0.111
+accel_mps2: 1.34
+turn_rate_dps: 45.0
+cam_pitch_deg: 30.85
+cam_yaw_deg: -0.4
+cam_y_m: -0.0014
+source: virtual fleet rehearsal (tape + protractor + one photo)

@@ -96,6 +96,13 @@ class LaneDetector:
         frac = dark.sum(1) / np.maximum(self.bev.ok.sum(1), 1)
         cross = frac > self.cross_frac                                   # stop lines / cross tapes: whole rows
         cross = cross | np.r_[cross[1:], False] | np.r_[False, cross[:-1]]
+        # A cross tape is a thin band of such rows. A thick band is a car body beside the lane: blanking its rows
+        # removed the lane's own line next to it, and a car leaving the box drove past the waiting car blind
+        # (unseen fleet, J2 left turn). The wide-run mask below takes the car out and keeps the line.
+        idx = np.flatnonzero(np.diff(np.r_[0, cross.astype(np.int8), 0]))
+        for a, b in zip(idx[::2], idx[1::2]):
+            if (b - a) * self.bev.b["res"] > 0.07:
+                cross[a:b] = False
         dark[cross] = False
         # Anything wider than tape in a row is not a line: another car (it is in the picture on the real course and
         # in Gazebo; a car waiting in the next lane merged with the divider and the lane was lost or mis-read).

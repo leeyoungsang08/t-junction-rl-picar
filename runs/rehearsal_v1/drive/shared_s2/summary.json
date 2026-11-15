@@ -1,11 +1,16 @@
 {
  "collisions": 0,
- "lane_departures": 2,
+ "near_road": 0,
+ "near_junction": 0,
+ "lane_departures": 1,
  "faults": 1,
  "illegal": 0,
- "deadlock_s": 267.8,
- "stop_p95_m": 0.012,
+ "deadlock_s": 267.7,
+ "stop_p95_m": 0.014,
  "crossings": 3,
  "throughput_per_min": 0.6,
- "crossing_time_s": 6.38
+ "crossing_time_s": 6.36,
+ "j_entries": 1,
+ "j_request_to_entry_s": 6.7,
+ "j_request_to_entry_max_s": 6.7
 }

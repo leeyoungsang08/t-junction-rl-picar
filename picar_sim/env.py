@@ -401,7 +401,10 @@ class PicarEnv:
                 permits[jn] = sup.tick(self.dt, snap["occupancy"], snap["occupancy_age"], link_age)
             waiting, front = self._substep(permits)
             starve = sum(max(0.0, w - r_cfg["starvation_s"]) for w in front.values()) / r_cfg["starvation_s"]
-            reward -= self.dt * (r_cfg["wait_weight"] * waiting / max(1, self.n_cars) + r_cfg["starvation_weight"] * starve)
+            # age term (v13): every second a request has been waiting costs more than the one before, so the tail is
+            # paid for long before the 20 s guard (v9 let requests age to the guard: max wait 17.3 s vs 12.8 s rule)
+            age = r_cfg.get("age_weight", 0.0) * sum(front.values()) / 10.0
+            reward -= self.dt * (r_cfg["wait_weight"] * waiting / max(1, self.n_cars) + r_cfg["starvation_weight"] * starve + age)
             if self.t - self.still_since >= self.cfg["simulation"]["deadlock_s"]:
                 self.deadlock = True
                 break

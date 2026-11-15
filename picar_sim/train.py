@@ -177,12 +177,13 @@ if __name__ == "__main__":
     p.add_argument("--time-budget-min", type=float)
     p.add_argument("--starvation-s", type=float, help="reward: wait above this is penalised (default config 20)")
     p.add_argument("--starvation-weight", type=float, help="reward: long-wait penalty weight (default config 0.5)")
+    p.add_argument("--age-weight", type=float, help="reward: cost per second proportional to the oldest wait of each approach / 10 s (default 0)")
     p.add_argument("--switch-weight", type=float, help="reward: cost per phase switch (default config 0.1)")
     p.add_argument("--val-seeds-per", type=int, default=2, help="validation episodes per scenario")
     p.add_argument("--max-wait-guard", type=float, help="supervisor: force service after this request age (s)")
     p.add_argument("--obs-schema", choices=["picar_v1", "picar_v2"], help="picar_v2 adds request age per approach")
     a = p.parse_args()
-    rew = {k: v for k, v in (("starvation_s", a.starvation_s), ("starvation_weight", a.starvation_weight),
+    rew = {k: v for k, v in (("starvation_s", a.starvation_s), ("starvation_weight", a.starvation_weight), ("age_weight", a.age_weight),
                              ("switch_weight", a.switch_weight)) if v is not None}
     train(a.seed, a.episodes, a.out, a.resume, a.backend, a.control_mode, a.randomize, a.time_budget_min,
           {"validation_seeds_per": a.val_seeds_per}, rew,

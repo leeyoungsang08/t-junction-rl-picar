@@ -1,0 +1,324 @@
+{
+ "collisions": 0,
+ "lane_departures": 2,
+ "illegal_crossings": 0,
+ "crossings": 4,
+ "faults": 0,
+ "exit_events": 3,
+ "stop_errors_m": [
+  -0.0516,
+  -0.0107,
+  -0.0069,
+  -0.0117,
+  -0.0019
+ ],
+ "max_all_stopped_s": 259.1,
+ "exit_log": [
+  {
+   "car": "car0",
+   "t": 6.2,
+   "move": "J2:E->W",
+   "offset_mm": 29,
+   "heading_deg": 3.5
+  },
+  {
+   "car": "car4",
+   "t": 6.7,
+   "move": "J:E->W",
+   "offset_mm": 117,
+   "heading_deg": 10.3
+  },
+  {
+   "car": "car3",
+   "t": 16.1,
+   "move": "J2:E->N",
+   "offset_mm": -91,
+   "heading_deg": 7.2
+  },
+  {
+   "car": "car2",
+   "t": 23.4,
+   "move": "J2:W->E",
+   "offset_mm": -60,
+   "heading_deg": 1.8
+  }
+ ],
+ "departure_log": [
+  {
+   "t": 7.5,
+   "car": "car4",
+   "pose": [
+    1.469,
+    0.161,
+    3.435
+   ],
+   "dist": 0.056,
+   "mode": "follow",
+   "edge": "W_out",
+   "since_box": 0.16
+  },
+  {
+   "t": 16.7,
+   "car": "car3",
+   "pose": [
+    1.561,
+    1.817,
+    4.955
+   ],
+   "dist": 0.064,
+   "mode": "follow",
+   "edge": "N_in",
+   "since_box": 0.13
+  }
+ ],
+ "field": [
+  {
+   "car": "car0",
+   "metric": "stop_error_m",
+   "value": -0.0516
+  },
+  {
+   "car": "car4",
+   "metric": "stop_error_m",
+   "value": -0.0107
+  },
+  {
+   "car": "car4",
+   "metric": "startup_delay_s",
+   "value": 0.09
+  },
+  {
+   "car": "car0",
+   "metric": "startup_delay_s",
+   "value": 0.14
+  },
+  {
+   "car": "car0",
+   "metric": "crossing_time_s",
+   "value": 4.24,
+   "move": "J2:E->W"
+  },
+  {
+   "car": "car3",
+   "metric": "startup_delay_s",
+   "value": 0.0
+  },
+  {
+   "car": "car3",
+   "metric": "crossing_time_s",
+   "value": 7.68,
+   "move": "J2:E->N"
+  },
+  {
+   "car": "car2",
+   "metric": "stop_error_m",
+   "value": -0.0069
+  },
+  {
+   "car": "car2",
+   "metric": "startup_delay_s",
+   "value": 0.08
+  },
+  {
+   "car": "car3",
+   "metric": "stop_error_m",
+   "value": -0.0117
+  },
+  {
+   "car": "car2",
+   "metric": "crossing_time_s",
+   "value": 4.68,
+   "move": "J2:W->E"
+  },
+  {
+   "car": "car2",
+   "metric": "stop_error_m",
+   "value": -0.0019
+  },
+  {
+   "car": "car0",
+   "metric": "speed_mps",
+   "value": 0.2344
+  },
+  {
+   "car": "car2",
+   "metric": "speed_mps",
+   "value": 0.2301
+  },
+  {
+   "car": "car3",
+   "metric": "speed_mps",
+   "value": 0.2512
+  }
+ ],
+ "lateral_mm": {
+  "car1": {
+   "straight": [
+    -19.6,
+    11.2,
+    38.5
+   ],
+   "curve": [
+    -10.8,
+    11.6,
+    38.5
+   ]
+  },
+  "car2": {
+   "straight": [
+    3.5,
+    9.4,
+    23.7
+   ],
+   "curve": [
+    -4.8,
+    13.4,
+    24.8
+   ]
+  },
+  "car3": {
+   "straight": [
+    -4.2,
+    9.1,
+    39.6
+   ],
+   "curve": [
+    -1.8,
+    8.1,
+    18.4
+   ]
+  },
+  "car4": {},
+  "car0": {
+   "straight": [
+    4.9,
+    6.8,
+    24.4
+   ],
+   "curve": [
+    5.5,
+    7.4,
+    17.1
+   ]
+  },
+  "car5": {
+   "straight": [
+    4.7,
+    4.4,
+    11.7
+   ],
+   "curve": [
+    8.8,
+    9.7,
+    23.7
+   ]
+  }
+ },
+ "throughput_per_min": 0.8,
+ "seconds": 300.0,
+ "cars": 6,
+ "calibration": [
+  {
+   "trim_per_m": 0.0,
+   "turn_scale": 1.0,
+   "accel_mps2": 1.0,
+   "latency_s": 0.05,
+   "speed_scale": 1.0
+  },
+  {
+   "trim_per_m": 0.0,
+   "turn_scale": 1.0,
+   "accel_mps2": 1.0,
+   "latency_s": 0.05,
+   "speed_scale": 1.0
+  },
+  {
+   "trim_per_m": 0.0,
+   "turn_scale": 1.0,
+   "accel_mps2": 1.0,
+   "latency_s": 0.05,
+   "speed_scale": 1.0
+  },
+  {
+   "trim_per_m": 0.0,
+   "turn_scale": 1.0,
+   "accel_mps2": 1.0,
+   "latency_s": 0.05,
+   "speed_scale": 1.0
+  },
+  {
+   "trim_per_m": 0.0,
+   "turn_scale": 1.0,
+   "accel_mps2": 1.0,
+   "latency_s": 0.05,
+   "speed_scale": 1.0
+  },
+  {
+   "trim_per_m": 0.0,
+   "turn_scale": 1.0,
+   "accel_mps2": 1.0,
+   "latency_s": 0.05,
+   "speed_scale": 1.0
+  }
+ ],
+ "server": {
+  "permits": 4,
+  "right_turn_permits": 0,
+  "permit_acks": 17,
+  "exit_events": 3,
+  "dup_status": 0,
+  "rejected": 0
+ },
+ "anomalies": [],
+ "stop_error_mean_m": -0.0166,
+ "stop_error_max_abs_m": 0.0516,
+ "modes": {
+  "car0": "follow",
+  "car1": "follow",
+  "car2": "hold",
+  "car3": "hold",
+  "car4": "follow",
+  "car5": "follow"
+ },
+ "events": {
+  "car0": [
+   "0.0 approach J2:E",
+   "0.0 line lost",
+   "1.2 stop line J2:E",
+   "3.0 enter J2 E->W legal=True",
+   "6.2 left box onto W_in",
+   "19.8 approach J:W"
+  ],
+  "car1": [
+   "0.0 line lost",
+   "12.2 approach J:W"
+  ],
+  "car2": [
+   "10.6 approach J2:W",
+   "17.9 stop line J2:W",
+   "20.1 enter J2 W->E legal=True",
+   "23.4 left box onto E_in",
+   "34.4 approach J:E",
+   "40.6 stop line J:E"
+  ],
+  "car3": [
+   "5.1 approach J2:E",
+   "9.4 stop line J2:E",
+   "9.4 enter J2 E->N legal=True",
+   "16.1 left box onto N_in",
+   "16.4 approach J:N",
+   "21.0 stop line J:N"
+  ],
+  "car4": [
+   "0.0 approach J:E",
+   "0.0 line lost",
+   "1.8 stop line J:E",
+   "3.0 enter J E->W legal=True",
+   "6.7 left box onto W_out"
+  ],
+  "car5": [
+   "0.0 line lost",
+   "4.0 approach J:W"
+  ]
+ }
+}

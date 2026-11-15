@@ -37,7 +37,7 @@ class CameraBrain:
         self.blocked = False
         self.ir_prev, self.stop_after, self.stop_after_m = 0, stop_after or {}, None
         self.align_left = math.radians(25.0)
-        self.recover_left = math.radians(60.0)
+        self.recover_left, self.recover_leg = math.radians(60.0), 0
         self.obstacle_box, self.clear_box = obstacle_box_m, clear_box_m
         self.s_stopline = None
         self.s_last_stop = -math.inf
@@ -172,6 +172,7 @@ class CameraBrain:
                     self._start_maneuver(now)
                     v, w = self.maneuver.update(ir, now, seen=False)
             else:
+                recovering = False
                 if line_ok:
                     v, w = fv, fw + self.trim_per_m * fv      # measured motor mismatch as feed-forward
                 elif self.s_left_box is not None and self.odo.s - self.s_left_box < self.coast_after_box:
@@ -180,13 +181,19 @@ class CameraBrain:
                     # car stopped 0.1 m inside the box after a left turn -> FAULT lane lost -> both T's jammed)
                     v = min(self.speed, 0.15)
                     w = self.trim_per_m * v
-                elif self.recover_left > 0.0 and abs(self.follower.last_k) > 1.0:
+                elif self.recover_leg < 2 and abs(self.follower.last_k) > 1.0:
                     # lane lost in a curve (typically: stopped for the oncoming car at the apex, which then hides
-                    # the divider while it passes): the lane went the way the car was steering, so turn that way
-                    # on the spot, at most 60 deg, instead of standing there until FAULT
+                    # the divider while it passes): turn on the spot instead of standing there until FAULT. First
+                    # 60 deg the way the car was steering; if nothing shows up, back and 60 deg the other way (on
+                    # the unseen Gazebo fleet the last frames before the loss steered the wrong way: run 022)
                     self.recover_left -= JunctionManeuver.spin_min * 0.05
+                    if self.recover_left <= 0.0:
+                        self.recover_leg += 1
+                        self.recover_left = math.radians(120.0)
                     self.detector.prev = {"right": None, "left": None}
-                    v, w = 0.0, math.copysign(JunctionManeuver.spin_min, self.follower.last_k)
+                    sign = math.copysign(1.0, self.follower.last_k) * (1.0 if self.recover_leg == 0 else -1.0)
+                    v, w = 0.0, (sign * JunctionManeuver.spin_min if self.recover_leg < 2 else 0.0)
+                    recovering = self.recover_leg < 2
                 else:
                     v, w = 0.0, 0.0
                 if range_m is not None and range_m < self.obstacle_slow:     # close in slowly (curves hide cars)
@@ -196,12 +203,12 @@ class CameraBrain:
                     if self.lost_since is None:
                         self.lost_since = now
                         self.events.append((now, "line lost"))
-                    elif now - self.lost_since > self.lost_fault_s:
+                    elif now - self.lost_since > self.lost_fault_s and not recovering:
                         self.mode = "fault"
                         self.events.append((now, "FAULT lane lost"))
                 else:
                     self.lost_since = None
-                    self.recover_left = math.radians(60.0)
+                    self.recover_left, self.recover_leg = math.radians(60.0), 0
         self.cmd = (v, w)
         if self.mode != "maneuver":                       # the maneuver feeds the odometer itself
             self.odo.command(v, now)

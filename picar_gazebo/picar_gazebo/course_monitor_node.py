@@ -97,7 +97,11 @@ class CourseMonitor(Node):
             return                    # still at its spawn point (may be placed just before a stop line)
         others = [self.pose[o] for o in self.cars if o != car and o in self.pose]
         if forward_range((x, y, yaw), others, self.L, self.W) < 0.35:
-            return                    # queued behind another car: not a stop at the line
+            # queued behind another car, or waiting for one that crosses in front: not a stop at the line. The whole
+            # stop is skipped: the other car drives off before this one moves again, and the stop was then counted as
+            # "7-9 cm short of the line" (20 min run: 4 of 123, all with a car 0.2 m ahead).
+            self.stop_logged.add(car)
+            return
         front = np.array([x + math.cos(yaw) * self.L / 2, y + math.sin(yaw) * self.L / 2])
         heading = np.array([math.cos(yaw), math.sin(yaw)])
         for s in self.meta["stoplines"]:

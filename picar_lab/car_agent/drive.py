@@ -88,6 +88,15 @@ class Odometer:
         return v / self.scale
 
 
+# Leaving the box, the first thing a car passes is the car waiting at the stop line of the opposite lane, 4 cm
+# away. Measured in the fleet rehearsal as the furthest the body reaches left of the lane centre between the box
+# and that car: p95 37 mm, max 109 mm, a touch every ~35 exits (Gazebo: one in 20 minutes, and the two cars lock).
+# With the four settings below: p95 8 mm, max 18 mm, no touch in 940 exits (two fleets, incl. 20 min each).
+EARLY = ("turn", "straight")   # steer on the camera as soon as the new lane is seen, not only after leaving the box
+EXIT_RIGHT = 0.02              # m: aim this far right of the lane centre until the maneuver is done
+RIGHT_EXTRA = 5.0              # deg: a right turn that stops short points the nose at the other lane; a left one away
+
+
 class JunctionManeuver:
     """Executes one plan: {"turn": "straight"|"left"|"right", "d1": m, "angle_deg": deg, "d2_min": m, "d2_max": m}
 
@@ -127,7 +136,7 @@ class JunctionManeuver:
         self.odo.command(v, now)
         return v, w
 
-    ALIGN_DEG, ALIGN_M = 10.0, 0.08          # camera: the maneuver ends only this well lined up with the new lane
+    ALIGN_DEG, ALIGN_M = 10.0, 0.045          # camera: the maneuver ends only this well lined up with the new lane
     spin_min = 0.7                           # rad/s: slowest on-the-spot rotation that surely beats the deadband
 
     def update(self, values, now, seen=None, lane=None):
@@ -146,6 +155,7 @@ class JunctionManeuver:
             n_dark = sum(1 for v in values if v == self.dark)
             seen = 0 < n_dark < 3
         if lane is not None:
+            lane = (lane[0] - EXIT_RIGHT, lane[1])
             seen = abs(lane[1]) < self.ALIGN_DEG and abs(lane[0]) < self.ALIGN_M
         self.seen_frames = self.seen_frames + 1 if seen else 0
         line_seen = self.seen_frames >= self.confirm        # debounced; >= 3 dark is a cross tape
@@ -160,7 +170,7 @@ class JunctionManeuver:
             else:
                 return self._out(self.v, self.trim * self.v, now)
         if self.phase == "turn":
-            target = math.radians(abs(p["angle_deg"])) / self.turn_scale
+            target = math.radians(abs(p["angle_deg"]) + (RIGHT_EXTRA if p["angle_deg"] < 0 else 0.0)) / self.turn_scale
             self.angle += self.rate * dt
             if self.angle >= target - 1e-9:
                 self.phase, self.s_d2 = "d2", self.odo.s
@@ -174,8 +184,14 @@ class JunctionManeuver:
             if d >= p["d2_max"]:
                 self.phase, self.sweep, self.sweep_leg = "search", 0.0, 0
                 return self._out(0.0, 0.0, now)
-            if steer is not None and d >= p["d2_min"]:
-                return self._out(self.v * 0.6, steer, now)
+            early = False
+            if steer is not None and d < p["d2_min"]:
+                if p["turn"] != "straight":
+                    early = "turn" in EARLY
+                else:
+                    early = "straight" in EARLY and d >= 0.12 and abs(lane[0]) < 0.07 and abs(lane[1]) < 12.0
+            if steer is not None and (d >= p["d2_min"] or early):
+                return self._out(self.v * (0.6 if not early else 0.8), steer, now)
             return self._out(self.v, self.trim * self.v, now)
         if self.phase == "search":
             if line_seen:

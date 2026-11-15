@@ -19,6 +19,7 @@ from pathlib import Path
 STOP_TOL_M = 0.05          # bumper vs. stop-line far edge
 BOX_GAP_M = 0.12           # stop-line far edge -> conflict box (course.yaml stopline_offset_m)
 DEADLOCK_S = 30.0
+FREE_FLOW_S = 1.20 / 0.2411   # approach zone / cruise speed (course.yaml), the same definition as picar_sim/env.py
 MOVE_EPS_M = 0.01          # moved less than this in 1 s = stationary
 STARTUP_S = 15.0           # ignore the first seconds (cars spawn at +6 s, register, wait for permits)
 ANSI = re.compile(r"\x1b\[[0-9;]*m")
@@ -162,10 +163,18 @@ def judge(run, kind, minutes, beam_window):
                 f"{b['grants_during_fault']} {b['examples'] or ''}")
     perf = None
     if log and m:
-        d = log["delays"]["J"]
-        mins = max(m.get("elapsed_s", 0) - 6, 1) / 60
+        # The drive-node log is stamped in wall time. With RTF 0.75 that made every delay 1.33x too long and the
+        # rate 0.75x too low, which looked like a gap to SUMO (11.5 s vs 3.6 s). Convert to simulated time and take
+        # off the free-flow time through the approach zone, as picar_sim/env.py does.
+        rtf = (dl or {}).get("rtf") or 1.0
+        d = [x * rtf for x in log["delays"]["J"]]
+        over = sorted(max(0.0, x - FREE_FLOW_S) for x in d)
+        mins = max(((dl or {}).get("sim_s") or m.get("elapsed_s", 0)) - 6 * rtf, 1) / 60
         perf = {"J_crossings": len(d), "J_per_min": round(len(d) / mins, 2),
-                "J_delay_mean_s": round(sum(d) / len(d), 2) if d else None, "J_delay_max_s": round(max(d), 1) if d else None,
+                "J_delay_mean_s": round(sum(over) / len(over), 2) if over else None,
+                "J_delay_p95_s": round(over[min(len(over) - 1, int(0.95 * len(over)))], 1) if over else None,
+                "J_delay_max_s": round(max(over), 1) if over else None,
+                "J_request_to_entry_s": round(sum(d) / len(d), 2) if d else None,
                 "all_crossings": log["crossings"]}
     return {"run": run.name, "kind": kind, "ok": all(c["ok"] for c in checks), "checks": checks,
             "metrics": m, "deadlock": dl, "perf": perf}
@@ -191,14 +200,15 @@ def main():
         if r["kind"] == "seed" and r["perf"]:
             groups.setdefault(r["run"].split("_", 1)[1] if "_" in r["run"] else "rule", []).append(r)
     if len(groups) > 1 or any(len(v) > 0 for v in groups.values()):
-        lines += ["## 교차로 J 성능 (APPROACH 요청 → 진입)", "",
-                  "| 제어 | run 수 | 통과 [대/분] | 평균 지연 [s] | 최장 지연 [s] | 안전 항목 |", "|---|---:|---:|---:|---:|---|"]
+        lines += ["## 교차로 J 성능 (시뮬레이션 시간 기준, 지연 = 요청→진입에서 자유 주행 시간을 뺀 값. SUMO와 같은 정의)", "",
+                  "| 제어 | run 수 | 통과 [대/분] | 평균 지연 [s] | p95 [s] | 최장 지연 [s] | 안전 항목 |", "|---|---:|---:|---:|---:|---:|---|"]
         for g, rs in sorted(groups.items()):
             ds = [r["perf"] for r in rs]
             n = sum(p["J_crossings"] for p in ds)
             mean = sum((p["J_delay_mean_s"] or 0) * p["J_crossings"] for p in ds) / n if n else None
             lines.append(f"| {g} | {len(rs)} | {sum(p['J_per_min'] for p in ds) / len(ds):.2f} | "
-                         f"{'-' if mean is None else f'{mean:.2f}'} | {max((p['J_delay_max_s'] or 0) for p in ds):.1f} | "
+                         f"{'-' if mean is None else f'{mean:.2f}'} | {max((p['J_delay_p95_s'] or 0) for p in ds):.1f} | "
+                         f"{max((p['J_delay_max_s'] or 0) for p in ds):.1f} | "
                          f"{'모두 OK' if all(r['ok'] for r in rs) else 'FAIL 있음'} |")
         lines.append("")
     overall = bool(runs) and all(r["ok"] for r in runs)
