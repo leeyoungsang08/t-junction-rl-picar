@@ -22,7 +22,7 @@ def _setup(context):
     cfg = {k: LaunchConfiguration(k).perform(context) for k in
            ("cars", "seed", "policy", "mode", "gui", "out_dir", "beam_fault_start", "beam_fault_stop", "speed_mps",
             "motor_latency_s", "gain_right", "ir_flip_prob", "port", "calibration", "turn_rate_dps", "fleet",
-            "calibration_dir")}
+            "calibration_dir", "real_time_factor")}
     repo = Path(os.environ.get("PICAR_REPO", Path.home() / "t-junction-rl-picar")).expanduser()
     if not (repo / "picar_sim").exists():
         raise RuntimeError(f"PICAR_REPO={repo} does not contain picar_sim; export PICAR_REPO=<repo path>")
@@ -38,7 +38,7 @@ def _setup(context):
         fleet = [{**NOMINAL, **t} for t in load_fleet(Path(cfg["fleet"]).expanduser())]
         if len(fleet) < int(cfg["cars"]):
             raise RuntimeError(f"fleet file has {len(fleet)} cars, cars:={cfg['cars']}")
-    generate(out, int(cfg["cars"]), int(cfg["seed"]), None, fleet)
+    generate(out, int(cfg["cars"]), int(cfg["seed"]), None, fleet, real_time_factor=float(cfg["real_time_factor"]))
     meta = yaml.safe_load((out / "course_meta.yaml").read_text())
     env = {**os.environ, "PYTHONPATH": f"{repo}{os.pathsep}{os.environ.get('PYTHONPATH', '')}", "PICAR_REPO": str(repo)}
     port = cfg["port"]
@@ -130,5 +130,6 @@ def generate_launch_description():
             DeclareLaunchArgument("port", default_value="5007"),
             DeclareLaunchArgument("fleet", default_value="", description="fleet_truth.yaml: per-car hidden hardware"),
             DeclareLaunchArgument("calibration_dir", default_value="", description="directory with <car>.yaml files"),
-            DeclareLaunchArgument("turn_rate_dps", default_value="45.0", description="in-place turn rate at junctions (90: angle not repeatable in Gazebo)")]
+            DeclareLaunchArgument("turn_rate_dps", default_value="45.0", description="in-place turn rate at junctions (90: angle not repeatable in Gazebo)"),
+            DeclareLaunchArgument("real_time_factor", default_value="1.0", description="Gazebo physics speed multiplier (1=real-time, 3=3x faster, 5=5x)")]
     return LaunchDescription(args + [SetEnvironmentVariable("RCUTILS_COLORIZED_OUTPUT", "1"), OpaqueFunction(function=_setup)])

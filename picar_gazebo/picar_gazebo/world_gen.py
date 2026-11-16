@@ -219,12 +219,12 @@ def car_model(world, car, color, truth=None):
         _sub(pp, k, v)
 
 
-def build_world(course, cars, texture_path, fleet=None):
+def build_world(course, cars, texture_path, fleet=None, real_time_factor=1.0):
     sdf = ET.Element("sdf", version="1.8")
     world = _sub(sdf, "world", name="picar_course")
     phys = _sub(world, "physics", name="1ms", type="ignored")
     _sub(phys, "max_step_size", 0.001)
-    _sub(phys, "real_time_factor", 1.0)
+    _sub(phys, "real_time_factor", float(real_time_factor))
     for fn, nm in (("ignition-gazebo-physics-system", "ignition::gazebo::systems::Physics"),
                    ("ignition-gazebo-user-commands-system", "ignition::gazebo::systems::UserCommands"),
                    ("ignition-gazebo-scene-broadcaster-system", "ignition::gazebo::systems::SceneBroadcaster")):
@@ -267,7 +267,7 @@ def build_world(course, cars, texture_path, fleet=None):
     return ET.tostring(sdf, encoding="unicode", xml_declaration=True)
 
 
-def generate(out, cars=3, seed=1, cfg=None, fleet=None):
+def generate(out, cars=3, seed=1, cfg=None, fleet=None, real_time_factor=1.0):
     """fleet: list of per-car hidden hardware (virtual_fleet.load_fleet); None = identical ideal cars."""
     out = Path(out).expanduser()
     out.mkdir(parents=True, exist_ok=True)
@@ -275,7 +275,7 @@ def generate(out, cars=3, seed=1, cfg=None, fleet=None):
     texture = out / "course_texture.png"
     px = draw_texture(course, texture)
     car_list = make_routes(cars, seed, course)
-    (out / "picar_course.sdf").write_text(build_world(course, car_list, texture, fleet), encoding="utf-8")
+    (out / "picar_course.sdf").write_text(build_world(course, car_list, texture, fleet, real_time_factor), encoding="utf-8")
     # sensor bar position past the near edge of the 3 cm stop tape when the line is detected. Gazebo, 3 cars
     # (2026-11-11): cars come to rest with the bumper on the far edge after rolling ~0.019 m (calibration),
     # so detection happens ~0.012 m past the near edge. 0.04 made every turn start ~3 cm early.
