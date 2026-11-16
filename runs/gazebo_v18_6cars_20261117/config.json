@@ -1,0 +1,1 @@
+{"cars": 6, "minutes": 10, "seeds": "1 2", "controllers": "rule dqn", "policy": "runs/picar_v18_mix_seg_norm/seed42/best_policy.npz", "gui": "true", "beam_fault_start": 60, "beam_fault_stop": 80, "turn_rate_dps": 45, "commit": "a532dc9"}

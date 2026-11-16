@@ -1,0 +1,746 @@
+{
+ "ok": false,
+ "runs": [
+  {
+   "run": "beam",
+   "kind": "beam",
+   "ok": false,
+   "checks": [
+    {
+     "check": "\ucda9\ub3cc 0",
+     "ok": true,
+     "value": 0
+    },
+    {
+     "check": "\ucc28\ub85c \uc774\ud0c8 0",
+     "ok": true,
+     "value": 0
+    },
+    {
+     "check": "\uc815\uc9c0 \uc704\uce58 \u00b15 cm",
+     "ok": true,
+     "value": "13\ud68c, \ubc97\uc5b4\ub0a8 0, p95 \uc624\ucc28 = 0.0102 m"
+    },
+    {
+     "check": "\ubc15\uc2a4 \uc548 \uc815\uc9c0 0",
+     "ok": true,
+     "value": 0
+    },
+    {
+     "check": "\ud5c8\uac00 \uc5c6\ub294 \uc9c4\uc785 0",
+     "ok": true,
+     "value": "0 / \uc9c4\uc785 21"
+    },
+    {
+     "check": "FAULT 0",
+     "ok": true,
+     "value": 0
+    },
+    {
+     "check": "\ub178\ub4dc \ube44\uc815\uc0c1 \uc885\ub8cc 0",
+     "ok": true,
+     "value": "died 0, traceback 0"
+    },
+    {
+     "check": "\uad50\ucc28\ub85c \ud1b5\uacfc \ubc1c\uc0dd",
+     "ok": true,
+     "value": 21
+    },
+    {
+     "check": "\uad50\ucc29 0 (\uc804\uc6d0 30 s \uc774\uc0c1 \uc815\uc9c0)",
+     "ok": true,
+     "value": "\ucd5c\uc7a5 0 s"
+    },
+    {
+     "check": "\uc2e4\uc2dc\uac04 \ube44\uc728 \u2265 0.9",
+     "ok": false,
+     "value": "RTF 0.68 (sim 85.1 s / wall 125.6 s)"
+    },
+    {
+     "check": "\ube54 \uacb0\ud568\uc774 \uc2e4\uc81c\ub85c \uac10\uc9c0\ub428",
+     "ok": true,
+     "value": [
+      [
+       0.0,
+       7.4
+      ],
+      [
+       61.5,
+       80.4
+      ]
+     ]
+    },
+    {
+     "check": "\ube54 \uacb0\ud568 \uc911 \uc2e0\uaddc \uc9c4\uc785 \ud5c8\uac00 0",
+     "ok": true,
+     "value": "0 "
+    }
+   ],
+   "metrics": {
+    "collisions": 0,
+    "lane_departures": 0,
+    "exit_events": 20,
+    "stop_errors_m": [
+     0.0086,
+     0.0002,
+     0.0088,
+     0.0059,
+     -0.0024,
+     -0.003,
+     0.0093,
+     0.0116,
+     0.0078,
+     0.009,
+     0.0025,
+     0.0065,
+     -0.002
+    ],
+    "distance_m": {
+     "car0": 11.399981544033437,
+     "car1": 11.930024572944431,
+     "car2": 11.32389459122506,
+     "car3": 13.647946733375266,
+     "car4": 13.28131797795924,
+     "car5": 14.207018680889327
+    },
+    "min_gap_m": 0.21719406039467665,
+    "elapsed_s": 127.9,
+    "stop_error_mean_m": 0.0048,
+    "stop_error_p95_abs_m": 0.0102
+   },
+   "deadlock": {
+    "all_stopped_max_s": 0.0,
+    "wall_s": 125.6,
+    "sim_s": 85.1,
+    "rtf": 0.68
+   },
+   "perf": {
+    "J_crossings": 11,
+    "J_per_min": 8.15,
+    "J_delay_mean_s": 7.31,
+    "J_delay_p95_s": 22.3,
+    "J_delay_max_s": 22.3,
+    "J_request_to_entry_s": 12.03,
+    "all_crossings": 21
+   }
+  },
+  {
+   "run": "seed1_dqn",
+   "kind": "seed",
+   "ok": false,
+   "checks": [
+    {
+     "check": "\ucda9\ub3cc 0",
+     "ok": true,
+     "value": 0
+    },
+    {
+     "check": "\ucc28\ub85c \uc774\ud0c8 0",
+     "ok": true,
+     "value": 0
+    },
+    {
+     "check": "\uc815\uc9c0 \uc704\uce58 \u00b15 cm",
+     "ok": true,
+     "value": "59\ud68c, \ubc97\uc5b4\ub0a8 0, p95 \uc624\ucc28 = 0.0156 m"
+    },
+    {
+     "check": "\ubc15\uc2a4 \uc548 \uc815\uc9c0 0",
+     "ok": true,
+     "value": 0
+    },
+    {
+     "check": "\uc8fc\ud589 \uc2dc\uac04 \u2265 10.0 \ubd84",
+     "ok": true,
+     "value": "617.9 s"
+    },
+    {
+     "check": "\ud5c8\uac00 \uc5c6\ub294 \uc9c4\uc785 0",
+     "ok": true,
+     "value": "0 / \uc9c4\uc785 110"
+    },
+    {
+     "check": "FAULT 0",
+     "ok": true,
+     "value": 0
+    },
+    {
+     "check": "\ub178\ub4dc \ube44\uc815\uc0c1 \uc885\ub8cc 0",
+     "ok": true,
+     "value": "died 0, traceback 0"
+    },
+    {
+     "check": "\uad50\ucc28\ub85c \ud1b5\uacfc \ubc1c\uc0dd",
+     "ok": true,
+     "value": 110
+    },
+    {
+     "check": "\uad50\ucc29 0 (\uc804\uc6d0 30 s \uc774\uc0c1 \uc815\uc9c0)",
+     "ok": true,
+     "value": "\ucd5c\uc7a5 0 s"
+    },
+    {
+     "check": "\uc2e4\uc2dc\uac04 \ube44\uc728 \u2265 0.9",
+     "ok": false,
+     "value": "RTF 0.66 (sim 405.2 s / wall 615.5 s)"
+    }
+   ],
+   "metrics": {
+    "collisions": 0,
+    "lane_departures": 0,
+    "exit_events": 108,
+    "stop_errors_m": [
+     0.0144,
+     -0.0049,
+     0.006,
+     0.01,
+     0.0042,
+     0.0123,
+     0.0063,
+     0.0084,
+     -0.003,
+     0.0118,
+     0.005,
+     0.0011,
+     -0.0022,
+     0.007,
+     0.0208,
+     0.0044,
+     0.006,
+     0.0009,
+     0.0093,
+     0.0027,
+     -0.0042,
+     0.0083,
+     0.0118,
+     -0.0028,
+     -0.004,
+     -0.0014,
+     0.0134,
+     0.0096,
+     0.0103,
+     0.0067,
+     0.0117,
+     0.0212,
+     0.0048,
+     0.002,
+     0.0102,
+     0.006,
+     0.0053,
+     0.008,
+     -0.0024,
+     -0.0026,
+     0.0109,
+     0.0092,
+     0.0072,
+     0.0011,
+     0.0059,
+     0.0007,
+     0.0114,
+     0.0105,
+     0.0038,
+     -0.0002,
+     0.0036,
+     0.0123,
+     0.0017,
+     0.0154,
+     0.0178,
+     0.0052,
+     0.005,
+     -0.0013,
+     0.0034
+    ],
+    "distance_m": {
+     "car0": 65.21384583258374,
+     "car1": 68.54538131445027,
+     "car2": 67.89185982410443,
+     "car3": 63.83912358446301,
+     "car4": 59.357407089080965,
+     "car5": 65.6320255018574
+    },
+    "min_gap_m": 0.20906918885736425,
+    "elapsed_s": 617.9,
+    "stop_error_mean_m": 0.006,
+    "stop_error_p95_abs_m": 0.0156
+   },
+   "deadlock": {
+    "all_stopped_max_s": 0.0,
+    "wall_s": 615.5,
+    "sim_s": 405.2,
+    "rtf": 0.66
+   },
+   "perf": {
+    "J_crossings": 54,
+    "J_per_min": 8.07,
+    "J_delay_mean_s": 2.95,
+    "J_delay_p95_s": 9.4,
+    "J_delay_max_s": 10.9,
+    "J_request_to_entry_s": 7.92,
+    "all_crossings": 110
+   }
+  },
+  {
+   "run": "seed1_rule",
+   "kind": "seed",
+   "ok": false,
+   "checks": [
+    {
+     "check": "\ucda9\ub3cc 0",
+     "ok": true,
+     "value": 0
+    },
+    {
+     "check": "\ucc28\ub85c \uc774\ud0c8 0",
+     "ok": true,
+     "value": 0
+    },
+    {
+     "check": "\uc815\uc9c0 \uc704\uce58 \u00b15 cm",
+     "ok": true,
+     "value": "65\ud68c, \ubc97\uc5b4\ub0a8 0, p95 \uc624\ucc28 = 0.014 m"
+    },
+    {
+     "check": "\ubc15\uc2a4 \uc548 \uc815\uc9c0 0",
+     "ok": true,
+     "value": 0
+    },
+    {
+     "check": "\uc8fc\ud589 \uc2dc\uac04 \u2265 10.0 \ubd84",
+     "ok": true,
+     "value": "617.9 s"
+    },
+    {
+     "check": "\ud5c8\uac00 \uc5c6\ub294 \uc9c4\uc785 0",
+     "ok": true,
+     "value": "0 / \uc9c4\uc785 115"
+    },
+    {
+     "check": "FAULT 0",
+     "ok": true,
+     "value": 0
+    },
+    {
+     "check": "\ub178\ub4dc \ube44\uc815\uc0c1 \uc885\ub8cc 0",
+     "ok": true,
+     "value": "died 0, traceback 0"
+    },
+    {
+     "check": "\uad50\ucc28\ub85c \ud1b5\uacfc \ubc1c\uc0dd",
+     "ok": true,
+     "value": 115
+    },
+    {
+     "check": "\uad50\ucc29 0 (\uc804\uc6d0 30 s \uc774\uc0c1 \uc815\uc9c0)",
+     "ok": true,
+     "value": "\ucd5c\uc7a5 0 s"
+    },
+    {
+     "check": "\uc2e4\uc2dc\uac04 \ube44\uc728 \u2265 0.9",
+     "ok": false,
+     "value": "RTF 0.7 (sim 427.8 s / wall 615.5 s)"
+    }
+   ],
+   "metrics": {
+    "collisions": 0,
+    "lane_departures": 0,
+    "exit_events": 115,
+    "stop_errors_m": [
+     0.0143,
+     -0.0117,
+     0.0004,
+     0.0013,
+     0.0001,
+     -0.0081,
+     0.0047,
+     0.0031,
+     -0.0042,
+     -0.0056,
+     0.0049,
+     0.0116,
+     -0.0092,
+     0.0105,
+     0.011,
+     0.003,
+     -0.0001,
+     0.0075,
+     0.0063,
+     -0.0019,
+     0.0082,
+     0.0044,
+     0.0027,
+     0.0105,
+     0.0087,
+     0.0047,
+     0.0006,
+     0.0039,
+     -0.0066,
+     0.0037,
+     0.0114,
+     0.0046,
+     0.0201,
+     -0.0031,
+     0.0031,
+     -0.0015,
+     0.0025,
+     0.0035,
+     -0.0067,
+     0.0009,
+     0.0227,
+     0.015,
+     -0.0011,
+     0.0006,
+     -0.0048,
+     0.0059,
+     0.0044,
+     0.0037,
+     0.0043,
+     0.0042,
+     0.0023,
+     0.0016,
+     0.0058,
+     0.0098,
+     0.0036,
+     -0.0006,
+     -0.006,
+     -0.0062,
+     0.0026,
+     0.0085,
+     0.013,
+     0.0061,
+     0.0007,
+     0.0102,
+     0.0069
+    ],
+    "distance_m": {
+     "car0": 69.76445996036486,
+     "car1": 70.62900494809183,
+     "car2": 72.49872995468158,
+     "car3": 60.8825931610121,
+     "car4": 70.91865185902829,
+     "car5": 66.51918366423284
+    },
+    "min_gap_m": 0.21082090695965394,
+    "elapsed_s": 617.9,
+    "stop_error_mean_m": 0.0035,
+    "stop_error_p95_abs_m": 0.014
+   },
+   "deadlock": {
+    "all_stopped_max_s": 0.0,
+    "wall_s": 615.5,
+    "sim_s": 427.8,
+    "rtf": 0.7
+   },
+   "perf": {
+    "J_crossings": 57,
+    "J_per_min": 8.07,
+    "J_delay_mean_s": 4.16,
+    "J_delay_p95_s": 11.8,
+    "J_delay_max_s": 15.4,
+    "J_request_to_entry_s": 9.1,
+    "all_crossings": 115
+   }
+  },
+  {
+   "run": "seed2_dqn",
+   "kind": "seed",
+   "ok": false,
+   "checks": [
+    {
+     "check": "\ucda9\ub3cc 0",
+     "ok": true,
+     "value": 0
+    },
+    {
+     "check": "\ucc28\ub85c \uc774\ud0c8 0",
+     "ok": true,
+     "value": 0
+    },
+    {
+     "check": "\uc815\uc9c0 \uc704\uce58 \u00b15 cm",
+     "ok": true,
+     "value": "52\ud68c, \ubc97\uc5b4\ub0a8 0, p95 \uc624\ucc28 = 0.0118 m"
+    },
+    {
+     "check": "\ubc15\uc2a4 \uc548 \uc815\uc9c0 0",
+     "ok": true,
+     "value": 0
+    },
+    {
+     "check": "\uc8fc\ud589 \uc2dc\uac04 \u2265 10.0 \ubd84",
+     "ok": true,
+     "value": "617.9 s"
+    },
+    {
+     "check": "\ud5c8\uac00 \uc5c6\ub294 \uc9c4\uc785 0",
+     "ok": true,
+     "value": "0 / \uc9c4\uc785 107"
+    },
+    {
+     "check": "FAULT 0",
+     "ok": true,
+     "value": 0
+    },
+    {
+     "check": "\ub178\ub4dc \ube44\uc815\uc0c1 \uc885\ub8cc 0",
+     "ok": true,
+     "value": "died 0, traceback 0"
+    },
+    {
+     "check": "\uad50\ucc28\ub85c \ud1b5\uacfc \ubc1c\uc0dd",
+     "ok": true,
+     "value": 107
+    },
+    {
+     "check": "\uad50\ucc29 0 (\uc804\uc6d0 30 s \uc774\uc0c1 \uc815\uc9c0)",
+     "ok": true,
+     "value": "\ucd5c\uc7a5 0 s"
+    },
+    {
+     "check": "\uc2e4\uc2dc\uac04 \ube44\uc728 \u2265 0.9",
+     "ok": false,
+     "value": "RTF 0.65 (sim 400.7 s / wall 615.5 s)"
+    }
+   ],
+   "metrics": {
+    "collisions": 0,
+    "lane_departures": 0,
+    "exit_events": 105,
+    "stop_errors_m": [
+     -0.0051,
+     0.0066,
+     0.0077,
+     0.0025,
+     0.0088,
+     0.0013,
+     0.0067,
+     0.0084,
+     0.0075,
+     0.0097,
+     0.01,
+     0.0042,
+     0.0031,
+     0.0069,
+     0.0016,
+     -0.0001,
+     -0.0062,
+     -0.0019,
+     0.0126,
+     -0.0009,
+     0.0052,
+     0.0023,
+     0.0033,
+     0.004,
+     0.0016,
+     0.0014,
+     0.0098,
+     0.0149,
+     0.0029,
+     -0.0072,
+     0.0109,
+     0.0118,
+     -0.0006,
+     0.0108,
+     -0.001,
+     0.0045,
+     0.0118,
+     0.0001,
+     -0.0015,
+     0.0083,
+     0.0016,
+     -0.0009,
+     0.0063,
+     0.0054,
+     0.0067,
+     -0.0097,
+     -0.0075,
+     0.0102,
+     0.0051,
+     0.0102,
+     -0.0004,
+     0.0065
+    ],
+    "distance_m": {
+     "car0": 66.58301135782162,
+     "car1": 70.4079099701862,
+     "car2": 67.871517628688,
+     "car3": 68.12804309051984,
+     "car4": 60.29391706728427,
+     "car5": 64.84050583467318
+    },
+    "min_gap_m": 0.2030612020491539,
+    "elapsed_s": 617.9,
+    "stop_error_mean_m": 0.004,
+    "stop_error_p95_abs_m": 0.0118
+   },
+   "deadlock": {
+    "all_stopped_max_s": 0.0,
+    "wall_s": 615.5,
+    "sim_s": 400.7,
+    "rtf": 0.65
+   },
+   "perf": {
+    "J_crossings": 54,
+    "J_per_min": 8.17,
+    "J_delay_mean_s": 2.73,
+    "J_delay_p95_s": 9.1,
+    "J_delay_max_s": 10.6,
+    "J_request_to_entry_s": 7.68,
+    "all_crossings": 107
+   }
+  },
+  {
+   "run": "seed2_rule",
+   "kind": "seed",
+   "ok": false,
+   "checks": [
+    {
+     "check": "\ucda9\ub3cc 0",
+     "ok": true,
+     "value": 0
+    },
+    {
+     "check": "\ucc28\ub85c \uc774\ud0c8 0",
+     "ok": true,
+     "value": 0
+    },
+    {
+     "check": "\uc815\uc9c0 \uc704\uce58 \u00b15 cm",
+     "ok": true,
+     "value": "58\ud68c, \ubc97\uc5b4\ub0a8 0, p95 \uc624\ucc28 = 0.0167 m"
+    },
+    {
+     "check": "\ubc15\uc2a4 \uc548 \uc815\uc9c0 0",
+     "ok": true,
+     "value": 0
+    },
+    {
+     "check": "\uc8fc\ud589 \uc2dc\uac04 \u2265 10.0 \ubd84",
+     "ok": true,
+     "value": "617.9 s"
+    },
+    {
+     "check": "\ud5c8\uac00 \uc5c6\ub294 \uc9c4\uc785 0",
+     "ok": true,
+     "value": "0 / \uc9c4\uc785 108"
+    },
+    {
+     "check": "FAULT 0",
+     "ok": true,
+     "value": 0
+    },
+    {
+     "check": "\ub178\ub4dc \ube44\uc815\uc0c1 \uc885\ub8cc 0",
+     "ok": true,
+     "value": "died 0, traceback 0"
+    },
+    {
+     "check": "\uad50\ucc28\ub85c \ud1b5\uacfc \ubc1c\uc0dd",
+     "ok": true,
+     "value": 108
+    },
+    {
+     "check": "\uad50\ucc29 0 (\uc804\uc6d0 30 s \uc774\uc0c1 \uc815\uc9c0)",
+     "ok": true,
+     "value": "\ucd5c\uc7a5 0 s"
+    },
+    {
+     "check": "\uc2e4\uc2dc\uac04 \ube44\uc728 \u2265 0.9",
+     "ok": false,
+     "value": "RTF 0.67 (sim 410.7 s / wall 615.6 s)"
+    }
+   ],
+   "metrics": {
+    "collisions": 0,
+    "lane_departures": 0,
+    "exit_events": 106,
+    "stop_errors_m": [
+     0.0094,
+     0.0176,
+     0.0165,
+     0.0178,
+     0.007,
+     0.0073,
+     0.0143,
+     0.002,
+     0.0099,
+     0.0034,
+     0.0014,
+     0.0013,
+     0.0041,
+     0.0125,
+     0.0078,
+     0.0119,
+     0.0005,
+     0.003,
+     0.0116,
+     0.0065,
+     0.0059,
+     0.0073,
+     0.004,
+     0.0016,
+     0.0027,
+     -0.0032,
+     -0.0088,
+     0.0034,
+     0.0105,
+     -0.008,
+     0.0111,
+     0.0024,
+     -0.0012,
+     0.0101,
+     0.0052,
+     0.0052,
+     0.0136,
+     0.0018,
+     0.0027,
+     0.0107,
+     0.0061,
+     0.0077,
+     0.0084,
+     0.0071,
+     0.0092,
+     0.0028,
+     0.0045,
+     0.0091,
+     0.0099,
+     -0.0085,
+     0.0025,
+     0.0088,
+     0.0066,
+     0.0184,
+     0.0117,
+     0.0038,
+     -0.004,
+     0.0113
+    ],
+    "distance_m": {
+     "car0": 67.02161088927546,
+     "car1": 74.24364250021985,
+     "car2": 64.15757899060002,
+     "car3": 68.35711433607926,
+     "car4": 60.28310167810172,
+     "car5": 65.28118719903341
+    },
+    "min_gap_m": 0.20906752625079467,
+    "elapsed_s": 617.9,
+    "stop_error_mean_m": 0.0062,
+    "stop_error_p95_abs_m": 0.0167
+   },
+   "deadlock": {
+    "all_stopped_max_s": 0.0,
+    "wall_s": 615.6,
+    "sim_s": 410.7,
+    "rtf": 0.67
+   },
+   "perf": {
+    "J_crossings": 54,
+    "J_per_min": 7.97,
+    "J_delay_mean_s": 4.26,
+    "J_delay_p95_s": 11.4,
+    "J_delay_max_s": 15.1,
+    "J_request_to_entry_s": 9.21,
+    "all_crossings": 108
+   }
+  }
+ ]
+}
