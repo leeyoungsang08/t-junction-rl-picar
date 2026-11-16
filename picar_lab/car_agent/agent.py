@@ -19,13 +19,14 @@ ZONES = ("CRUISE", "APPROACH", "ARRIVE", "IN")
 
 
 class CarAgent:
-    def __init__(self, car, route, start_index=0, refresh_s=0.2, retransmit_s=0.15, boot=None):
+    def __init__(self, car, route, start_index=0, refresh_s=0.2, retransmit_s=0.15, boot=None, heartbeat_s=0.2):
         """route: cyclic list of segment edges the car drives, e.g. ["W_in", "E_out", "N_in", "W_out"]."""
         if len(route) < 2:
             raise ValueError("route needs at least two segments")
         self.car, self.route, self.idx = car, list(route), start_index
         self.boot = boot or uuid4().hex
-        self.refresh_s, self.retransmit_s = refresh_s, retransmit_s
+        self.refresh_s, self.retransmit_s, self.heartbeat_s = refresh_s, retransmit_s, heartbeat_s
+        self.last_sent = None              # local time of the last packet of any kind (heartbeat timer)
         self.seq = 0
         self.zone = "CRUISE"
         self.session = None
@@ -174,7 +175,13 @@ class CarAgent:
             if now - sent >= self.retransmit_s - 1e-9:
                 self.outbox.append(msg)                     # same seq: the central PC de-duplicates
                 self.unacked[seq] = (msg, now)
+        if (self.registered and not self.outbox and self.heartbeat_s
+                and (self.last_sent is None or now - self.last_sent >= self.heartbeat_s - 1e-9)):
+            self.outbox.append({"v": VERSION, "type": "car_heartbeat", "car": self.car, "boot": self.boot,
+                                "line_ok": self.line_ok, "obstacle": self.obstacle})
         out, self.outbox = self.outbox, []
+        if out:
+            self.last_sent = now
         return out
 
 

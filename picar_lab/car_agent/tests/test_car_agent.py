@@ -104,3 +104,23 @@ def test_exit_beam_reports_rear_leaving_and_heartbeat():
     assert [m["type"] for m in mon.update({"W_out": True, "E_out": False, "N_out": False})] == ["beam_heartbeat"]
     out = mon.update({"W_out": False, "E_out": False, "N_out": False})
     assert [(m["type"], m.get("edge")) for m in out] == [("exit_event", "W_out"), ("beam_heartbeat", None)]
+
+
+def test_quiet_car_sends_heartbeat_so_central_link_stays_alive():
+    """A cruising or crossing car still sends something every heartbeat_s (link_timeout_s is 0.5 s)."""
+    from picar_lab.car_agent.protocol import valid_car_heartbeat
+    a = CarAgent("car0", ["W_in", "E_out"], heartbeat_s=0.2)
+    assert a.tick(0.0) == []                      # not registered yet: nothing to keep alive
+    a.register(0.0)
+    sent, t = [], 0.0
+    while t < 3.0:
+        for m in a.tick(t):
+            sent.append(t)
+            if m["type"] == "car_status" and m["state"] == "REGISTER":
+                a.on_packet({"v": VERSION, "type": "status_ack", "session": "a" * 32, "car": "car0",
+                              "boot": a.boot, "ack": m["seq"]}, t)
+            elif m["type"] == "car_heartbeat":
+                assert valid_car_heartbeat(decode(encode(m)))
+        t = round(t + 0.05, 2)
+    gaps = [b - a_ for a_, b in zip(sent, sent[1:])]
+    assert sent and max(gaps) <= 0.2 + 1e-9 and len(sent) >= 14

@@ -20,7 +20,7 @@ import time
 import uuid
 from pathlib import Path
 
-from picar_lab.car_agent.protocol import VERSION, decode, encode, valid_beam, valid_car_status
+from picar_lab.car_agent.protocol import VERSION, decode, encode, valid_beam, valid_car_heartbeat, valid_car_status
 from picar_sim.map_builder import load_config, maps_dir, segment_capacity
 from picar_sim.observation import SegmentTracker
 from picar_sim.real_bridge import CentralController
@@ -138,6 +138,13 @@ class CentralServer:
                 self.stats["rejected"] += 1
             elif m["type"] == "car_status" and valid_car_status(m):
                 self._on_status(m, addr, now)
+            elif m["type"] == "car_heartbeat" and valid_car_heartbeat(m):
+                info = self.cars.get(m["car"])
+                if info is not None and info["boot"] == m["boot"]:      # registered car, same boot
+                    for c in self.ctrl.values():
+                        c.link_seen = now
+                else:
+                    self.stats["rejected"] += 1
             elif m["type"] in ("exit_event", "beam_heartbeat") and valid_beam(m):
                 self._on_beam(m, now)
             elif m["type"] == "permit_ack":

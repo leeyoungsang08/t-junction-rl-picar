@@ -6,6 +6,10 @@ car -> central   car_status   {v, type, car, boot, seq, state, junction, lane, n
                  state: REGISTER (edge = start segment) | APPROACH | ARRIVE | IN | CRUISE
                  Every status gets a new seq. APPROACH/ARRIVE are re-sent every refresh_s as the request;
                  the latest seq is the request id a PERMIT must refer to.
+car -> central   car_heartbeat {v, type, car, boot, line_ok, obstacle}
+                 sent whenever a car has had nothing else to send for heartbeat_s (cruising, crossing). The
+                 central PC's link timeout (signal.link_timeout_s) means "no packet from any car"; without it
+                 a quiet fleet (all cars between junctions) looked like a lost link.
 central -> car   status_ack   {v, type, session, car, boot, ack}
 central -> car   permit       {v, type, session, car, boot, req, grant, junction, ttl_ms}
 car -> central   permit_ack   {v, type, car, boot, grant, result}
@@ -53,6 +57,11 @@ def valid_car_status(m):
             and type(m.get("line_ok")) is bool and type(m.get("obstacle")) is bool
             and (m["state"] != "REGISTER" or m.get("edge") is not None)
             and (m["state"] not in ("APPROACH", "ARRIVE", "IN") or (m.get("junction") and m.get("lane") and m.get("next"))))
+
+
+def valid_car_heartbeat(m):
+    return (m.get("type") == "car_heartbeat" and isinstance(m.get("car"), str) and TOKEN.fullmatch(str(m.get("boot", "")))
+            and type(m.get("line_ok")) is bool and type(m.get("obstacle")) is bool)
 
 
 def valid_permit(m):
