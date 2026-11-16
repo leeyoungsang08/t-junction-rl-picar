@@ -168,6 +168,9 @@ class PicarEnv:
         self.deadlock = False
         self.link_seen = 0.0
         self.wait_parts, self.diag_records = {}, []
+        self.q_sum = {a: 0.0 for a in APPROACHES}     # ground-truth queue (stopped cars before J) per approach
+        self.q_max = {a: 0 for a in APPROACHES}
+        self.occ_sum, self.occ_max, self.q_steps = 0.0, 0, 0
         for car, e in self.initial_edge.items():       # cars register their start segment with the central PC
             self._queue_event({"car": car, "junction": None, "state": "REGISTER", "lane": None, "edge": e}, force=True)
         self._deliver()
@@ -203,6 +206,7 @@ class PicarEnv:
         k = self.k
         moving = False
         waiting, front_wait = 0, {a: 0.0 for a in APPROACHES}
+        queue = {a: 0 for a in APPROACHES}
         in_moves = {"J": [], "J2": []}
         in_cars = {"J": [], "J2": []}
         for car in k.vehicle.getIDList():
@@ -213,6 +217,8 @@ class PicarEnv:
                 k.vehicle.setRoute(car, [road, self._next_edge(road, self.t, self.route_rng[car])])
                 route = k.vehicle.getRoute(car)
             jn, state, arm = self._truth_state(car, road, pos, spd)
+            if road.endswith("_in") and spd < 0.05:          # stopped anywhere on an approach to J = queued
+                queue[road.split("_")[0]] += 1
             pj, ps, parm = self.truth.get(car, (None, "CRUISE", None))
             if (jn, state) != (pj, ps):
                 if ps == "IN":                                   # rear passed the exit beam of pj
@@ -248,6 +254,12 @@ class PicarEnv:
                         c: (self.k.vehicle.getRoadID(c), round(self.k.vehicle.getLanePosition(c), 2), self.in_move.get(c))
                         for c in in_cars[jn]}})
         self.still_since = self.t if moving else self.still_since
+        for a in APPROACHES:
+            self.q_sum[a] += queue[a]
+            self.q_max[a] = max(self.q_max[a], queue[a])
+        self.occ_sum += len(in_cars["J"])
+        self.occ_max = max(self.occ_max, len(in_cars["J"]))
+        self.q_steps += 1
         return waiting, front_wait
 
     def _wait_cause(self, arm, target):
@@ -439,6 +451,8 @@ class PicarEnv:
             per[f"delay_{a}_s"] = float(np.mean(d)) if d else 0.0
             per[f"max_wait_{a}_s"] = float(max(d)) if d else 0.0
             per[f"requests_{a}"] = self.n_requests[a]
+            per[f"mean_queue_{a}"] = self.q_sum[a] / max(1, self.q_steps)
+            per[f"max_queue_{a}"] = self.q_max[a]
         n_req = sum(self.n_requests.values())
         return {"seed": self.seed, "cars": self.n_cars, "bias": self.bias,
                 "requests": n_req, "crossings": self.crossings, "crossings_J2": self.crossings_j2,
@@ -453,6 +467,9 @@ class PicarEnv:
                 "collisions": self.collisions,
                 "conflict_steps": self.conflict_steps, "stopline_violations": self.stopline_violations,
                 "deadlock": self.deadlock, "sim_seconds": self.t,
+                "mean_queue_total": sum(self.q_sum.values()) / max(1, self.q_steps),
+                "max_queue": max(self.q_max.values()),
+                "mean_occupancy": self.occ_sum / max(1, self.q_steps), "max_occupancy": self.occ_max,
                 "cmd_latency_s": self.cmd_latency, "obs_delay_s": self.obs_delay, **per}
 
     def close(self):

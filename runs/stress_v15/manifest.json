@@ -1,0 +1,21 @@
+{
+ "policies": {
+  "dqn_seed42": "runs/picar_v15_obsage_tail/s8w1/seed42/best_policy.npz",
+  "dqn_seed43": "runs/picar_v15_obsage_tail/s8w1/seed43/best_policy.npz"
+ },
+ "cars": [
+  6,
+  8,
+  10,
+  12,
+  16,
+  20
+ ],
+ "biases": [
+  "uniform",
+  "connector_heavy",
+  "west_heavy"
+ ],
+ "seeds": 8,
+ "horizon_s": null
+}
