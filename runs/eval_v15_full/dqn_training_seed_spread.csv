@@ -1,0 +1,3 @@
+condition,mean,std,min,max
+noisy,3.024,0.036,2.998,3.049
+nominal,2.738,0.091,2.673,2.802
