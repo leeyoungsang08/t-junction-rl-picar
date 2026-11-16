@@ -76,6 +76,10 @@ class CentralController:
     def exit_free(self):
         return [self.tracker.free(f"{a}_out") for a in APPROACHES]
 
+    def seg_in(self):
+        """Cars on each approach segment of this junction (J: *_in, J2: *_out)."""
+        return [self.tracker.count(f"{a}_{'in' if self.junction == 'J' else 'out'}") for a in APPROACHES]
+
     def car_may_go(self, car, permits):
         """PERMIT for one car: its approach is GO and its next segment has room (don't block the box)."""
         c = self.ledger.cars.get(car, {})
@@ -95,7 +99,7 @@ class CentralController:
             self.last_decision = t
             self.sup.observe_waits(snap["oldest_request"])
             status, mask = self.sup.status(), self.sup.mask()
-            obs = self.enc.encode(snap, status, self.exit_free())
+            obs = self.enc.encode(snap, status, self.exit_free(), self.seg_in())
             rec = int(self.policy.act(obs, mask)) if self.policy else None
             rule = int(self.rule(snap, status, mask, self.sup.mode))   # J: oldest_first (best simple controller)
             action = rec if (self.mode == "active" and rec is not None) else rule

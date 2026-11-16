@@ -26,11 +26,31 @@ def config_path():
     return Path(os.environ.get("PICAR_COURSE_CONFIG") or PKG / "config/course.yaml").expanduser()
 
 
-def maps_dir():
+# Simulation-only course variants. "large" keeps lane width, stop lines, car size, junction geometry and
+# signal rules, and stretches only the loop and connector so that far more cars fit (stress tests and training
+# data beyond the 6-car real fleet). The real PiCar course is always "real".
+MAP_SCALES = {"real": 1.0, "large": 2.5}
+
+
+def maps_dir(name="real"):
     if not os.environ.get("PICAR_COURSE_CONFIG"):
-        return PKG / "maps"
-    p = config_path()
-    return p.parent / (p.stem + "_maps")
+        base = PKG / "maps"
+    else:
+        p = config_path()
+        base = p.parent / (p.stem + "_maps")
+    return base if name == "real" else base / name
+
+
+def map_cfg(cfg, name="real"):
+    """Copy of cfg with the course stretched for map `name`."""
+    import copy
+    c = copy.deepcopy(cfg)
+    k = MAP_SCALES[name]
+    if k != 1.0:
+        for key in ("width_m", "depth_m", "connector_x_m"):
+            c["course"][key] = round(c["course"][key] * k, 4)
+    c["course"]["map"] = name
+    return c
 
 
 def load_config(path=None):

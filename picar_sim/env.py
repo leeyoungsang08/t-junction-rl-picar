@@ -19,7 +19,7 @@ import numpy as np
 import sumolib
 
 from picar_sim.baselines import queue_rule
-from picar_sim.map_builder import APPROACHES, PKG, build, load_config, maps_dir, segment_capacity
+from picar_sim.map_builder import APPROACHES, PKG, build, load_config, map_cfg, maps_dir, segment_capacity
 from picar_sim.observation import CarLedger, Encoder, SegmentTracker
 from picar_sim.right_turn import RESERVATION_S, arm_of, conflicts, may_enter
 from picar_sim.supervisor import IntersectionSupervisor
@@ -41,13 +41,14 @@ def bias_at(name, t, horizon):
 
 class PicarEnv:
     def __init__(self, cfg=None, out_dir=None, randomize=None, backend=None, gui=False, log_decisions=False,
-                 faults=None, control_mode=None):
-        self.cfg = cfg or load_config()
+                 faults=None, control_mode=None, map_name="real"):
+        self.cfg = map_cfg(cfg or load_config(), map_name)
+        self.map_name = map_name
         if control_mode:
             self.cfg["signal"]["control_mode"] = control_mode
-        self.net = maps_dir() / "picar_course.net.xml"
+        self.net = maps_dir(map_name) / "picar_course.net.xml"
         if not self.net.exists():
-            build(self.cfg)
+            build(self.cfg, maps_dir(map_name))
         self.out_dir = Path(out_dir) if out_dir else None
         self.randomize = self.cfg["randomization"]["enabled"] if randomize is None else randomize
         self.backend = backend or self.cfg["simulation"]["backend"]
@@ -386,7 +387,11 @@ class PicarEnv:
         return [self.tracker.free(f"{a}_out") for a in APPROACHES]
 
     def _obs(self, encoder=None):
-        return (encoder or self.encoder).encode(self.ledger.snapshot(self.t), self.sup.status(), self.exit_free())
+        return (encoder or self.encoder).encode(self.ledger.snapshot(self.t), self.sup.status(), self.exit_free(),
+                                                self.seg_in())
+
+    def seg_in(self):
+        return [self.tracker.count(f"{a}_in") for a in APPROACHES]
 
     def _info(self):
         self.sup.observe_waits(self.ledger.snapshot(self.t)["oldest_request"])
@@ -425,6 +430,10 @@ class PicarEnv:
         reward -= r_cfg["switch_weight"] * (self.sup.switches - switches0)
         if self.deadlock:
             reward -= 50.0
+        # v18: one constant per episode (cars fixed within an episode), so the best policy of each episode is
+        # unchanged; it only stops crowded episodes (|return| ~7x larger) from dominating the shared Q-network.
+        if r_cfg.get("load_norm_cars"):
+            reward /= max(1.0, self.n_cars / r_cfg["load_norm_cars"])
         if self.log_decisions:
             st = self.sup.status()
             self.obs_log.append({"t_decision": t_decision, "action": int(action)})

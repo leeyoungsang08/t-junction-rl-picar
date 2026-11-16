@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<connections>
+  <connection from="W_in" to="E_out" />
+  <connection from="W_out" to="E_in" />
+  <connection from="W_in" to="N_out" />
+  <connection from="W_out" to="N_in" />
+  <connection from="E_in" to="W_out" />
+  <connection from="E_out" to="W_in" />
+  <connection from="E_in" to="N_out" />
+  <connection from="E_out" to="N_in" />
+  <connection from="N_in" to="W_out" />
+  <connection from="N_out" to="W_in" />
+  <connection from="N_in" to="E_out" />
+  <connection from="N_out" to="E_in" />
+</connections>

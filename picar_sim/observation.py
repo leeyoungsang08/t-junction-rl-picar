@@ -19,7 +19,10 @@ FEATURES = ([f"arrived_{a}" for a in APPROACHES] + [f"wait_{a}" for a in APPROAC
             + ["occupancy"] + [f"phase_{a}" for a in APPROACHES] + [f"stage_{s}" for s in STAGES]
             + ["green_elapsed", "clear_elapsed", "fault"] + [f"exit_free_{a}" for a in APPROACHES])
 FEATURES_V2 = FEATURES + [f"oldest_request_{a}" for a in APPROACHES]   # picar_v2 = v1 + request age
-SCHEMAS = {"picar_v1": FEATURES, "picar_v2": FEATURES_V2}
+# picar_v3 = v2 + cars on each approach segment (whole road from the other T to this stop line), counted by the
+# central PC's SegmentTracker from REGISTER/IN/EXIT events. approach_n only sees the last 1.2 m (<= 3-4 cars).
+FEATURES_V3 = FEATURES_V2 + [f"seg_in_{a}" for a in APPROACHES]
+SCHEMAS = {"picar_v1": FEATURES, "picar_v2": FEATURES_V2, "picar_v3": FEATURES_V3}
 RECENT_WINDOW_S = 20.0
 
 
@@ -95,6 +98,10 @@ class SegmentTracker:
         elif st == "EXIT":
             self.seg[car], self.target[car] = e["edge"], None
 
+    def count(self, edge):
+        """Cars currently on segment `edge` (entered it via REGISTER/EXIT and not yet IN the next junction)."""
+        return sum(1 for s in self.seg.values() if s == edge)
+
     def free(self, edge):
         used = sum(1 for s in self.seg.values() if s == edge) + sum(1 for s in self.target.values() if s == edge)
         return self.cap[edge] - used
@@ -110,7 +117,7 @@ class Encoder:
     def size(self):
         return len(SCHEMAS[self.schema])
 
-    def encode(self, snap, status, exit_free):
+    def encode(self, snap, status, exit_free, seg_in=None):
         s = lambda x, k: np.asarray(x, float) / (np.asarray(x, float) + k)   # smooth, unbounded inputs
         if len(snap["wait"]) != 3 or min(snap["wait"]) < 0 or not np.isfinite(snap["wait"]).all():
             raise ValueError("invalid wait values")
@@ -121,6 +128,10 @@ class Encoder:
             [min(status.green_elapsed / self.max_green_s, 1.0), min(status.clear_elapsed / self.clear_timeout_s, 1.0),
              1.0 if status.fault else 0.0],
             s(np.maximum(np.asarray(exit_free, float), 0.0), 2.0)])
-        if self.schema == "picar_v2":
+        if self.schema in ("picar_v2", "picar_v3"):
             v = np.concatenate([v, s(snap["oldest_request"], 10.0)])
+        if self.schema == "picar_v3":
+            if seg_in is None or len(seg_in) != 3:
+                raise ValueError("picar_v3 needs seg_in (cars per approach segment)")
+            v = np.concatenate([v, s(np.maximum(np.asarray(seg_in, float), 0.0), 4.0)])
         return v.astype(np.float32)
