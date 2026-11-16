@@ -1,0 +1,7 @@
+seed 43 ep 50/2000 eps 0.941 val 16.67 best 16.67 delay 10.2 loss 0.6937
+seed 43 ep 100/2000 eps 0.881 val 16.30 best 16.30 delay 7.7 loss 1.3383
+seed 43 ep 150/2000 eps 0.822 val 15.38 best 15.38 delay 8.9 loss 1.9351
+seed 43 ep 200/2000 eps 0.763 val 15.54 best 15.38 delay 7.0 loss 2.2124
+seed 43 ep 250/2000 eps 0.703 val 15.14 best 15.14 delay 8.1 loss 2.2557
+seed 43 ep 300/2000 eps 0.644 val 14.35 best 14.35 delay 17.5 loss 2.4537
+seed 43 ep 350/2000 eps 0.584 val 15.50 best 14.35 delay 5.6 loss 2.7620

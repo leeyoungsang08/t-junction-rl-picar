@@ -1,0 +1,13 @@
+cars,family,vs,n,mean_delay_s_diff,mean_delay_s_ci_lo,mean_delay_s_ci_hi,max_wait_s_diff,max_wait_s_ci_lo,max_wait_s_ci_hi,throughput_per_min_diff,throughput_per_min_ci_lo,throughput_per_min_ci_hi,dqn_better_share
+4,picar_v15_obsage_tail,oldest_first,40,-0.294,-0.528,-0.06,0.344,-0.486,1.173,0.065,-0.002,0.132,0.65
+4,picar_v18_mix_seg_norm,oldest_first,40,-0.567,-0.798,-0.336,-0.848,-1.776,0.081,0.122,0.044,0.201,0.7
+5,picar_v15_obsage_tail,oldest_first,40,0.267,0.049,0.485,1.358,0.195,2.52,0.02,-0.083,0.123,0.375
+5,picar_v18_mix_seg_norm,oldest_first,40,-0.16,-0.348,0.028,0.688,-0.226,1.601,0.072,-0.015,0.16,0.625
+6,picar_v15_obsage_tail,oldest_first,40,0.335,0.093,0.578,1.799,0.844,2.754,-0.075,-0.194,0.044,0.4
+6,picar_v18_mix_seg_norm,oldest_first,40,0.027,-0.226,0.28,1.625,0.362,2.888,-0.003,-0.132,0.127,0.5
+8,picar_v15_obsage_tail,oldest_first,40,0.121,-0.226,0.468,2.447,1.044,3.851,-0.055,-0.214,0.104,0.425
+8,picar_v18_mix_seg_norm,oldest_first,40,0.256,-0.053,0.565,2.577,1.311,3.844,-0.185,-0.322,-0.048,0.425
+10,picar_v15_obsage_tail,oldest_first,40,-0.495,-0.897,-0.092,0.12,-1.71,1.95,0.225,0.013,0.437,0.6
+10,picar_v18_mix_seg_norm,oldest_first,40,-0.093,-0.436,0.25,-0.402,-2.19,1.385,0.085,-0.093,0.263,0.525
+12,picar_v15_obsage_tail,oldest_first,40,-0.667,-1.057,-0.276,1.281,-0.536,3.099,0.187,-0.006,0.381,0.725
+12,picar_v18_mix_seg_norm,oldest_first,40,-0.577,-1.043,-0.111,1.46,-0.345,3.265,0.315,0.074,0.556,0.675

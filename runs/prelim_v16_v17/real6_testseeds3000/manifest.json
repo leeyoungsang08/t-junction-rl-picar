@@ -1,0 +1,35 @@
+{
+ "policies": {
+  "picar_v15_obsage_tail_seed42": [
+   "picar_v15_obsage_tail",
+   "runs/picar_v15_obsage_tail/s8w1/seed42/best_policy.npz"
+  ],
+  "picar_v15_obsage_tail_seed43": [
+   "picar_v15_obsage_tail",
+   "runs/picar_v15_obsage_tail/s8w1/seed43/best_policy.npz"
+  ],
+  "picar_v16_mix_seed42": [
+   "picar_v16_mix",
+   "/tmp/pre/picar_v16_mix/seed42/best_policy.npz"
+  ],
+  "picar_v17_mix_seg_seed42": [
+   "picar_v17_mix_seg",
+   "/tmp/pre/picar_v17_mix_seg/seed42/best_policy.npz"
+  ]
+ },
+ "map": "real",
+ "cars": [
+  6
+ ],
+ "biases": [
+  "uniform",
+  "connector_heavy",
+  "west_heavy",
+  "alternating"
+ ],
+ "seeds": 10,
+ "seed_base": 3000,
+ "horizon_s": null,
+ "episodes": 280,
+ "safety_events": 0
+}

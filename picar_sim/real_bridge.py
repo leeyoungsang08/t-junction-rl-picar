@@ -22,7 +22,7 @@ from picar_sim.baselines import CONTROLLERS
 from picar_sim.dqn import Policy
 from picar_sim.map_builder import load_config
 from picar_sim.map_builder import segment_capacity
-from picar_sim.observation import CarLedger, Encoder, SegmentTracker
+from picar_sim.observation import SCHEMAS, CarLedger, Encoder, SegmentTracker
 from picar_sim.supervisor import APPROACHES, IntersectionSupervisor
 
 LANE_MAP = {"W": "W", "E": "E", "N": "N", "S": "N"}   # legacy lab lanes W/E/S -> course arms W/E/N
@@ -40,7 +40,7 @@ class CentralController:
         self.policy = Policy(policy_path) if policy_path else None
         sig = {**self.cfg["signal"], **(signal_overrides or {})}
         if self.policy:
-            if self.policy.meta.get("schema") not in ("picar_v1", "picar_v2"):
+            if self.policy.meta.get("schema") not in SCHEMAS:
                 raise ValueError("policy schema mismatch")
             for k in ("control_mode", "min_green_s", "max_green_s", "yellow_s", "all_red_min_s", "max_wait_guard_s",
                       "unprotected_right"):
